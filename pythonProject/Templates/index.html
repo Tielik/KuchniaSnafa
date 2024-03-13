@@ -1,57 +1,47 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
-    <style>
-        .container{
-            font-size: 1vw;
-        }
-        .btn-primary{
-            width: 100%;
-            height: 87px;
-            font-size: 1vw;
-        }
-        .btn-light{
-            width: 100%;
-            font-size: 1vw;
-        }
-        .btn-secondary{
-            font-size: 1vw;
-        }
-    </style>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/css/bootstrap.min.css"
+        integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <link rel="stylesheet" href="styles.css">
 </head>
+
 <body>
     <div class="container">
         <div class="row">
             <div class="col-2">
-                <button class="btn btn-primary" type="button" data-toggle="collapse" data-target="#zbozowe">Produkty zbożowe</button>
+                <button class="btn btn-primary" type="button" data-toggle="collapse" data-target="#zbozowe">Produkty
+                    zbożowe</button>
                 <div class="collapse multi-collapse" id="zbozowe">
-                      <button type="button" class="btn btn-light" onClick="podajIlosc('jeden')">jeden</button><br>
-                      <button type="button" class="btn btn-light" onClick="podajIlosc('dwa')">dwa</button><br>
-                      <button type="button" class="btn btn-light" onClick="podajIlosc('trzy')">trzy</button><br>
-                </div>
-            </div>
-            <div class="col-2">
-                <button class="btn btn-primary" type="button" data-toggle="collapse" data-target="#warzywa">Warzywa</button>
-                  <div class="collapse multi-collapse" id="warzywa">
                     <button type="button" class="btn btn-light" onClick="podajIlosc('jeden')">jeden</button><br>
                     <button type="button" class="btn btn-light" onClick="podajIlosc('dwa')">dwa</button><br>
                     <button type="button" class="btn btn-light" onClick="podajIlosc('trzy')">trzy</button><br>
-                  </div>
                 </div>
-            <div class="col-2">
-                <button class="btn btn-primary" type="button" data-toggle="collapse" data-target="#owoce">Owoce</button>
-                    <div class="collapse multi-collapse" id="owoce">
-                        <button type="button" class="btn btn-light" onClick="podajIlosc('jeden')">jeden</button><br>
-                        <button type="button" class="btn btn-light" onClick="podajIlosc('dwa')">dwa</button><br>
-                        <button type="button" class="btn btn-light" onClick="podajIlosc('trzy')">trzy</button><br>
-                    </div>
             </div>
             <div class="col-2">
-                <button class="btn btn-primary" type="button" data-toggle="collapse" data-target="#mleczne">Mleko i produkty mleczne</button>
+                <button class="btn btn-primary" type="button" data-toggle="collapse"
+                    data-target="#warzywa">Warzywa</button>
+                <div class="collapse multi-collapse" id="warzywa">
+                    <button type="button" class="btn btn-light" onClick="podajIlosc('jeden')">jeden</button><br>
+                    <button type="button" class="btn btn-light" onClick="podajIlosc('dwa')">dwa</button><br>
+                    <button type="button" class="btn btn-light" onClick="podajIlosc('trzy')">trzy</button><br>
+                </div>
+            </div>
+            <div class="col-2">
+                <button class="btn btn-primary" type="button" data-toggle="collapse" data-target="#owoce">Owoce</button>
+                <div class="collapse multi-collapse" id="owoce">
+                    <button type="button" class="btn btn-light" onClick="podajIlosc('jeden')">jeden</button><br>
+                    <button type="button" class="btn btn-light" onClick="podajIlosc('dwa')">dwa</button><br>
+                    <button type="button" class="btn btn-light" onClick="podajIlosc('trzy')">trzy</button><br>
+                </div>
+            </div>
+            <div class="col-2">
+                <button class="btn btn-primary" type="button" data-toggle="collapse" data-target="#mleczne">Mleko i
+                    produkty mleczne</button>
                 <div class="collapse multi-collapse" id="mleczne">
                     <button type="button" class="btn btn-light" onClick="podajIlosc('jeden')">jeden</button><br>
                     <button type="button" class="btn btn-light" onClick="podajIlosc('dwa')">dwa</button><br>
@@ -59,60 +49,39 @@
                 </div>
             </div>
             <div class="col-2">
-                <button class="btn btn-primary" type="button" data-toggle="collapse" data-target="#zwierzece">Produkty pochodzenia zwierzęcego</button>
-                  <div class="collapse multi-collapse" id="zwierzece">
+                <button class="btn btn-primary" type="button" data-toggle="collapse" data-target="#zwierzece">Produkty
+                    pochodzenia zwierzęcego</button>
+                <div class="collapse multi-collapse" id="zwierzece">
                     <button type="button" class="btn btn-light" onClick="podajIlosc('jeden')">jeden</button><br>
                     <button type="button" class="btn btn-light" onClick="podajIlosc('dwa')">dwa</button><br>
                     <button type="button" class="btn btn-light" onClick="podajIlosc('trzy')">trzy</button><br>
-                  </div>
                 </div>
+            </div>
             <div class="col-2">
-                <button class="btn btn-primary" type="button" data-toggle="collapse" data-target="#tluszcze">Tłuszcze</button>
-                    <div class="collapse multi-collapse" id="tluszcze">
-                        <button type="button" class="btn btn-light">jeden</button><br>
-                        <button type="button" class="btn btn-light">dwa</button><br>
-                        <button type="button" class="btn btn-light">trzy</button><br>
-                    </div>
+                <button class="btn btn-primary" type="button" data-toggle="collapse"
+                    data-target="#tluszcze">Tłuszcze</button>
+                <div class="collapse multi-collapse" id="tluszcze">
+                    <button type="button" class="btn btn-light">jeden</button><br>
+                    <button type="button" class="btn btn-light">dwa</button><br>
+                    <button type="button" class="btn btn-light">trzy</button><br>
+                </div>
             </div>
         </div>
         <div class="iloscForm"></div>
         <button type="button" class="btn btn-secondary" id="gotoweBtn" onclick="wyswietlPrzepisy()">Gotowe</button><br>
         <p class="przepisySnafa"></p>
-    </div>          
+    </div>
 
-<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
-<script src="https://cdn.jsdelivr.net/npm/popper.js@1.14.3/dist/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.1.3/dist/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>
-
-<script>
-    function podajIlosc(produkt) {
-        let form = document.createElement("form");
-        form.setAttribute("method", "post");
-        form.setAttribute("action", "");
-        form.innerHTML = produkt;
-
-        let ilosc = document.createElement("input");
-        ilosc.setAttribute("type", "text");
-        ilosc.setAttribute("id", "ilosc");
-        ilosc.setAttribute("placeholder", "Podaj ilość");
-
-        form.append(ilosc);
-
-        let down = document.querySelector(".iloscForm");
-        down.appendChild(form);
-    }
-
-    function wyswietlPrzepisy(){
-        let snaf = document.querySelector(".przepisySnafa");
-        let line = document.createElement('hr');
-        snaf.append(line);
-        let przepisy = document.createElement("p");
-        przepisy.innerHTML = "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum."
-        snaf.append(przepisy);
-        const button = document.getElementById("gotoweBtn")
-        button.setAttribute("disabled", "");
-    }
-</script>
-
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
+        integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
+        crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.14.3/dist/umd/popper.min.js"
+        integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49"
+        crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.1.3/dist/js/bootstrap.min.js"
+        integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy"
+        crossorigin="anonymous"></script>
+    <script src="script.js"></script>
 </body>
+
 </html>
