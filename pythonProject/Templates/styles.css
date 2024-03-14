@@ -16,3 +16,11 @@
 .btn-secondary {
     font-size: 1vw;
 }
+
+#pole{
+    display: block;
+}
+
+input[type="text"]{
+    margin-left: 70%;
+}

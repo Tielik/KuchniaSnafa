@@ -1,18 +1,28 @@
+let formField = document.getElementById('formField');
+
+let id = 0;
+
 function podajIlosc(produkt) {
-    let form = document.createElement("form");
-    form.setAttribute("method", "post");
-    form.setAttribute("action", "");
-    form.innerHTML = produkt;
+    id += 1;
+
+    let pole = document.createElement("div");
+    pole.setAttribute("id", "pole");
+
+    let nazwaProduktu = document.createElement("label");
+    nazwaProduktu.setAttribute("id", "nazwaProduktu");
+    nazwaProduktu.setAttribute("for", id)
+    nazwaProduktu.innerHTML = produkt;
+
+    pole.append(nazwaProduktu)
 
     let ilosc = document.createElement("input");
     ilosc.setAttribute("type", "text");
-    ilosc.setAttribute("id", "ilosc");
+    ilosc.setAttribute("id", id);
     ilosc.setAttribute("placeholder", "Podaj ilość");
 
-    form.append(ilosc);
+    pole.append(ilosc);
 
-    let down = document.querySelector(".iloscForm");
-    down.appendChild(form);
+    formField.append(pole);
 }
 
 function wyswietlPrzepisy() {
