@@ -1,4 +1,3 @@
-//Haslo do zrobienia
 // function sprawdzHaslo(){
 //     document.querySelector(".container").style.display = "none";
 //     let formHaslo = document.createElement("form");
