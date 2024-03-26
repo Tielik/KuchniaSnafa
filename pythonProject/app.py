@@ -5,7 +5,7 @@ app = Flask(__name__)
 
 @app.route('/', methods=['POST', 'GET'])
 def index():
-    if request.method == 'POST':
+    if request.method == 'POST' and request.form!=None:
         f=request.form
         for key in f:
             for value in f.getlist(key):
