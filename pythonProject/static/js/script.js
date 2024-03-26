@@ -22,6 +22,7 @@ function podajIlosc(produkt) {
     ilosc.setAttribute("id", id);
     ilosc.setAttribute("class", "float-right");
     ilosc.setAttribute("placeholder", "Podaj ilość");
+    ilosc.setAttribute("name",produkt);
 
     pole.append(ilosc);
 
