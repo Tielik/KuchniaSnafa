@@ -9,6 +9,7 @@ function podajIlosc(produkt) {
 
     let pole = document.createElement("div");
     pole.setAttribute("id", "pole");
+    pole.append(document.createElement("br"))
 
     let nazwaProduktu = document.createElement("label");
     nazwaProduktu.setAttribute("id", "nazwaProduktu");
@@ -20,11 +21,12 @@ function podajIlosc(produkt) {
     let ilosc = document.createElement("input");
     ilosc.setAttribute("type", "text");
     ilosc.setAttribute("id", id);
-    ilosc.setAttribute("class", "float-right");
+    ilosc.setAttribute("class", "float-end");
     ilosc.setAttribute("placeholder", "Podaj ilość");
     ilosc.setAttribute("name",produkt);
 
     pole.append(ilosc);
+    pole.append(document.createElement("br"))
 
     formField.append(pole);
 }
