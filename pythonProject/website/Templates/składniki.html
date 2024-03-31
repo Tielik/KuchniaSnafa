@@ -1,0 +1,16 @@
+{% extends 'base.html' %}
+{% block title %}Dodawanie  Składników{% endblock %}
+
+{% block content %}
+<div class="container">
+<form method="POST">
+    <label for="nazwa">Nazwa Składnika</label>
+        <input type="text" class="form-control" id="nazwa"
+               name="name" placeholder="nazwa"/>
+    <label for="Kategoria">Czas</label>
+        <input type="text" class="form-control" id="Kategoria"
+               name="kategoria" placeholder="kategoria"/>
+    <button type="submit" class="btn btn-primary">potwierdz</button>
+</form>
+</div>
+{% endblock %}

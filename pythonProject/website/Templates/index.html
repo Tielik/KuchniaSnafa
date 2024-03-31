@@ -135,6 +135,12 @@
 <p>nazwa {{key}} ilosć: {{value}}</p>
 {% endfor %}
 {% endif %}>
+
+{% if dania %}
+{% for danias in dania %}
+<p>{{danias.nazwa}}</p>
+{% endfor %}
+{%endif%}
 {% endblock %}
 </body>
 

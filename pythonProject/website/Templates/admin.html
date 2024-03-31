@@ -39,6 +39,29 @@
         <p class="przepisySnafa"></p>
     </div>
 
+<h1>Przepisy</h1>
+{% if Przepisy %}
+{% for przepis in Przepisy %}
+<p>{{przepis.nazwa}}</p>
+<p>{{przepis.czas}}</p>
+<p>{{przepis.opis}}</p>
+<p>{{przepis.skladniki}}</p>
+<p>{{przepis.przepis}}</p>
+<p>{{przepis.ListaSkladnikow}}</p>
+<br>
+{% endfor %}
+{%endif%}
+<h3><a href="/admin/Przepisy"> dodaj przepis</a></h3>
+
+
+<h1>Składniki</h1>
+{% if Skladniki %}
+{% for skladnik in Skladniki %}
+<p>{{skladnik.Nazwa}}</p>
+<p>{{skladnik.kategoria}}</p>
+{% endfor %}
+{%endif%}
+<h3><a href="/admin/Skladniki">dodaj składnik</a></h3>
 {% endblock %}
  <script src="admscript.js"></script>
 </body>

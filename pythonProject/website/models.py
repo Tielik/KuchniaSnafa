@@ -5,16 +5,17 @@ from sqlalchemy.sql import func
 
 class Przepisy(db.Model):
     id = db.Column(db.Integer, primary_key=True,autoincrement=True)
-    # nazwa przepisu
-    # czas przygotowania
-    # opis przepisu
-    # zródło do zdjęcia
-    # id składkików w stringu
-    pass
-
+    nazwa = db.Column(db.String(100))
+    czas = db.Column(db.String(100))
+    opis = db.Column(db.String(100))
+    skladniki = db.Column(db.String(100))
+    przepis = db.Column(db.String(1000))
+    ListaSkladnikow = db.Column(db.String(50))
 
 class Skladniki(db.Model):
     id = db.Column(db.Integer, primary_key=True,autoincrement=True)
+    Nazwa = db.Column(db.String(100))
+    kategoria = db.Column(db.Integer)
 
 
 
