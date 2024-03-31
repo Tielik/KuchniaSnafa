@@ -12,6 +12,7 @@ views = Blueprint('views', __name__)
 # db.session.commit()
 @views.route('/', methods=['POST', 'GET'])
 def index():
+    """TODO sorotwanie cyferek i zrobienie że nie wykrywa tylo idelanych przypadków i form dod dodania składników"""
     if request.method == 'POST' and request.form != None:
         SkladnikiUsera=""
         id=0

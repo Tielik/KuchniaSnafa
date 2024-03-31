@@ -11,6 +11,7 @@ class Przepisy(db.Model):
     skladniki = db.Column(db.String(100))
     przepis = db.Column(db.String(1000))
     ListaSkladnikow = db.Column(db.String(50))
+    #zdjęcie przepisu link
 
 class Skladniki(db.Model):
     id = db.Column(db.Integer, primary_key=True,autoincrement=True)
