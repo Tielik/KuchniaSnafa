@@ -1,7 +1,7 @@
 let formField = document.getElementById('formField');
 
 let id = 0;
-
+document.getElementById("btnGotowe").style.display="none"
 function podajIlosc(produkt) {
     document.getElementById("btnGotowe").style.display = "block";
 
