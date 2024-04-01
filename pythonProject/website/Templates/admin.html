@@ -38,7 +38,7 @@
         <button type="button" id="btnGotowe" class="btn btn-secondary" onclick="wyswietlPrzepisy()">Gotowe</button>
         <p class="przepisySnafa"></p>
     </div>
-
+<a href="/logout">Wyloguj</a>
 <h1>Przepisy</h1>
 {% if Przepisy %}
 {% for przepis in Przepisy %}
@@ -48,6 +48,8 @@
 <p>{{przepis.skladniki}}</p>
 <p>{{przepis.przepis}}</p>
 <p>{{przepis.ListaSkladnikow}}</p>
+<h2><a type="button" href="/admin/delete/przepis/{{przepis.id}}">usuń</a></h2>
+<h2><a type="button" href="/admin/edit/przepis/{{przepis.id}}">edytuj</a></h2>
 <br>
 {% endfor %}
 {%endif%}
@@ -59,6 +61,10 @@
 {% for skladnik in Skladniki %}
 <p>{{skladnik.Nazwa}}</p>
 <p>{{skladnik.kategoria}}</p>
+<h2><a type="button" href="/admin/delete/skladnik/{{skladnik.id}}">usuń</a></h2>
+<h2><a type="button" href="/admin/edit/skladnik/{{skladnik.id}}">edytuj</a></h2>
+
+<br>
 {% endfor %}
 {%endif%}
 <h3><a href="/admin/Skladniki">dodaj składnik</a></h3>
