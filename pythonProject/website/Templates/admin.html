@@ -2,43 +2,14 @@
 {% block title %}Kuchnia Snafa Admin Panel{% endblock %}
 <body>
 {% block content %}
-    <div class="container">
         <h1>Panel administracyjny</h1>
-        <div class="row">
-            <div class="col-2">
-                <button type="button" id="btnKat" class="btn btn-primary" type="button"
-                    onClick="podajProdukt('Produkty zbożowe')">Produkty zbożowe</button><br>
-            </div>
-            <div class="col-2">
-                <button type="button" id="btnKat" class="btn btn-primary" type="button"
-                    onClick="podajProdukt('Warzywa')">Warzywa</button><br>
-            </div>
-            <div class="col-2">
-                <button type="button" id="btnKat" class="btn btn-primary" type="button"
-                    onClick="podajProdukt('Owoce')">Owoce</button><br>
-            </div>
-            <div class="col-2">
-                <button type="button" id="btnKat" class="btn btn-primary" type="button"
-                    onClick="podajProdukt('Mleko i produkty mleczne')">Mleko i produkty mleczne</button><br>
-            </div>
-            <div class="col-2">
-                <button type="button" id="btnKat" class="btn btn-primary" type="button"
-                    onClick="podajProdukt('Produkty pochodzenia zwierzęcego')">Produkty
-                    pochodzenia zwierzęcego</button><br>
-            </div>
-            <div class="col-2">
-                <button type="button" id="btnKat" class="btn btn-primary" type="button"
-                    onClick="podajProdukt('Tłuszcze')">Tłuszcze</button><br>
-            </div>
-        </div>
         <form action="" method="POST">
             <div id="formField"></div>
         </form>
         <br>
-        <button type="button" id="btnGotowe" class="btn btn-secondary" onclick="wyswietlPrzepisy()">Gotowe</button>
+        <button type="button" id="btnGotowe" class="btn btn-success" onclick="wyswietlPrzepisy()">Gotowe</button>
         <p class="przepisySnafa"></p>
-    </div>
-<a href="/logout">Wyloguj</a>
+<a class ="btn btn-success" role="button" href="/logout">Wyloguj</a>
 <h1>Przepisy</h1>
 {% if Przepisy %}
 {% for przepis in Przepisy %}
@@ -48,28 +19,26 @@
 <p>{{przepis.skladniki}}</p>
 <p>{{przepis.przepis}}</p>
 <p>{{przepis.ListaSkladnikow}}</p>
-<h2><a type="button" href="/admin/delete/przepis/{{przepis.id}}">usuń</a></h2>
-<h2><a type="button" href="/admin/edit/przepis/{{przepis.id}}">edytuj</a></h2>
+<h2><a class ="btn btn-success" role="button" href="/admin/delete/przepis/{{przepis.id}}">usuń</a>
+<h2><a class ="btn btn-success" role="button" href="/admin/edit/przepis/{{przepis.id}}">edytuj</a>
 <br>
 {% endfor %}
 {%endif%}
-<h3><a href="/admin/Przepisy"> dodaj przepis</a></h3>
+<a class ="btn btn-success" role="button" href="/admin/Przepisy"> dodaj przepis</a>
 
 
 <h1>Składniki</h1>
 {% if Skladniki %}
 {% for skladnik in Skladniki %}
-<p>{{skladnik.Nazwa}}</p>
-<p>{{skladnik.kategoria}}</p>
-<h2><a type="button" href="/admin/delete/skladnik/{{skladnik.id}}">usuń</a></h2>
-<h2><a type="button" href="/admin/edit/skladnik/{{skladnik.id}}">edytuj</a></h2>
+<p>Nazwa: {{skladnik.Nazwa}}; Kategoria: {{skladnik.kategoria}}</p>
+<a class ="btn btn-success" role="button" href="/admin/delete/skladnik/{{skladnik.id}}">usuń</a>
+<a class ="btn btn-success" role="button" href="/admin/edit/skladnik/{{skladnik.id}}">edytuj</a>
 
 <br>
 {% endfor %}
 {%endif%}
-<h3><a href="/admin/Skladniki">dodaj składnik</a></h3>
+<a class ="btn btn-success" role="button" href="/admin/Skladniki">dodaj składnik</a>
 {% endblock %}
- <script src="admscript.js"></script>
 </body>
 
 </html>
