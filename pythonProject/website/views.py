@@ -111,6 +111,8 @@ def przepisy():
             flash('Przepis został dodany!', category='success')
             return redirect('/admin')
         return render_template('przepisy.html',)
+    return redirect('/')
+
 @views.route('/admin/Skladniki', methods=['POST', 'GET'])
 def skladniki():
     if current_user.is_authenticated:
@@ -123,12 +125,15 @@ def skladniki():
             flash('Skladnik został dodany!', category='success')
             return redirect('/admin')
         return render_template('skladniki.html')
+    return redirect('/')
+
 
 @views.route('/logout')
 def logout():
     if current_user.is_authenticated:
         logout_user()
         return redirect('/')
+    return redirect('/')
 @views.route('/admin/delete/przepis/<int:id>')
 def delete(id):
     if current_user.is_authenticated:
@@ -137,6 +142,7 @@ def delete(id):
         db.session.commit()
         flash('Przepis został usunięty!', category='success')
         return redirect('/admin')
+    return redirect('/')
 @views.route('/admin/delete/skladnik/<int:id>')
 def deleteS(id):
     if current_user.is_authenticated:
@@ -145,6 +151,7 @@ def deleteS(id):
         db.session.commit()
         flash('Skłądnik został usunięty!', category='success')
         return redirect('/admin')
+    return redirect('/')
 
 @views.route('/admin/edit/skladnik/<int:id>', methods=['POST', 'GET'])
 def edit(id):
@@ -157,6 +164,7 @@ def edit(id):
                 flash('Skladnik został edytowany!', category='success')
                 return redirect('/admin')
             return render_template('editSkladnik.html',skladnik=skladnik)
+        return redirect('/')
 @views.route('/admin/edit/przepis/<int:id>', methods=['POST', 'GET'])
 def editP(id):
     if current_user.is_authenticated:
@@ -172,6 +180,7 @@ def editP(id):
             flash('Przepis został edytowany!', category='success')
             return redirect('/admin')
         return render_template('editPrzepis.html',przepis=przepis)
+    return redirect('/')
 
 
 
