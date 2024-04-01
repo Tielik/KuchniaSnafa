@@ -17,17 +17,50 @@ def index():
         SkladnikiUsera=""
         id=0
         f = request.form
+        print(f)
+        #pewnie zmienić by brało też ilość składników
+        listakey=[]
         for key in f:
             for value in f.getlist(key):
-                print(key, ":", value)
-                print(f)
-                if len(f)-1>id:
-                    lol=key+" "
-                    SkladnikiUsera+=lol
-                    id += 1
-                else:
-                    SkladnikiUsera+=key
-        daniaDB=db.session.query(Przepisy).filter_by(ListaSkladnikow=SkladnikiUsera).all()
+                #sortowanie ze strony
+                #print(key, ":", value)
+                #print(f)
+                keys=int(key)
+                listakey.append(keys)
+        listakey.sort()
+        for x in listakey:
+            if len(listakey)-1>id:
+                lol=key+" "
+                SkladnikiUsera+=lol
+                id += 1
+            else:
+                SkladnikiUsera+=key
+        setUser=set(listakey)
+        #porównuje skladniki z dań w baza danych
+        Dania=db.session.query(Przepisy).all()
+        listaDan=[]
+        for x in Dania:
+            lista=x.ListaSkladnikow
+            lista.split()
+            listaInt=[]
+            for y in lista:
+                if y!=" ":
+                    y=int(y)
+                    listaInt.append(y)
+            setDanie=set(listaInt)
+            if len(listaInt)>=len(listakey):
+                if setDanie.issuperset(setUser):
+                    listaDan.append(x.id)
+            if len(listakey)>len(listaInt):
+                if setUser.issuperset(setDanie):
+                    listaDan.append(x.id)
+        if len(listaDan)!=0:
+            print("XDDDDDDDDDD")
+            daniaDB=db.session.query(Przepisy).filter(Przepisy.id.in_(listaDan)).all()
+        else:
+            daniaDB=None
+        print(setUser)
+        print(setDanie)
         return render_template('index.html', form=f,dania=daniaDB)
     return render_template('index.html')
 #PASY Admin h:1234
