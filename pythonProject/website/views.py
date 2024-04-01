@@ -12,19 +12,13 @@ views = Blueprint('views', __name__)
 # db.session.commit()
 @views.route('/', methods=['POST', 'GET'])
 def index():
-    """TODO sorotwanie cyferek i zrobienie że nie wykrywa tylo idelanych przypadków i form dod dodania składników"""
     if request.method == 'POST' and request.form != None:
         SkladnikiUsera=""
         id=0
         f = request.form
-        print(f)
-        #pewnie zmienić by brało też ilość składników
         listakey=[]
         for key in f:
             for value in f.getlist(key):
-                #sortowanie ze strony
-                #print(key, ":", value)
-                #print(f)
                 keys=int(key)
                 listakey.append(keys)
         listakey.sort()
@@ -36,7 +30,6 @@ def index():
             else:
                 SkladnikiUsera+=key
         setUser=set(listakey)
-        #porównuje skladniki z dań w baza danych
         Dania=db.session.query(Przepisy).all()
         listaDan=[]
         for x in Dania:
@@ -55,12 +48,9 @@ def index():
                 if setUser.issuperset(setDanie):
                     listaDan.append(x.id)
         if len(listaDan)!=0:
-            print("XDDDDDDDDDD")
             daniaDB=db.session.query(Przepisy).filter(Przepisy.id.in_(listaDan)).all()
         else:
             daniaDB=None
-        print(setUser)
-        print(setDanie)
         return render_template('index.html', form=f,dania=daniaDB)
     return render_template('index.html')
 #PASY Admin h:1234
