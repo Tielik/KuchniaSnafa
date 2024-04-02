@@ -1,137 +1,125 @@
-
-
 {% extends "base.html" %}
 {% block title %}Kuchnia Snafa{% endblock %}
 {% block content %}
-    <div class="row">
-        <div class="col-2">
-            <button type="button" id="btnKat" class="btn btn-success" type="button" data-bs-toggle="collapse"
-                    data-bs-target="#zbozowe">Produkty zbożowe
+<div class="row">
+    <div class="col-2">
+        <button type="button" id="btnKat" class="btn btn-success" type="button" data-bs-toggle="collapse"
+                data-bs-target="#zbozowe">Produkty zbożowe
+        </button>
+        <div class="collapse multi-collapse" id="zbozowe">
+            {% if Skladnikiz %}
+            {% for x in Skladnikiz %}
+            {% if x.kategoria == 1 %}
+            <button type="button" id="btnIlosc" class="btn btn-light"
+                    onClick="podajIlosc('{{x.id}}')">{{x.Nazwa}}
             </button>
-            <div class="collapse multi-collapse" id="zbozowe">
-                <button type="button" id="btnIlosc" class="btn btn-light"
-                        onClick="podajIlosc('jeden')">jeden
-                </button>
-                <br>
-                <button type="button" id="btnIlosc" class="btn btn-light"
-                        onClick="podajIlosc('dwa')">dwa
-                </button>
-                <br>
-                <button type="button" id="btnIlosc" class="btn btn-light"
-                        onClick="podajIlosc('trzy')">trzy
-                </button>
-                <br>
-            </div>
-        </div>
-        <div class="col-2">
-            <button type="button" id="btnKat" class="btn btn-success" type="button" data-bs-toggle="collapse"
-                    data-bs-target="#warzywa">Warzywa
-            </button>
-            <div class="collapse multi-collapse" id="warzywa">
-                <button type="button" id="btnIlosc" class="btn btn-light"
-                        onClick="podajIlosc('jeden')">jeden
-                </button>
-                <br>
-                <button type="button" id="btnIlosc" class="btn btn-light"
-                        onClick="podajIlosc('dwa')">dwa
-                </button>
-                <br>
-                <button type="button" id="btnIlosc" class="btn btn-light"
-                        onClick="podajIlosc('trzy')">trzy
-                </button>
-                <br>
-            </div>
-        </div>
-        <div class="col-2">
-            <button type="button" id="btnKat" class="btn btn-success" type="button" data-bs-toggle="collapse"
-                    data-bs-target="#owoce">Owoce
-            </button>
-            <div class="collapse multi-collapse" id="owoce">
-                <button type="button" id="btnIlosc" class="btn btn-light"
-                        onClick="podajIlosc('jeden')">jeden
-                </button>
-                <br>
-                <button type="button" id="btnIlosc" class="btn btn-light"
-                        onClick="podajIlosc('dwa')">dwa
-                </button>
-                <br>
-                <button type="button" id="btnIlosc" class="btn btn-light"
-                        onClick="podajIlosc('trzy')">trzy
-                </button>
-                <br>
-            </div>
-        </div>
-        <div class="col-2">
-            <button type="button" id="btnKat" class="btn btn-success" type="button" data-bs-toggle="collapse"
-                    data-bs-target="#mleczne">Mleko i
-                produkty mleczne
-            </button>
-            <div class="collapse multi-collapse" id="mleczne">
-                <button type="button" id="btnIlosc" class="btn btn-light"
-                        onClick="podajIlosc('jeden')">jeden
-                </button>
-                <br>
-                <button type="button" id="btnIlosc" class="btn btn-light"
-                        onClick="podajIlosc('dwa')">dwa
-                </button>
-                <br>
-                <button type="button" id="btnIlosc" class="btn btn-light"
-                        onClick="podajIlosc('trzy')">trzy
-                </button>
-                <br>
-            </div>
-        </div>
-        <div class="col-2">
-            <button type="button" id="btnKat" class="btn btn-success" type="button" data-bs-toggle="collapse"
-                    data-bs-target="#zwierzece">Produkty
-                pochodzenia zwierzęcego
-            </button>
-            <div class="collapse multi-collapse" id="zwierzece">
-                <button type="button" id="btnIlosc" class="btn btn-light"
-                        onClick="podajIlosc('jeden')">jeden
-                </button>
-                <br>
-                <button type="button" id="btnIlosc" class="btn btn-light"
-                        onClick="podajIlosc('dwa')">dwa
-                </button>
-                <br>
-                <button type="button" id="btnIlosc" class="btn btn-light"
-                        onClick="podajIlosc('trzy')">trzy
-                </button>
-                <br>
-            </div>
-        </div>
-        <div class="col-2">
-            <button type="button" id="btnKat" class="btn btn-success" type="button" data-bs-toggle="collapse"
-                    data-bs-target="#tluszcze">Tłuszcze
-            </button>
-            <div class="collapse multi-collapse" id="tluszcze">
-                <button type="button" id="btnIlosc" class="btn btn-light"
-                        onClick="podajIlosc('jeden')">jeden
-                </button>
-                <br>
-                <button type="button" id="btnIlosc" class="btn btn-light"
-                        onClick="podajIlosc('dwa')">dwa
-                </button>
-                <br>
-                <button type="button" id="btnIlosc" class="btn btn-light"
-                        onClick="podajIlosc('trzy')">trzy
-                </button>
-                <br>
-            </div>
+            <br>
+            {% endif %}
+            {% endfor %}
+            {% endif %}
         </div>
     </div>
-    <form method="POST">
-        <div id="formField"></div>
-        <button id="btnGotowe" type="submit" class="btn btn-success">Submit</button>
-    </form>
-    <br>
-    <p class="przepisySnafa"></p>
+    <div class="col-2">
+        <button type="button" id="btnKat" class="btn btn-success" type="button" data-bs-toggle="collapse"
+                data-bs-target="#warzywa">Warzywa
+        </button>
+        <div class="collapse multi-collapse" id="warzywa">
+            {% if Skladnikiz %}
+            {% for x in Skladnikiz %}
+            {% if x.kategoria == 2 %}
+            <button type="button" id="btnIlosc" class="btn btn-light"
+                    onClick="podajIlosc('{{x.id}}')">{{x.Nazwa}}
+            </button>
+            <br>
+            {% endif %}
+            {% endfor %}
+            {% endif %}
+        </div>
+    </div>
+    <div class="col-2">
+        <button type="button" id="btnKat" class="btn btn-success" type="button" data-bs-toggle="collapse"
+                data-bs-target="#owoce">Owoce
+        </button>
+        <div class="collapse multi-collapse" id="owoce">
+            {% if Skladnikiz %}
+            {% for x in Skladnikiz %}
+            {% if x.kategoria == 3 %}
+            <button type="button" id="btnIlosc" class="btn btn-light"
+                    onClick="podajIlosc('{{x.id}}')">{{x.Nazwa}}
+            </button>
+            <br>
+            {% endif %}
+            {% endfor %}
+            {% endif %}
+        </div>
+    </div>
+    <div class="col-2">
+        <button type="button" id="btnKat" class="btn btn-success" type="button" data-bs-toggle="collapse"
+                data-bs-target="#mleczne">Mleko i
+            produkty mleczne
+        </button>
+        <div class="collapse multi-collapse" id="mleczne">
+            {% if Skladnikiz %}
+            {% for x in Skladnikiz %}
+            {% if x.kategoria == 4 %}
+            <button type="button" id="btnIlosc" class="btn btn-light"
+                    onClick="podajIlosc('{{x.id}}')">{{x.Nazwa}}
+            </button>
+            <br>
+            {% endif %}
+            {% endfor %}
+            {% endif %}
+        </div>
+    </div>
+    <div class="col-2">
+        <button type="button" id="btnKat" class="btn btn-success" type="button" data-bs-toggle="collapse"
+                data-bs-target="#zwierzece">Produkty
+            pochodzenia zwierzęcego
+        </button>
+        <div class="collapse multi-collapse" id="zwierzece">
+            {% if Skladnikiz %}
+            {% for x in Skladnikiz %}
+            {% if x.kategoria == 5 %}
+            <button type="button" id="btnIlosc" class="btn btn-light"
+                    onClick="podajIlosc('{{x.id}}')">{{x.Nazwa}}
+            </button>
+            <br>
+            {% endif %}
+            {% endfor %}
+            {% endif %}
+        </div>
+    </div>
+    <div class="col-2">
+        <button type="button" id="btnKat" class="btn btn-success" type="button" data-bs-toggle="collapse"
+                data-bs-target="#tluszcze">Tłuszcze
+        </button>
+        <div class="collapse multi-collapse" id="tluszcze">
+            {% if Skladnikiz %}
+            {% for x in Skladnikiz %}
+            {% if x.kategoria == 6 %}
+            <button type="button" id="btnIlosc" class="btn btn-light"
+                    onClick="podajIlosc('{{x.id}}')">{{x.Nazwa}}
+            </button>
+            <br>
+            {% endif %}
+            {% endfor %}
+            {% endif %}
+        </div>
+    </div>
+</div>
+<form method="POST">
+    <div id="formField"></div>
+    <button id="btnGotowe" type="submit" class="btn btn-success">Submit</button>
+</form>
+<br>
+<p class="przepisySnafa"></p>
 <br>
 {% if form!=null %}
 <h1>Produkty</h1>
+{% for x in Skladnikiz %}
 {% for key,value in form.items() %}
-<p>nazwa {{key}} ilosć: {{value}}</p>
+<p>Nazwa: {{x.Nazwa}}; Ilosć: {{value}}</p>
+{% endfor %}
 {% endfor %}
 {% endif %}>
 

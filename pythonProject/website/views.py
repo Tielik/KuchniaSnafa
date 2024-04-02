@@ -13,6 +13,7 @@ views = Blueprint('views', __name__)
 @views.route('/', methods=['POST', 'GET'])
 def index():
     print(current_user)
+    skladniki = db.session.query(Skladniki)
     if request.method == 'POST' and request.form != None:
         SkladnikiUsera=""
         id=0
@@ -52,8 +53,8 @@ def index():
             daniaDB=db.session.query(Przepisy).filter(Przepisy.id.in_(listaDan)).all()
         else:
             daniaDB=None
-        return render_template('index.html', form=f,dania=daniaDB)
-    return render_template('index.html')
+        return render_template('index.html', form=f,dania=daniaDB, Skladnikiz=skladniki)
+    return render_template('index.html', Skladnikiz=skladniki)
 #PASY Admin h:1234
 
 @views.route('/admin', methods=['POST', 'GET'])
