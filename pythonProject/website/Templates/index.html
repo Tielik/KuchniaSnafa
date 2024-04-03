@@ -11,7 +11,7 @@
             {% for x in Skladnikiz %}
             {% if x.kategoria == 1 %}
             <button type="button" id="btnIlosc" class="btn btn-light"
-                    onClick="podajIlosc('{{x.id}}')">{{x.Nazwa}}
+                    onClick="podajIlosc('{{x.id}}', '{{x.Nazwa}}')">{{x.Nazwa}}
             </button>
             <br>
             {% endif %}
@@ -28,7 +28,7 @@
             {% for x in Skladnikiz %}
             {% if x.kategoria == 2 %}
             <button type="button" id="btnIlosc" class="btn btn-light"
-                    onClick="podajIlosc('{{x.id}}')">{{x.Nazwa}}
+                    onClick="podajIlosc('{{x.id}}', '{{x.Nazwa}}')">{{x.Nazwa}}
             </button>
             <br>
             {% endif %}
@@ -45,7 +45,7 @@
             {% for x in Skladnikiz %}
             {% if x.kategoria == 3 %}
             <button type="button" id="btnIlosc" class="btn btn-light"
-                    onClick="podajIlosc('{{x.id}}')">{{x.Nazwa}}
+                    onClick="podajIlosc('{{x.id}}', '{{x.Nazwa}}')">{{x.Nazwa}}
             </button>
             <br>
             {% endif %}
@@ -63,7 +63,7 @@
             {% for x in Skladnikiz %}
             {% if x.kategoria == 4 %}
             <button type="button" id="btnIlosc" class="btn btn-light"
-                    onClick="podajIlosc('{{x.id}}')">{{x.Nazwa}}
+                    onClick="podajIlosc('{{x.id}}', '{{x.Nazwa}}')">{{x.Nazwa}}
             </button>
             <br>
             {% endif %}
@@ -81,7 +81,7 @@
             {% for x in Skladnikiz %}
             {% if x.kategoria == 5 %}
             <button type="button" id="btnIlosc" class="btn btn-light"
-                    onClick="podajIlosc('{{x.id}}')">{{x.Nazwa}}
+                    onClick="podajIlosc('{{x.id}}', '{{x.Nazwa}}')">{{x.Nazwa}}
             </button>
             <br>
             {% endif %}
@@ -98,7 +98,7 @@
             {% for x in Skladnikiz %}
             {% if x.kategoria == 6 %}
             <button type="button" id="btnIlosc" class="btn btn-light"
-                    onClick="podajIlosc('{{x.id}}')">{{x.Nazwa}}
+                    onClick="podajIlosc('{{x.id}}', '{{x.Nazwa}}')">{{x.Nazwa}}
             </button>
             <br>
             {% endif %}
@@ -111,8 +111,6 @@
     <div id="formField"></div>
     <button id="btnGotowe" type="submit" class="btn btn-success">Submit</button>
 </form>
-<br>
-<p class="przepisySnafa"></p>
 <br>
 {% if form!=null %}
 <h1>Produkty</h1>

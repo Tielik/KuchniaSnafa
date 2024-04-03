@@ -1,32 +1,30 @@
 let formField = document.getElementById('formField');
 
-let id = 0;
-document.getElementById("btnGotowe").style.display="none"
-function podajIlosc(produkt) {
+document.getElementById("btnGotowe").style.display="none";
+function podajIlosc(idProduktu, nazwaProduktu) {
     document.getElementById("btnGotowe").style.display = "block";
-
-    id += 1;
 
     let pole = document.createElement("div");
     pole.setAttribute("id", "pole");
-    pole.append(document.createElement("br"))
+    pole.append(document.createElement("br"));
 
-    let nazwaProduktu = document.createElement("label");
-    nazwaProduktu.setAttribute("id", "nazwaProduktu");
-    nazwaProduktu.setAttribute("for", id)
-    nazwaProduktu.innerHTML = produkt;
+    let nazwa = document.createElement("label");
+    nazwa.setAttribute("id", "nazwaProduktu");
+    nazwa.setAttribute("for", idProduktu);
+    nazwa.innerHTML = nazwaProduktu;
 
-    pole.append(nazwaProduktu)
+    pole.append(nazwa);
 
     let ilosc = document.createElement("input");
     ilosc.setAttribute("type", "text");
-    ilosc.setAttribute("id", id);
+    ilosc.setAttribute("id", idProduktu);
     ilosc.setAttribute("class", "float-end");
     ilosc.setAttribute("placeholder", "Podaj ilość");
-    ilosc.setAttribute("name",produkt);
+    ilosc.setAttribute("name",idProduktu);
 
     pole.append(ilosc);
-    pole.append(document.createElement("br"))
+
+    pole.append(document.createElement("br"));
 
     formField.append(pole);
 }
@@ -38,6 +36,6 @@ function wyswietlPrzepisy() {
     let przepisy = document.createElement("p");
     przepisy.innerHTML = "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum."
     snaf.append(przepisy);
-    const button = document.getElementById("btnGotowe")
+    const button = document.getElementById("btnGotowe");
     button.setAttribute("disabled", "");
 }
