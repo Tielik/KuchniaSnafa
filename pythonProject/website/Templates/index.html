@@ -114,16 +114,14 @@
 <br>
 {% if form!=null %}
 <h1>Produkty</h1>
-{% for x in Skladnikiz %}
-{% for key,value in form.items() %}
-<p>Nazwa: {{x.Nazwa}}; Ilosć: {{value}}</p>
+{% for x in SkladnikiWybrane %}
+<p>Składnik: {{x.Nazwa}};
 {% endfor %}
-{% endfor %}
-{% endif %}>
+{% endif %}
 
 {% if dania %}
 {% for danias in dania %}
-<p>{{danias.nazwa}}</p>
+<p>Danie: {{danias.nazwa}}</p>
 {% endfor %}
 {%endif%}
 {% endblock %}

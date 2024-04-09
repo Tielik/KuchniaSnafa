@@ -32,6 +32,7 @@ def index():
             else:
                 SkladnikiUsera+=key
         setUser=set(listakey)
+        skladnikiWybrane = db.session.query(Skladniki).filter(Skladniki.id.in_(listakey)).all()
         Dania=db.session.query(Przepisy).all()
         listaDan=[]
         for x in Dania:
@@ -53,8 +54,8 @@ def index():
             daniaDB=db.session.query(Przepisy).filter(Przepisy.id.in_(listaDan)).all()
         else:
             daniaDB=None
-        return render_template('index.html', form=f,dania=daniaDB, Skladnikiz=skladniki)
-    return render_template('index.html', Skladnikiz=skladniki)
+        return render_template('index.html', form=f,dania=daniaDB, Skladnikiz=skladniki, SkladnikiWybrane=skladnikiWybrane)
+    return render_template( 'index.html', Skladnikiz=skladniki)
 #PASY Admin h:1234
 
 @views.route('/admin', methods=['POST', 'GET'])
