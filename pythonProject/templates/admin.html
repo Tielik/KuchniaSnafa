@@ -6,10 +6,10 @@
         <form action="" method="POST">
             <div id="formField"></div>
         </form>
-        <br>
         <button type="button" id="btnGotowe" class="btn btn-success" onclick="wyswietlPrzepisy()">Gotowe</button>
         <p class="przepisySnafa"></p>
 <a class ="btn btn-success" role="button" href="/logout">Wyloguj</a>
+<br>
 <h1>Przepisy</h1>
 {% if Przepisy %}
 {% for przepis in Przepisy %}
@@ -19,25 +19,25 @@
 <p>{{przepis.skladniki}}</p>
 <p>{{przepis.przepis}}</p>
 <p>{{przepis.ListaSkladnikow}}</p>
-<h2><a class ="btn btn-success" role="button" href="/admin/delete/przepis/{{przepis.id}}">usuń</a>
-<h2><a class ="btn btn-success" role="button" href="/admin/edit/przepis/{{przepis.id}}">edytuj</a>
+<h2><a class ="btn btn-success" role="button" href="/admin/delete/przepis/{{przepis.id}}">Usuń</a>
+<h2><a class ="btn btn-success" role="button" href="/admin/edit/przepis/{{przepis.id}}">Edytuj</a>
 <br>
 {% endfor %}
 {%endif%}
-<a class ="btn btn-success" role="button" href="/admin/Przepisy"> dodaj przepis</a>
+<a class ="btn btn-success" role="button" href="/admin/Przepisy"> Dodaj przepis</a>
 
-
+<br>
 <h1>Składniki</h1>
 {% if Skladniki %}
 {% for skladnik in Skladniki %}
 <p>Nazwa: {{skladnik.Nazwa}}; Kategoria: {{skladnik.kategoria}}</p>
-<a class ="btn btn-success" role="button" href="/admin/delete/skladnik/{{skladnik.id}}">usuń</a>
-<a class ="btn btn-success" role="button" href="/admin/edit/skladnik/{{skladnik.id}}">edytuj</a>
+<a class ="btn btn-success" role="button" href="/admin/delete/skladnik/{{skladnik.id}}">Usuń</a>
+<a class ="btn btn-success" role="button" href="/admin/edit/skladnik/{{skladnik.id}}">Edytuj</a>
 
 <br>
 {% endfor %}
 {%endif%}
-<a class ="btn btn-success" role="button" href="/admin/Skladniki">dodaj składnik</a>
+<br><a class ="btn btn-success" role="button" href="/admin/Skladniki">Dodaj składnik</a>
 {% endblock %}
 </body>
 
