@@ -98,10 +98,10 @@ def admin():
                     skladniki = None
                 return render_template('admin.html', Przepisy=przepisyz, Skladniki=skladniki)
             else:
-                flash('Nieprawidłowy login lub hasło', category='error')
+                flash('Nieprawidłowe hasło', category='error')
                 return render_template('login.html')
         else:
-            flash('Nieprawidłowy login lub hasło', category='error')
+            flash('Nieprawidłowa nazwa', category='error')
             return render_template('login.html')
 
     else:
