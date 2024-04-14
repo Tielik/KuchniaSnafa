@@ -104,6 +104,21 @@ def admin():
     else:
         return render_template('login.html')
 
+@views.route('/admin/CLP', methods=['POST', 'GET'])
+def changeOfPasword():
+    if current_user.is_authenticated:
+        admin=Admin.query.filter_by(name=current_user.name).first()
+        if request.method == 'POST':
+            name = request.form.get('Admin')
+            password = request.form.get('password')
+            user = Admin.query.filter_by(name=name).first()
+            user.password = generate_password_hash(password)
+            db.session.commit()
+            flash('Zmieniono hasło', category='success')
+            return redirect('/admin')
+        return render_template('adminChange.html',admin=admin,password=check_password_hash(current_user.password,admin.password))
+    else:
+        return redirect('/admin')
 
 @views.route('/admin/Przepisy', methods=['POST', 'GET'])
 def przepisy():
