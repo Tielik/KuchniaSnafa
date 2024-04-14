@@ -109,19 +109,25 @@
 </div>
 <form method="POST">
     <div id="formField"></div>
-    <button id="btnGotowe" type="submit" class="btn btn-success">Submit</button>
+    <br>
+    <button id="btnGotowe" type="submit" class="btn btn-success">Gotowe</button>
 </form>
 <br>
-{% if form!=null %}
-<h1>Produkty</h1>
-{% for x in SkladnikiWybrane %}
-<p>Składnik: {{x.Nazwa}};
-{% endfor %}
-{% endif %}
 
 {% if dania %}
-{% for danias in dania %}
-<p>Danie: {{danias.nazwa}}</p>
+{% for danie in dania %}
+<p>Danie: {{danie.nazwa}}</p>
+Czas: <p>{{danie.czas}}</p>
+Opis: <p>{{danie.opis}}</p>
+Przygotowanie: <p>{{danie.przepis}}</p>
+Składniki:
+<p>
+    {% for skladnik in Skladnikiz %}
+    {% if skladnik.id|string in danie.ListaSkladnikow %}
+    {{skladnik.Nazwa}}
+    {%endif%}
+    {% endfor %}
+    <hr style="border-top: 3px solid #00ff04;">
 {% endfor %}
 {%endif%}
 {% endblock %}
