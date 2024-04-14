@@ -50,10 +50,7 @@ def index():
                     y = int(y)
                     listaInt.append(y)
             setDanie = set(listaInt)
-            if len(listaInt) >= len(listakey):
-                if setDanie.issuperset(setUser):
-                    listaDan.append(x.id)
-            if len(listakey) > len(listaInt):
+            if len(listakey) >= len(listaInt):
                 if setUser.issuperset(setDanie):
                     listaDan.append(x.id)
         if len(listaDan) != 0:
