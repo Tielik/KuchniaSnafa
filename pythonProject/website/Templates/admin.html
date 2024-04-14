@@ -1,8 +1,7 @@
 {% extends "base.html" %}
 {% block title %}Kuchnia Snafa Admin Panel{% endblock %}
 
-<body>
-    {% block content %}
+{% block content %}
     <h1>Panel administracyjny</h1>
     <form action="" method="POST">
         <div id="formField"></div>
@@ -10,36 +9,53 @@
     <button type="button" id="btnGotowe" class="btn btn-success" onclick="wyswietlPrzepisy()">Gotowe</button>
     <p class="przepisySnafa"></p>
     <a class="btn btn-success" role="button" href="/logout">Wyloguj</a>
-    <br>
     <h1>Przepisy</h1>
     {% if Przepisy %}
     {% for przepis in Przepisy %}
-    <p>{{przepis.nazwa}}</p>
-    <p>{{przepis.czas}}</p>
-    <p>{{przepis.opis}}</p>
-    <p>{{przepis.skladniki}}</p>
-    <p>{{przepis.przepis}}</p>
-    <p>{{przepis.ListaSkladnikow}}</p>
-    <h2><a class="btn btn-success" role="button" href="/admin/delete/przepis/{{przepis.id}}">Usuń</a>
-        <h2><a class="btn btn-success" role="button" href="/admin/edit/przepis/{{przepis.id}}">Edytuj</a>
-            <br>
-            {% endfor %}
-            {%endif%}
-            <a class="btn btn-success" role="button" href="/admin/Przepisy"> Dodaj przepis</a>
+        Nazwa: <p>{{przepis.nazwa}}</p>
+        Czas: <p>{{przepis.czas}}</p>
+        Opis: <p>{{przepis.opis}}</p>
+        Przygotowanie: <p>{{przepis.przepis}}</p>
+        Składniki:
+        <p>
+        {% for skladnik in Skladniki %}
+        {% if skladnik.id|string in przepis.ListaSkladnikow %}
+            {{skladnik.Nazwa}}
+        {% endif %}
+        {% endfor %}
+        </p>
 
-            <br>
-            <h1>Składniki</h1>
-            {% if Skladniki %}
-            {% for skladnik in Skladniki %}
-            <p>Nazwa: {{skladnik.Nazwa}}; Kategoria: {{skladnik.kategoria}}</p>
-            <a class="btn btn-success" role="button" href="/admin/delete/skladnik/{{skladnik.id}}">Usuń</a>
-            <a class="btn btn-success" role="button" href="/admin/edit/skladnik/{{skladnik.id}}">Edytuj</a>
+        <h2><a class="btn btn-success" role="button" href="/admin/delete/przepis/{{przepis.id}}">Usuń</a></h2>
+        <h2><a class="btn btn-success" role="button" href="/admin/edit/przepis/{{przepis.id}}">Edytuj</a></h2>
 
-            <br>
-            {% endfor %}
-            {%endif%}
-            <br><a class="btn btn-success" role="button" href="/admin/Skladniki">Dodaj składnik</a>
-            {% endblock %}
-</body>
+    {% endfor %}
+    {% endif %}
+    <a class="btn btn-success" role="button" href="/admin/Przepisy"> Dodaj przepis</a>
 
-</html>
+
+    <h1>Składniki</h1>
+    {% if Skladniki %}
+    {% for skladnik in Skladniki %}
+        <p>Nazwa: {{skladnik.Nazwa}}; Kategoria:
+            {% if skladnik.kategoria == 1 %}
+                Produkty zbożowe
+            {% elif skladnik.kategoria == 2 %}
+                Warzywa
+            {% elif skladnik.kategoria == 3 %}
+                Owoce
+            {% elif skladnik.kategoria == 4 %}
+                Mleko i produkty mleczne
+            {% elif skladnik.kategoria == 5 %}
+                Produkty pochodzenia zwierzęcego
+            {% elif skladnik.kategoria == 6 %}
+                Tłuszcze
+            {% endif %}
+        </p>
+        <a class="btn btn-success" role="button" href="/admin/delete/skladnik/{{skladnik.id}}">Usuń</a>
+        <a class="btn btn-success" role="button" href="/admin/edit/skladnik/{{skladnik.id}}">Edytuj</a>
+        <br>
+    {% endfor %}
+    {%endif%}
+    <br>
+    <a class="btn btn-success" role="button" href="/admin/Skladniki">Dodaj składnik</a>
+{% endblock %}

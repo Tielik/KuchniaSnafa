@@ -111,20 +111,25 @@ def admin():
 @views.route('/admin/Przepisy', methods=['POST', 'GET'])
 def przepisy():
     if current_user.is_authenticated:
+        if db.session.query(Skladniki).count() >= 1:
+            skladniki = db.session.query(Skladniki)
+        else:
+            skladniki = None
         if request.method == 'POST':
             nazwa = request.form.get('nazwa')
             czas = request.form.get('czas')
             opis = request.form.get('opis')
             skladniki = request.form.get('skladniki')
             przepis = request.form.get('przepis')
-            ListaSkladnikow = request.form.get('lista')
+            ListaSkladnikow = request.form.getlist('lista')
+            ListaSkladnikow = " ".join(ListaSkladnikow)
             przepis = Przepisy(nazwa=nazwa, czas=czas, opis=opis, skladniki=skladniki, przepis=przepis,
                                ListaSkladnikow=ListaSkladnikow)
             db.session.add(przepis)
             db.session.commit()
             flash('Przepis został dodany!', category='success')
             return redirect('/admin')
-        return render_template('przepisy.html', )
+        return render_template('przepisy.html', skladniki = skladniki)
     return redirect('/')
 
 
@@ -190,6 +195,10 @@ def edit(id):
 @views.route('/admin/edit/przepis/<int:id>', methods=['POST', 'GET'])
 def editP(id):
     if current_user.is_authenticated:
+        if db.session.query(Skladniki).count() >= 1:
+            skladniki = db.session.query(Skladniki)
+        else:
+            skladniki = None
         przepis = Przepisy.query.filter_by(id=id).first()
         if request.method == 'POST':
             przepis.nazwa = request.form.get('nazwa')
@@ -197,9 +206,10 @@ def editP(id):
             przepis.opis = request.form.get('opis')
             przepis.skladniki = request.form.get('skladniki')
             przepis.przepis = request.form.get('przepis')
-            przepis.ListaSkladnikow = request.form.get('lista')
+            przepis.ListaSkladnikow = request.form.getlist('lista')
+            przepis.ListaSkladnikow = " ".join(przepis.ListaSkladnikow)
             db.session.commit()
             flash('Przepis został edytowany!', category='success')
             return redirect('/admin')
-        return render_template('editPrzepis.html', przepis=przepis)
+        return render_template('editPrzepis.html', przepis=przepis, skladniki=skladniki)
     return redirect('/')
