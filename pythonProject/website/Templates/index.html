@@ -1,17 +1,17 @@
 {% extends "base.html" %}
 {% block title %}Kuchnia Snafa{% endblock %}
 {% block content %}
-<div class="row">
-    <div class="col-2">
+<div class="row seven-cols">
+    <div class="col-md-1">
         <button type="button" class="btnKat btn btn-success" data-bs-toggle="collapse"
-                data-bs-target="#zbozowe">Produkty zbożowe
+            data-bs-target="#zbozowe">Produkty zbożowe
         </button>
         <div class="collapse multi-collapse" id="zbozowe">
             {% if Skladnikiz %}
             {% for x in Skladnikiz %}
             {% if x.kategoria == 1 %}
             <button type="button" class="btnProd btn btn-light"
-                    onClick="wybierzSkladnik('{{x.id}}', '{{x.Nazwa}}')">{{x.Nazwa}}
+                onClick="wybierzSkladnik('{{x.id}}', '{{x.Nazwa}}')">{{x.Nazwa}}
             </button>
             <br>
             {% endif %}
@@ -19,16 +19,15 @@
             {% endif %}
         </div>
     </div>
-    <div class="col-2">
-        <button type="button" class="btnKat btn btn-success" data-bs-toggle="collapse"
-                data-bs-target="#warzywa">Warzywa
+    <div class="col-md-1">
+        <button type="button" class="btnKat btn btn-success" data-bs-toggle="collapse" data-bs-target="#warzywa">Warzywa
         </button>
         <div class="collapse multi-collapse" id="warzywa">
             {% if Skladnikiz %}
             {% for x in Skladnikiz %}
             {% if x.kategoria == 2 %}
             <button type="button" class="btnProd btn btn-light"
-                    onClick="wybierzSkladnik('{{x.id}}', '{{x.Nazwa}}')">{{x.Nazwa}}
+                onClick="wybierzSkladnik('{{x.id}}', '{{x.Nazwa}}')">{{x.Nazwa}}
             </button>
             <br>
             {% endif %}
@@ -36,16 +35,15 @@
             {% endif %}
         </div>
     </div>
-    <div class="col-2">
-        <button type="button" class="btnKat btn btn-success" data-bs-toggle="collapse"
-                data-bs-target="#owoce">Owoce
+    <div class="col-md-1">
+        <button type="button" class="btnKat btn btn-success" data-bs-toggle="collapse" data-bs-target="#owoce">Owoce
         </button>
         <div class="collapse multi-collapse" id="owoce">
             {% if Skladnikiz %}
             {% for x in Skladnikiz %}
             {% if x.kategoria == 3 %}
             <button type="button" class="btnProd btn btn-light"
-                    onClick="wybierzSkladnik('{{x.id}}', '{{x.Nazwa}}')">{{x.Nazwa}}
+                onClick="wybierzSkladnik('{{x.id}}', '{{x.Nazwa}}')">{{x.Nazwa}}
             </button>
             <br>
             {% endif %}
@@ -53,9 +51,8 @@
             {% endif %}
         </div>
     </div>
-    <div class="col-2">
-        <button type="button" class="btnKat btn btn-success" data-bs-toggle="collapse"
-                data-bs-target="#mleczne">Mleko i
+    <div class="col-md-1">
+        <button type="button" class="btnKat btn btn-success" data-bs-toggle="collapse" data-bs-target="#mleczne">Mleko i
             produkty mleczne
         </button>
         <div class="collapse multi-collapse" id="mleczne">
@@ -63,7 +60,7 @@
             {% for x in Skladnikiz %}
             {% if x.kategoria == 4 %}
             <button type="button" class="btnProd btn btn-light"
-                    onClick="wybierzSkladnik('{{x.id}}', '{{x.Nazwa}}')">{{x.Nazwa}}
+                onClick="wybierzSkladnik('{{x.id}}', '{{x.Nazwa}}')">{{x.Nazwa}}
             </button>
             <br>
             {% endif %}
@@ -71,9 +68,9 @@
             {% endif %}
         </div>
     </div>
-    <div class="col-2">
+    <div class="col-md-1">
         <button type="button" class="btnKat btn btn-success" data-bs-toggle="collapse"
-                data-bs-target="#zwierzece">Produkty
+            data-bs-target="#zwierzece">Produkty
             pochodzenia zwierzęcego
         </button>
         <div class="collapse multi-collapse" id="zwierzece">
@@ -81,7 +78,7 @@
             {% for x in Skladnikiz %}
             {% if x.kategoria == 5 %}
             <button type="button" class="btnProd btn btn-light"
-                    onClick="wybierzSkladnik('{{x.id}}', '{{x.Nazwa}}')">{{x.Nazwa}}
+                onClick="wybierzSkladnik('{{x.id}}', '{{x.Nazwa}}')">{{x.Nazwa}}
             </button>
             <br>
             {% endif %}
@@ -89,16 +86,33 @@
             {% endif %}
         </div>
     </div>
-    <div class="col-2">
+    <div class="col-md-1">
         <button type="button" class="btnKat btn btn-success" data-bs-toggle="collapse"
-                data-bs-target="#tluszcze">Tłuszcze
+            data-bs-target="#tluszcze">Tłuszcze
         </button>
         <div class="collapse multi-collapse" id="tluszcze">
             {% if Skladnikiz %}
             {% for x in Skladnikiz %}
             {% if x.kategoria == 6 %}
             <button type="button" class="btnProd btn btn-light"
-                    onClick="wybierzSkladnik('{{x.id}}', '{{x.Nazwa}}')">{{x.Nazwa}}
+                onClick="wybierzSkladnik('{{x.id}}', '{{x.Nazwa}}')">{{x.Nazwa}}
+            </button>
+            <br>
+            {% endif %}
+            {% endfor %}
+            {% endif %}
+        </div>
+    </div>
+    <div class="col-md-1">
+        <button type="button" class="btnKat btn btn-success" data-bs-toggle="collapse"
+            data-bs-target="#przyprawy">Przyprawy
+        </button>
+        <div class="collapse multi-collapse" id="przyprawy">
+            {% if Skladnikiz %}
+            {% for x in Skladnikiz %}
+            {% if x.kategoria == 7 %}
+            <button type="button" class="btnProd btn btn-light"
+                onClick="wybierzSkladnik('{{x.id}}', '{{x.Nazwa}}')">{{x.Nazwa}}
             </button>
             <br>
             {% endif %}
@@ -115,19 +129,30 @@
 <br>
 
 {% if dania %}
-{% for danie in dania %}
-<p>Danie: {{danie.nazwa}}</p>
-Czas: <p>{{danie.czas}}</p>
-Opis: <p>{{danie.opis}}</p>
-Przygotowanie: <p>{{danie.przepis}}</p>
-Składniki:
-<p>
-    {% for skladnik in Skladnikiz %}
-    {% if skladnik.id|string in danie.ListaSkladnikow %}
-    {{skladnik.Nazwa}}
-    {%endif%}
-    {% endfor %}
-    <hr style="border-top: 3px solid #00ff04;">
+<div class="row row-cols-1 row-cols-md-3 g-4">
+    {% for danie in dania %}
+    <div class="col">
+        <div class="card h-100">
+            <img src="..." class="card-img-top" alt="...">
+            <div class="card-body">
+                <h5 class="card-title">{{danie.nazwa}}</h5><br>
+                <p class="card-text">
+                Czas: <p>{{danie.czas}}</p>
+                Opis: <p>{{danie.opis}}</p>
+                Przygotowanie: <p>{{danie.przepis}}</p>
+                Składniki:
+                <p>
+                    {% for skladnik in Skladnikiz %}
+                    {% if skladnik.id|string in danie.ListaSkladnikow %}
+                    {{skladnik.Nazwa}}
+                    {%endif%}
+                    {% endfor %}
+                </p>
+                </p>
+            </div>
+        </div>
+    </div>
+
 {% endfor %}
 {%endif%}
 {% endblock %}

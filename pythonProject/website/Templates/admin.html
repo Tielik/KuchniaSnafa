@@ -6,6 +6,7 @@
     <a class="btn btn-success" role="button" href="/logout">Wyloguj</a>
     <a class="btn btn-success" role="button" href="/admin/CLP">Zmień login i hasło</a>
     <h1>Przepisy</h1>
+    <a class="btn btn-success" role="button" href="/admin/Przepisy"> Dodaj przepis</a><br>
     {% if Przepisy %}
     {% for przepis in Przepisy %}
         Nazwa: <p>{{przepis.nazwa}}</p>
@@ -26,10 +27,10 @@
 
     {% endfor %}
     {% endif %}
-    <a class="btn btn-success" role="button" href="/admin/Przepisy"> Dodaj przepis</a>
 
 
     <h1>Składniki</h1>
+    <a class="btn btn-success" role="button" href="/admin/Skladniki">Dodaj składnik</a><br>
     {% if Skladniki %}
     {% for skladnik in Skladniki %}
         <p>Nazwa: {{skladnik.Nazwa}}; Kategoria:
@@ -45,6 +46,8 @@
                 Produkty pochodzenia zwierzęcego
             {% elif skladnik.kategoria == 6 %}
                 Tłuszcze
+            {% elif skladnik.kategoria == 7 %}
+                Przyprawy
             {% endif %}
         </p>
         <a class="btn btn-success" role="button" href="/admin/delete/skladnik/{{skladnik.id}}">Usuń</a>
@@ -52,6 +55,4 @@
         <br>
     {% endfor %}
     {%endif%}
-    <br>
-    <a class="btn btn-success" role="button" href="/admin/Skladniki">Dodaj składnik</a>
 {% endblock %}
