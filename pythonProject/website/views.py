@@ -127,6 +127,8 @@ def przepisy():
             skladniki = db.session.query(Skladniki)
         else:
             skladniki = None
+            flash("By dodać danie trzeba najpierw wprowadzić składniki!",category="error")
+            return redirect('/admin')
         if request.method == 'POST':
             nazwa = request.form.get('nazwa')
             czas = request.form.get('czas')
