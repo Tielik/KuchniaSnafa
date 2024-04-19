@@ -130,31 +130,6 @@
 <br>
 
 {% if dania %}
-<div class="row row-cols-1 row-cols-md-3 g-4">
-    {% for danie in dania %}
-    <div class="col">
-        <div class="card h-100">
-            <img src="..." class="card-img-top" alt="...">
-            <div class="card-body">
-                <h5 class="card-title">{{danie.nazwa}}</h5><br>
-                <p class="card-text">
-                Czas: <p>{{danie.czas}}</p>
-                Opis: <p>{{danie.opis}}</p>
-                Przygotowanie: <p>{{danie.przepis}}</p>
-                Składniki:
-                <p>
-                    {% for skladnik in Skladnikiz %}
-                    {% if skladnik.id|string in danie.ListaSkladnikow %}
-                    {{skladnik.Nazwa}}
-                    {%endif%}
-                    {% endfor %}
-                </p>
-                </p>
-            </div>
-        </div>
-    </div>
-
-{% if dania %}
 {% for danias in dania %}
 <div class="card" style="width: 18rem;">
     {%set var=danias.id|string %}
@@ -168,6 +143,3 @@
 {% endfor %}
 {%endif%}
 {% endblock %}
-</body>
-
-</html>
