@@ -154,6 +154,17 @@
         </div>
     </div>
 
+{% if dania %}
+{% for danias in dania %}
+<div class="card" style="width: 18rem;">
+    {%set var=danias.id|string %}
+  <img src="{{url_for('static', filename='img/'+var+'.png')}}" class="card-img-top" alt="...">
+  <div class="card-body">
+    <h5 class="card-title">{{danias.nazwa}}</h5>
+    <p class="card-text">{{danias.opis}}</p>
+    <a href="/danie/{{danias.id}}" class="btn btn-primary">Go somewhere</a>
+  </div>
+</div>
 {% endfor %}
 {%endif%}
 {% endblock %}
