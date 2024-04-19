@@ -3,10 +3,10 @@
 
 {% block content %}
     <h1>Panel administracyjny</h1>
-    <a class="btn btn-success" role="button" href="/logout">Wyloguj</a>
-    <a class="btn btn-success" role="button" href="/admin/CLP">Zmień login i hasło</a>
+    <a class="btn btn-primary" role="button" href="/logout">Wyloguj</a>
+    <a class="btn btn-primary" role="button" href="/admin/CLP">Zmień login i hasło</a>
     <h1>Przepisy</h1>
-    <a class="btn btn-success" role="button" href="/admin/Przepisy"> Dodaj przepis</a><br>
+    <a class="btn btn-primary" role="button" href="/admin/Przepisy"> Dodaj przepis</a><br>
     {% if Przepisy %}
     {% for przepis in Przepisy %}
         Nazwa: <p>{{przepis.nazwa}}</p>
@@ -22,15 +22,15 @@
         {% endfor %}
         </p>
 
-        <h2><a class="btn btn-success" role="button" href="/admin/delete/przepis/{{przepis.id}}">Usuń</a></h2>
-        <h2><a class="btn btn-success" role="button" href="/admin/edit/przepis/{{przepis.id}}">Edytuj</a></h2>
+        <h2><a class="btn btn-primary" role="button" href="/admin/delete/przepis/{{przepis.id}}">Usuń</a></h2>
+        <h2><a class="btn btn-primary" role="button" href="/admin/edit/przepis/{{przepis.id}}">Edytuj</a></h2>
 
     {% endfor %}
     {% endif %}
 
 
     <h1>Składniki</h1>
-    <a class="btn btn-success" role="button" href="/admin/Skladniki">Dodaj składnik</a><br>
+    <a class="btn btn-primary" role="button" href="/admin/Skladniki">Dodaj składnik</a><br>
     {% if Skladniki %}
     {% for skladnik in Skladniki %}
         <p>Nazwa: {{skladnik.Nazwa}}; Kategoria:
@@ -50,8 +50,8 @@
                 Przyprawy
             {% endif %}
         </p>
-        <a class="btn btn-success" role="button" href="/admin/delete/skladnik/{{skladnik.id}}">Usuń</a>
-        <a class="btn btn-success" role="button" href="/admin/edit/skladnik/{{skladnik.id}}">Edytuj</a>
+        <a class="btn btn-primary" role="button" href="/admin/delete/skladnik/{{skladnik.id}}">Usuń</a>
+        <a class="btn btn-primary" role="button" href="/admin/edit/skladnik/{{skladnik.id}}">Edytuj</a>
         <br>
     {% endfor %}
     {%endif%}
