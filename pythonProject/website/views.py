@@ -106,21 +106,21 @@ def index():
         return render_template('index.html', Skladnikiz=skladniki)
 
 
-@views.route('/usuwanie/<int:id>', methods=['POST', 'GET'])
-def indexUsuwanie(id):
-    if session.get('skladniki') == None:
-        return redirect('/')
-    doUsunięcia=id
-    sessia=session['skladniki']
-    nowaSessia=""
-    array = sessia.split()
-    array.remove(str(doUsunięcia))
-    for key in array:
-        if key != " ":
-            keys = int(key)
-            nowaSessia += str(keys) + " "
-    session['skladniki'] = nowaSessia
-    return redirect('/')
+# @views.route('/usuwanie/<int:id>', methods=['POST', 'GET'])
+# def indexUsuwanie(id):
+#     if session.get('skladniki') == None:
+#         return redirect('/')
+#     doUsunięcia=id
+#     sessia=session['skladniki']
+#     nowaSessia=""
+#     array = sessia.split()
+#     array.remove(str(doUsunięcia))
+#     for key in array:
+#         if key != " ":
+#             keys = int(key)
+#             nowaSessia += str(keys) + " "
+#     session['skladniki'] = nowaSessia
+#     return redirect('/')
 
 @views.route('/danie/<int:id>', methods=['POST', 'GET'])
 def indexDanie(id):
