@@ -3,33 +3,31 @@
 
 {% block content %}
 <div class="container">
-    <form method="POST">
-        <label for="nazwa">Nazwa Dania</label>
-        <input type="text" class="form-control" id="nazwa"
-               name="nazwa" value="{{przepis.nazwa}}"/>
-        <label for="czas">Czas</label>
-        <input type="text" class="form-control" id="czas"
-               name="czas" value="{{przepis.czas}}"/>
-        <label for="opis">Opis</label>
-        <input type="text" class="form-control" id="opis"
-               name="opis" value="{{przepis.opis}}"/>
-        <label for="skladniki">Składniki</label>
-        <input type="text" class="form-control" id="skladniki"
-               name="skladniki" value="{{przepis.skladniki}}" style="display: none;"/>
-        <label for="przepis">Przepis</label>
-        <input type="text" class="form-control" id="przepis"
-               name="przepis" value="{{przepis.przepis}}"/>
-        <label for="lista">Składniki</label>
-        {% for skladnik in skladniki %}
-        <div class="form-check">
-            <input class="form-check-input" type="checkbox" value="{{skladnik.id}}" id="lista" name="lista">
-            <label class="form-check-label" for="lista">
-                {{skladnik.Nazwa}}
-            </label>
-        </div>
-        {% endfor %}
+       <form method="POST">
+              <label for="nazwa">Nazwa Dania</label>
+              <input type="text" class="form-control" id="nazwa" name="nazwa" value="{{przepis.nazwa}}"
+                     required="required" />
+              <label for="czas">Czas</label>
+              <input type="text" class="form-control" id="czas" name="czas" value="{{przepis.czas}}"
+                     required="required" />
+              <label for="opis">Opis</label>
+              <input type="text" class="form-control" id="opis" name="opis" value="{{przepis.opis}}"
+                     required="required" />
+              <label for="skladniki">Składniki</label>
+              <input type="hidden" class="form-control" id="skladniki" name="skladniki" value="{{przepis.skladniki}}" />
+              <label for="przepis">Przepis</label>
+              <input type="text" class="form-control" id="przepis" name="przepis" value="{{przepis.przepis}}"
+                     required="required" />
+              <label for="lista">Składniki</label>
+              {% for skladnik in skladniki %}
+              <div class="form-check">
+                     <label class="form-check-label"></label>
+                     <input class="form-check-input" type="checkbox" value="{{skladnik.id}}" id="lista" name="lista">
+                     {{skladnik.Nazwa}}</label>
+              </div>
+              {% endfor %}
 
-        <button type="submit" class="btn btn-primary">Potwierdź</button>
-    </form>
+              <button type="submit" class="btn btn-primary">Potwierdź</button>
+       </form>
 </div>
 {% endblock %}

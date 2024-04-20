@@ -96,6 +96,11 @@ body {
 
 $primary-color: #43a047;
 
+.logo {
+    color: #{darken($primary-color, 10%)};
+    text-align: center;
+}
+
 .btn-primary {
     --bs-btn-bg: #{$primary-color};
     --bs-btn-border-color: #{$primary-color};

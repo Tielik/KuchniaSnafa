@@ -1,33 +1,32 @@
 {% extends 'base.html' %}
-{% block title %}Dodawanie  Przepisów{% endblock %}
+{% block title %}Dodawanie Przepisów{% endblock %}
 
 {% block content %}
 <div class="container">
-    <form method="POST">
-        <label for="nazwa">Nazwa Dania</label>
-        <input type="text" class="form-control" id="nazwa"
-               name="nazwa" placeholder="Enter a Name"/>
-        <label for="czas">Czas</label>
-        <input type="text" class="form-control" id="czas"
-               name="czas" placeholder="Enter a Name"/>
-        <label for="opis">Opis</label>
-        <input type="text" class="form-control" id="opis"
-               name="opis" placeholder="Enter a Name"/>
-        <input type="text" class="form-control" id="skladniki"
-               name="skladniki" value="" style="display: none;"/>
-        <label for="przepis">Przepis</label>
-        <input type="text" class="form-control" id="przepis"
-               name="przepis" placeholder="Enter a Name"/>
-        <label for="lista">Składniki</label>
-                {% for skladnik in skladniki %}
-        <div class="form-check">
-            <input class="form-check-input" type="checkbox" value="{{skladnik.id}}" id="lista" name="lista">
-            <label class="form-check-label" for="lista">
-                {{skladnik.Nazwa}}
-            </label>
-        </div>
-        {% endfor %}
-        <button type="submit" class="btn btn-primary">potwierdz</button>
-    </form>
+       <form method="POST">
+              <label for="nazwa">Nazwa Dania</label>
+              <input type="text" class="form-control" id="nazwa" name="nazwa" placeholder="Enter a Name"
+                     required="required" />
+              <label for="czas">Czas</label>
+              <input type="text" class="form-control" id="czas" name="czas" placeholder="Enter a Name"
+                     required="required" />
+              <label for="opis">Opis</label>
+              <input type="text" class="form-control" id="opis" name="opis" placeholder="Enter a Name"
+                     required="required" />
+              <input type="text" class="form-control" id="skladniki" name="skladniki" value="" style="display: none;" />
+              <label for="przepis">Przepis</label>
+              <input type="text" class="form-control" id="przepis" name="przepis" placeholder="Enter a Name"
+                     required="required" />
+              <label for="lista">Składniki</label>
+              {% for skladnik in skladniki %}
+              <div class="form-check">
+                     <label class="form-check-label">
+                            <input class="form-check-input" type="checkbox" value="{{skladnik.id}}" id="lista"
+                                   name="lista">
+                            {{skladnik.Nazwa}}</label>
+              </div>
+              {% endfor %}
+              <button type="submit" class="btn btn-primary">Potwierdź</button>
+       </form>
 </div>
 {% endblock %}

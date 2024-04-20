@@ -6,7 +6,7 @@
     display:none;
     }
 </style>
-<h1 style="color: #2E7D32; text-align: center;">Kuchnia Snafa</h1><br>
+<h1 class="logo">Kuchnia Snafa</h1><br>
 <div class="row seven-cols">
     <div class="col-md-1">
         <button type="button" class="btnKat btn btn-primary" data-bs-toggle="collapse"
@@ -133,6 +133,13 @@
     <button type="submit" class="btnGotowe btn btn-primary">Gotowe</button>
 </form>
 <br>
+
+{% if form!=null %}
+<h1>Produkty</h1>
+{% for x in SkladnikiWybrane %}
+<p>Składnik: {{x.Nazwa}};
+{% endfor %}
+{% endif %}
 
 {% if dania %}
 {% for danias in dania %}
