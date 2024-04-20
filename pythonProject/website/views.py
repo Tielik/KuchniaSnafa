@@ -61,6 +61,8 @@ def index():
                                SkladnikiWybrane=skladnikiWybrane)
     return render_template('index.html', Skladnikiz=skladniki)
 
+#session time XD
+
 @views.route('/danie/<int:id>', methods=['POST', 'GET'])
 def indexDanie(id):
     danie = db.session.query(Przepisy).filter(Przepisy.id == id).first()
