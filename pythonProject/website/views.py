@@ -106,7 +106,6 @@ def index():
         return render_template('index.html', Skladnikiz=skladniki)
 
 
-#session time XD
 @views.route('/usuwanie/<int:id>', methods=['POST', 'GET'])
 def indexUsuwanie(id):
     if session.get('skladniki') == None:
