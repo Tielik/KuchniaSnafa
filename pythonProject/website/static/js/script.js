@@ -1,4 +1,12 @@
 let wybrane = [];
+{% if skladnikiwybrane %}
+{%for x in  in SkladnikiWybrane %}
+let x={{x.id}}
+if x!=null{
+wybrane.push(x);
+}
+{%endfor%}
+{%endif%}
 let formField = document.querySelector(".formField");
 document.querySelector(".btnGotowe").style.display="none";
 function wybierzSkladnik(idProduktu, nazwaProduktu) {
@@ -40,3 +48,13 @@ function wybierzSkladnik(idProduktu, nazwaProduktu) {
         formField.append(pole);
     }
 }
+function delete(produktid){
+
+const index = wybrane.indexOf(produktid);
+
+const x = myArray.splice(index, 1);
+let pDoUsuniecia=document.getElementById(`$produktid}`);
+pDoUsuniecia.remove();
+
+}
+//funkcja od usuwania

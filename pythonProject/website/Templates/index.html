@@ -137,7 +137,7 @@
 {% if form!=null %}
 <h1>Produkty</h1>
 {% for x in SkladnikiWybrane %}
-<p>Składnik: {{x.Nazwa}};
+<p id="{{x.id}}">Składnik: {{x.Nazwa}}; <button type="button" class="btn float-end btn btn-danger" onClick="deleteP({{x.id}})">Usuń</button></p>
 {% endfor %}
 {% endif %}
 
@@ -154,4 +154,65 @@
 </div>
 {% endfor %}
 {%endif%}
+<script>
+    let wybrane = [];
+    let x ="";
+{% if SkladnikiWybrane %}
+{%for x in SkladnikiWybrane %}
+x+={{x.id}}+" ";
+{%endfor%}
+{%endif%}
+console.log(x);
+let formField = document.querySelector(".formField");
+document.querySelector(".btnGotowe").style.display="none";
+
+function wybierzSkladnik(idProduktu, nazwaProduktu) {
+    if(wybrane.includes(idProduktu)) {
+        return false;
+    }
+    else {
+        wybrane.push(idProduktu);
+        document.querySelector(".btnGotowe").style.display = "block";
+
+        let pole = document.createElement("div");
+        pole.setAttribute("class", "pole");
+
+        let nazwa = document.createElement("label");
+        nazwa.setAttribute("id", "nazwaProduktu");
+        nazwa.setAttribute("for", idProduktu);
+        nazwa.innerHTML = nazwaProduktu;
+
+        let ID = document.createElement("input");
+        ID.setAttribute("type", "text");
+        ID.setAttribute("id", idProduktu);
+        ID.setAttribute("name",idProduktu);
+        ID.setAttribute("style","display:none;");
+
+        let btn = document.createElement("button");
+        btn.setAttribute("type", "button");
+        btn.setAttribute("class", "btnUsun float-end btn btn-danger");
+        btn.innerHTML = "Usuń";
+        btn.onclick = () =>  {
+            formField.removeChild(pole);
+            wybrane.splice(wybrane.indexOf(idProduktu), 1);
+        }
+
+        pole.append(document.createElement("br"));
+        pole.append(nazwa);
+        pole.append(ID);
+        pole.append(btn);
+
+        formField.append(pole);
+    }
+}
+function deleteP(produktid){
+console.log(produktid);
+const index = wybrane.indexOf(produktid);
+
+const x = wybrane.splice(index, 1);
+let pDoUsuniecia=document.getElementById(produktid);
+pDoUsuniecia.remove();
+
+}
+</script>
 {% endblock %}
