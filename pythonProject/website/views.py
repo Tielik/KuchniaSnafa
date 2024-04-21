@@ -24,6 +24,7 @@ def index():
         SkladnikiUsera = ""
         id = 0
         f = request.form
+        print(f)
         listakey = []
         sessionstarter=""
         for key in f:
@@ -33,6 +34,7 @@ def index():
                 listakey.append(keys)
         listakey.sort()
         session['skladniki'] = sessionstarter
+        print(sessionstarter)
         for x in listakey:
             if len(listakey) - 1 > id:
                 lol = key + " "
@@ -99,7 +101,6 @@ def index():
             daniaDB = db.session.query(Przepisy).filter(Przepisy.id.in_(listaDan)).all()
         else:
             daniaDB = None
-        print("XDDDDDDDDDDDDDDD")
         return render_template('index.html', form=f, dania=daniaDB, Skladnikiz=skladniki,
                                SkladnikiWybrane=skladnikiWybrane, )
     else:

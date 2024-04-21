@@ -127,20 +127,20 @@
         </div>
     </div>
 </div>
+<h1>Twoje Składniki</h1>
 <form method="POST">
     <div class="formField"></div>
     <br>
-    <button type="submit" class="btnGotowe btn btn-primary">Gotowe</button>
-</form>
-<br>
-
-{% if form!=null %}
-<h1>Produkty</h1>
+    {% if form!=null %}
 {% for x in SkladnikiWybrane %}
-<p id="{{x.id}}">Składnik: {{x.Nazwa}}; <button type="button" class="btn float-end btn btn-danger" onClick="deleteP({{x.id}})">Usuń</button></p>
+<p id="{{x.id}}">{{x.Nazwa}}<input style="display:none;" type="text" name="{{x.id}}" value="{{x.id}}"> <button type="button" class="btn float-end btn btn-danger" onClick="deleteP({{x.id}})">Usuń</button></p>
 {% endfor %}
 {% endif %}
 
+    <button type="submit" class="btnGotowe btn btn-primary">Gotowe</button>
+</form>
+
+<br>
 {% if dania %}
 {% for danias in dania %}
 <div class="card" style="width: 18rem;">
@@ -162,7 +162,9 @@
 x+={{x.id}}+" ";
 {%endfor%}
 {%endif%}
-console.log(x);
+let array=x.split(" ");
+wybrane=array;
+console.log(wybrane);
 let formField = document.querySelector(".formField");
 document.querySelector(".btnGotowe").style.display="none";
 
@@ -192,6 +194,7 @@ function wybierzSkladnik(idProduktu, nazwaProduktu) {
         btn.setAttribute("type", "button");
         btn.setAttribute("class", "btnUsun float-end btn btn-danger");
         btn.innerHTML = "Usuń";
+        console.log(wybrane);
         btn.onclick = () =>  {
             formField.removeChild(pole);
             wybrane.splice(wybrane.indexOf(idProduktu), 1);
@@ -207,12 +210,13 @@ function wybierzSkladnik(idProduktu, nazwaProduktu) {
 }
 function deleteP(produktid){
 console.log(produktid);
-const index = wybrane.indexOf(produktid);
-
+const index = wybrane.indexOf((produktid).toString());
+console.log(index);
 const x = wybrane.splice(index, 1);
 let pDoUsuniecia=document.getElementById(produktid);
 pDoUsuniecia.remove();
-
+console.log(wybrane);
+document.querySelector(".btnGotowe").style.display = "block";
 }
 </script>
 {% endblock %}
