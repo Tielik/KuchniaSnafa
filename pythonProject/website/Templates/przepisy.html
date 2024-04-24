@@ -5,17 +5,17 @@
 <div class="container">
        <form method="POST">
               <label for="nazwa">Nazwa Dania</label>
-              <input type="text" class="form-control" id="nazwa" name="nazwa" placeholder="Enter a Name"
+              <input type="text" class="form-control" id="nazwa" name="nazwa" placeholder="Podaj nazwę dania"
                      required="required" />
               <label for="czas">Czas</label>
-              <input type="text" class="form-control" id="czas" name="czas" placeholder="Enter a Name"
+              <input type="text" class="form-control" id="czas" name="czas" placeholder="Podaj czas przygotowania"
                      required="required" />
               <label for="opis">Opis</label>
-              <input type="text" class="form-control" id="opis" name="opis" placeholder="Enter a Name"
+              <input type="text" class="form-control" id="opis" name="opis" placeholder="Podaj opis przepisu"
                      required="required" />
-              <input type="text" class="form-control" id="skladniki" name="skladniki" value="" style="display: none;" />
+              <input type="hidden" class="form-control" id="skladniki" name="skladniki" value=""/>
               <label for="przepis">Przepis</label>
-              <input type="text" class="form-control" id="przepis" name="przepis" placeholder="Enter a Name"
+              <input type="text" class="form-control" id="przepis" name="przepis" placeholder="Podaj opis wykonania"
                      required="required" />
               <label for="lista">Składniki</label>
               {% for skladnik in skladniki %}
