@@ -1,11 +1,6 @@
 {% extends "base.html" %}
 {% block title %}Kuchnia Snafa{% endblock %}
 {% block content %}
-<style>
-    #lol {
-        display: none;
-    }
-</style>
 <h1 class="logo">Kuchnia Snafa</h1><br>
 <div class="row seven-cols">
     <div class="col-md-1">
@@ -127,37 +122,46 @@
             {% endif %}
         </div>
     </div>
-</div>
-<br>
-<h1 class="twojeSkladniki">Twoje Składniki</h1>
-<form method="POST">
-    <div class="formField"></div>
     <br>
-    <div class="skladnikiField">
-    {% if form!=null %}
-    {% for x in SkladnikiWybrane %}
-    <p id="{{x.id}}">{{x.Nazwa}}<input style="display:none;" type="text" name="{{x.id}}" value="{{x.id}}"> <button
-            type="button" class="btn float-end btn btn-danger" onClick="deleteP('{{x.id}}')">Usuń</button></p>
-    {% endfor %}
-    {% endif %}
-    </div>
+    <h1 class="twojeSkladniki">Twoje Składniki</h1>
+    <form method="POST">
+        <div class="formField row"></div>
+        <div class="skladnikiField row border rounded border-dark-subtle">
+            {% if form!=null %}
+            {% for x in SkladnikiWybrane %}
+            <div class="col-sm-4 py-2">
+                <div class="py-4" id="{{x.id}}">
+                    {{x.Nazwa}}
+                    <input style="display:none;" type="text" name="{{x.id}}" value="{{x.id}}">
+                    <button type="button" class="btnUsun float-end btn btn-danger"
+                        onClick="deleteP('{{x.id}}')">Usuń</button>
+                </div>
+            </div>
+            {% endfor %}
+            {% endif %}
+        </div>
 
-    <button type="submit" class="btnGotowe btn btn-primary">Gotowe</button>
-</form>
+        <button type="submit" class="btnGotowe btn btn-primary">Gotowe</button>
+    </form>
 
-<br>
-{% if dania %}
-{% for danias in dania %}
-<div class="card" style="width: 18rem;">
-    {%set var=danias.id|string %}
-    <img src="{{url_for('static', filename='img/'+var+'.png')}}" class="card-img-top" alt="...">
-    <div class="card-body">
-        <h5 class="card-title">{{danias.nazwa}}</h5>
-        <p class="card-text">{{danias.opis}}</p>
-        <a href="/danie/{{danias.id}}" class="btn btn-primary">Przejdź do przepisu</a>
+    {% if dania %}
+    <div class="rounded row row-cols-1 row-cols-md-3">
+        {% for danias in dania %}
+        <div class="col">
+            <br>
+            <div class="card h-100" style="width: 18rem;">
+                {%set var=danias.id|string %}
+                <img src="{{url_for('static', filename='img/'+var+'.png')}}" class="card-img-top" alt="...">
+                <div class="card-body">
+                    <h5 class="card-title">{{danias.nazwa}}</h5>
+                    <p class="card-text">{{danias.opis}}</p>
+                    <a href="/danie/{{danias.id}}" class="btn btn-primary">Przejdź do przepisu</a>
+                </div>
+            </div>
+        </div>
+        {% endfor %}
     </div>
 </div>
-{% endfor %}
 {%endif%}
 <script>
     let wybrane = [];
@@ -170,11 +174,12 @@
     let array = x.split(" ");
     wybrane = array;
     console.log(wybrane);
-    document.querySelector(".btnGotowe").style.display = "none";
+    let btnGotowe = document.querySelector(".btnGotowe");
+    btnGotowe.style.display = "none";
     let formField = document.querySelector(".formField");
-    let skladnikiField = document.querySelector(".skladnikiField");
+    let skladnikiField = document.querySelector(".skladnikiField.row");
     let twojeSkladniki = document.querySelector(".twojeSkladniki");
-    if(formField.innerHTML.trim().length == 0 && skladnikiField.innerHTML.trim().length == 0)
+    if (formField.innerHTML.trim().length == 0 && skladnikiField.innerHTML.trim().length == 0)
         twojeSkladniki.style.display = "none";
     else
         twojeSkladniki.style.display = "block";
@@ -186,10 +191,9 @@
         else {
             twojeSkladniki.style.display = "block";
             wybrane.push(idProduktu);
-            document.querySelector(".btnGotowe").style.display = "block";
+            btnGotowe.style.display = "block";
 
-            let pole = document.createElement("div");
-            pole.setAttribute("class", "pole");
+
 
             let nazwa = document.createElement("label");
             nazwa.setAttribute("id", "nazwaProduktu");
@@ -202,24 +206,30 @@
             ID.setAttribute("name", idProduktu);
             ID.setAttribute("style", "display:none;");
 
-            let btn = document.createElement("button");
-            btn.setAttribute("type", "button");
-            btn.setAttribute("class", "btnUsun float-end btn btn-danger");
-            btn.innerHTML = "Usuń";
+            let btnUsun = document.createElement("button");
+            btnUsun.setAttribute("type", "button");
+            btnUsun.setAttribute("class", "btnUsun float-end btn btn-danger");
+            btnUsun.innerHTML = "Usuń";
             console.log(wybrane);
-            btn.onclick = () => {
-                formField.removeChild(pole);
+            btnUsun.onclick = () => {
+                formField.removeChild(poleMain);
                 wybrane.splice(wybrane.indexOf(idProduktu), 1);
-                if(formField.innerHTML.trim().length == 0)
+                if (formField.innerHTML.trim().length == 0) {
                     twojeSkladniki.style.display = "none";
+                }
             }
 
-            pole.append(document.createElement("br"));
+            let pole = document.createElement("div");
+            pole.setAttribute("class", "py-4");
             pole.append(nazwa);
             pole.append(ID);
-            pole.append(btn);
+            pole.append(btnUsun);
 
-            formField.append(pole);
+            let poleMain = document.createElement("div");
+            poleMain.setAttribute("class", "col-sm-4 py-2 px-2");
+            poleMain.append(pole);
+
+            formField.append(poleMain);
         }
     }
     function deleteP(produktid) {
@@ -229,19 +239,21 @@
         const x = wybrane.splice(index, 1);
         let pDoUsuniecia = document.getElementById(produktid);
         pDoUsuniecia.remove();
-        console.log(wybrane);
-        if(skladnikiField.innerHTML.trim().length == 0){
+        console.log("chuj " + produktid);
+        if (skladnikiField.innerHTML.trim().length == 0) {
             twojeSkladniki.style.display = "none";
-            document.querySelector(".btnGotowe").style.display = "none";
+            btnGotowe.style.display = "none";
         }
-        else
-            document.querySelector(".btnGotowe").style.display = "block";
+        else {
+            btnGotowe.style.display = "block";
+        }
+        btnGotowe.click();
     }
     function katChange(kat) {
         const katBtn = document.getElementById(kat);
         // const btnID = (kat.replace('kat', '')).toLowerCase();
         // const skladnikiDiv = document.getElementById(btnID);
-        isClicked= katBtn.getAttribute("aria-expanded");
+        isClicked = katBtn.getAttribute("aria-expanded");
         if (isClicked == "true")
             katBtn.classList.add("katClicked");
         else if (isClicked == "false")

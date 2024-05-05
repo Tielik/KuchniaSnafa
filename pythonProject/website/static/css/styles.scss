@@ -71,7 +71,7 @@
 }
 
 body {
-    background-color: #f5f5f5;
+    background-color: #ffffff;
 }
 
 .btnGotowe {
@@ -141,4 +141,6 @@ $danger-color: #f44336;
     --bs-btn-active-border-color: #{darken($danger-color, 15%)};
     --bs-btn-disabled-bg: #{$danger-color};
     --bs-btn-disabled-border-color: #{$danger-color};
+    padding-top: 0;
+    padding-bottom: 0;
 }
