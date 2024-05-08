@@ -126,10 +126,11 @@
     <h1 class="twojeSkladniki">Twoje Składniki</h1>
     <form method="POST">
         <div class="formField row"></div>
-        <div class="skladnikiField row border rounded border-dark-subtle">
             {% if form!=null %}
+            {# <div class="skladnikiField row border rounded border-dark-subtle"> #}
+            <div class="skladnikiField row">
             {% for x in SkladnikiWybrane %}
-            <div class="col-sm-4 py-2">
+            <div class="col-sm-3 py-2">
                 <div class="py-4" id="{{x.id}}">
                     {{x.Nazwa}}
                     <input style="display:none;" type="text" name="{{x.id}}" value="{{x.id}}">
@@ -138,8 +139,8 @@
                 </div>
             </div>
             {% endfor %}
+            </div>
             {% endif %}
-        </div>
 
         <button type="submit" class="btnGotowe btn btn-primary">Gotowe</button>
     </form>
@@ -226,7 +227,7 @@
             pole.append(btnUsun);
 
             let poleMain = document.createElement("div");
-            poleMain.setAttribute("class", "col-sm-4 py-2 px-2");
+            poleMain.setAttribute("class", "col-sm-3 py-2");
             poleMain.append(pole);
 
             formField.append(poleMain);
@@ -242,11 +243,8 @@
         console.log("chuj " + produktid);
         if (skladnikiField.innerHTML.trim().length == 0) {
             twojeSkladniki.style.display = "none";
-            btnGotowe.style.display = "none";
         }
-        else {
-            btnGotowe.style.display = "block";
-        }
+        btnGotowe.style.display = "none";
         btnGotowe.click();
     }
     function katChange(kat) {

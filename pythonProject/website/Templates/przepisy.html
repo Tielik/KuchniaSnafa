@@ -3,7 +3,7 @@
 
 {% block content %}
 <div class="container">
-       <form method="POST">
+       <form method="POST" enctype="multipart/form-data">
               <label for="nazwa">Nazwa Dania</label>
               <input type="text" class="form-control" id="nazwa" name="nazwa" placeholder="Podaj nazwę dania"
                      required="required" />
@@ -13,7 +13,7 @@
               <label for="opis">Opis</label>
               <input type="text" class="form-control" id="opis" name="opis" placeholder="Podaj opis przepisu"
                      required="required" />
-              <input type="hidden" class="form-control" id="skladniki" name="skladniki" value=""/>
+              <input type="hidden" class="form-control" id="skladniki" name="skladniki" value="" />
               <label for="przepis">Przepis</label>
               <input type="text" class="form-control" id="przepis" name="przepis" placeholder="Podaj opis wykonania"
                      required="required" />
@@ -26,6 +26,11 @@
                             {{skladnik.Nazwa}}</label>
               </div>
               {% endfor %}
+              <label for="formFile" class="form-label">Grafika</label>
+              <input class="form-control" type="file" id="grafika" name="grafika"
+                     accept="image/png, image/jpg, image/jpeg, image/webp">
+              Obsługiwane formaty: .png, .jpg, .jpeg, .webp
+              <br><br>
               <button type="submit" class="btn btn-primary">Potwierdź</button>
        </form>
 </div>

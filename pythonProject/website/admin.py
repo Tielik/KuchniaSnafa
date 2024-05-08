@@ -5,6 +5,7 @@ from werkzeug.security import check_password_hash, generate_password_hash
 from sqlalchemy import select, engine
 from . import db
 from .models import Admin, Przepisy, Skladniki  # Skladniki Przepisy
+import os
 
 admin = Blueprint('admin', __name__)
 
@@ -87,10 +88,21 @@ def przepisy():
             ListaSkladnikow = " ".join(ListaSkladnikow)
             przepis = Przepisy(nazwa=nazwa, czas=czas, opis=opis, skladniki=skladniki, przepis=przepis,
                                ListaSkladnikow=ListaSkladnikow)
-            db.session.add(przepis)
-            db.session.commit()
-            flash('Przepis został dodany!', category='success')
-            return redirect('/admin')
+            grafika = request.files['grafika']
+            grafika_name = grafika.filename
+            if grafika_name != '':
+                grafika_ext = os.path.splitext(grafika_name)[1]
+                if grafika_ext in ['.png', '.jpg', '.jpeg', '.webp']:
+                    grafika_name = grafika_name.replace(grafika_ext, '.png')
+                    grafika.save(os.path.join('website/static/img', grafika_name))
+#Trzeba jeszcze zrobic aby nazwa dodanej grafiki zapisywala sie jako ID przepisu
+                    db.session.add(przepis)
+                    db.session.commit()
+                    flash('Przepis został dodany!', category='success')
+                    return redirect('/admin')
+                else:
+                    flash('Nieprawidłowy format grafiki!', category='error')
+                    return redirect('/admin/Przepisy')
         return render_template('przepisy.html', skladniki=skladniki)
     return redirect('/')
 
@@ -171,7 +183,19 @@ def editP(id):
             przepis.ListaSkladnikow = request.form.getlist('lista')
             przepis.ListaSkladnikow = " ".join(przepis.ListaSkladnikow)
             db.session.commit()
-            flash('Przepis został edytowany!', category='success')
-            return redirect('/admin')
+            przepis.grafika = request.files['grafika']
+            grafika_name = przepis.grafika.filename
+            if grafika_name != '':
+                grafika_ext = os.path.splitext(grafika_name)[1]
+                if grafika_ext in ['.png', '.jpg', '.jpeg', '.webp']:
+                    grafika_name = grafika_name.replace(grafika_ext, '.png')
+                    przepis.grafika.save(os.path.join('website/static/img', grafika_name))
+                    db.session.add(przepis)
+                    db.session.commit()
+                    flash('Przepis został edytowany!', category='success')
+                    return redirect('/admin')
+                else:
+                    flash('Nieprawidłowy format grafiki!', category='error')
+                    return redirect(f'/admin/edit/przepis/{id}')
         return render_template('editPrzepis.html', przepis=przepis, skladniki=skladniki)
     return redirect('/')
