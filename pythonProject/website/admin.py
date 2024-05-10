@@ -93,9 +93,11 @@ def przepisy():
             if grafika_name != '':
                 grafika_ext = os.path.splitext(grafika_name)[1]
                 if grafika_ext in ['.png', '.jpg', '.jpeg', '.webp']:
+                    dishCounter=db.session.query(Przepisy).count()
+                    dishCounter += 1
+                    grafika_name = str(dishCounter)
                     grafika_name = grafika_name.replace(grafika_ext, '.png')
                     grafika.save(os.path.join('website/static/img', grafika_name))
-#Trzeba jeszcze zrobic aby nazwa dodanej grafiki zapisywala sie jako ID przepisu
                     db.session.add(przepis)
                     db.session.commit()
                     flash('Przepis został dodany!', category='success')
