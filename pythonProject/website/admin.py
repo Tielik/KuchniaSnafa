@@ -94,7 +94,7 @@ def przepisy():
                 grafika_ext = os.path.splitext(grafika_name)[1]
                 if grafika_ext in ['.png', '.jpg', '.jpeg', '.webp']:
                     dishCounter=db.session.query(Przepisy).count()
-                    dishCounter += 1
+                    #dishCounter += 1 to nie jest pewnie potrzebne bo count nie liczy od zera XD
                     grafika_name = str(dishCounter)
                     grafika_name = grafika_name.replace(grafika_ext, '.png')
                     grafika.save(os.path.join('website/static/img', grafika_name))
