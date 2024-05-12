@@ -93,9 +93,12 @@ def przepisy():
             if grafika_name != '':
                 grafika_ext = os.path.splitext(grafika_name)[1]
                 if grafika_ext in ['.png', '.jpg', '.jpeg', '.webp']:
-                    dishCounter=db.session.query(Przepisy).count()
-                    dishCounter += 1
-                    grafika_name = str(dishCounter) + '.png'
+                    # Pobranie id ostatniego przepisu jako string <Przepisy id>
+                    przepis_last_id = str(db.session.query(Przepisy).order_by(Przepisy.id.desc()).first())
+                    # Utworzenie nowego id poprzez inkrementacje wyciagnietego id ze stringa <Przepisy id>
+                    przepis_new_id = int(''.join(x for x in przepis_last_id if x.isdigit())) + 1
+                    # Zapisanie nazwy grafiki jako id.png
+                    grafika_name = str(przepis_new_id) + '.png'
                     grafika.save(os.path.join('website/static/img', grafika_name))
                     db.session.add(przepis)
                     db.session.commit()
