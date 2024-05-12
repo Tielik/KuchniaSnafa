@@ -94,11 +94,6 @@ body {
   border-bottom-left-radius: 0.375rem;
 }
 
-.logo {
-  color: #347c37;
-  text-align: center;
-}
-
 .btn-primary {
   --bs-btn-bg: #43a047;
   --bs-btn-border-color: #43a047;
@@ -108,12 +103,6 @@ body {
   --bs-btn-active-border-color: #2c6a2f;
   --bs-btn-disabled-bg: #43a047;
   --bs-btn-disabled-border-color: #43a047;
-}
-
-.btn-light {
-  --bs-btn-border-color: #43a047;
-  --bs-btn-hover-border-color: #347c37;
-  --bs-btn-active-border-color: #2c6a2f;
 }
 
 .btn-danger {
@@ -127,4 +116,21 @@ body {
   --bs-btn-disabled-border-color: #f44336;
   padding-top: 0;
   padding-bottom: 0;
+}
+
+.btn-light {
+  --bs-btn-border-color: #43a047;
+  --bs-btn-hover-border-color: #347c37;
+  --bs-btn-active-border-color: #2c6a2f;
+}
+
+.logo {
+  color: #347c37;
+  text-align: center;
+}
+
+.siteImg {
+  height: auto;
+  max-width: 50%;
+  display: block;
 }

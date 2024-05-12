@@ -125,5 +125,6 @@ def index():
 
 @views.route('/danie/<int:id>', methods=['POST', 'GET'])
 def indexDanie(id):
+    skladniki = db.session.query(Skladniki)
     danie = db.session.query(Przepisy).filter(Przepisy.id == id).first()
-    return render_template('dishSite.html', danie=danie,url_path=url_for('static',filename='img/'+str(danie.id)+'.png'))
+    return render_template('dishSite.html', skladniki=skladniki, danie=danie,url_path=url_for('static',filename='img/'+str(danie.id)+'.png'))

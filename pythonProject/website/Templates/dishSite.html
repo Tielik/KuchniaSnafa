@@ -2,19 +2,6 @@
 
 {% block title %}Kuchnia Snafa{% endblock %}
 {% block content %}
-<style>
-  body{
-    background-color: #2E3440;
-    color:#D8DEE9;
-  }
-  H3{
-    background-color: #4C566A;
-    }
-  #MAINTEXT{
-    background-color: #434C5E;
-    }
-
-</style>
     <div class="container">
       <div class="row">
         <div class="col-12 d-flex justify-content-center">
@@ -23,7 +10,7 @@
       </div>
       <div class="row">
         <div class="col-12 d-flex justify-content-center ">
-          <h3><img src="{{url_path}}" ></h3>
+          <h3><img class="siteImg mx-auto" src="{{url_path}}"></h3>
         </div>
       </div>
       <div class="row">
@@ -48,6 +35,11 @@
     </div>
     <div class="col-12" id="MAINTEXT">
       {{danie.skladniki}}
+      {% for skladnik in skladniki %}
+      {% if skladnik.id|string in danie.ListaSkladnikow %}
+        &#8226; {{skladnik.Nazwa}} <br>
+      {% endif %}
+      {% endfor %}
     </div>
     <div class="col-12">
       <h3>Plan działania</h3>
@@ -57,7 +49,7 @@
     </div>
     <div class="col-12 text-center">
           <a href="/">
-            Go to back to recipes.
+           Powrót do strony głównej
           </a>
         </div>
 
