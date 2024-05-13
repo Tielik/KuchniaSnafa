@@ -56,7 +56,7 @@ def change_password():
     if current_user.is_authenticated:
         admin = Admin.query.filter_by(name=current_user.name).first()
         if request.method == 'POST':
-            name = request.form.get('Admin')
+            name = request.form.get('admin')
             password = request.form.get('password')
             user = Admin.query.filter_by(name=name).first()
             user.password = generate_password_hash(password)

@@ -2,58 +2,57 @@
 
 {% block title %}Kuchnia Snafa{% endblock %}
 {% block content %}
-    <div class="container">
-      <div class="row">
-        <div class="col-12 d-flex justify-content-center">
-          <h1>{{danie.nazwa}}</h1>
-        </div>
-      </div>
-      <div class="row">
-        <div class="col-12 d-flex justify-content-center ">
-          <h3><img class="siteImg mx-auto" src="{{url_path}}"></h3>
-        </div>
-      </div>
-      <div class="row">
-        <div class="col-12">
-        </div>
-      </div>
+<div class="container">
+  <div class="row">
+    <div class="col-12 d-flex justify-content-center">
+      <h1>{{danie.nazwa}}</h1>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-12 d-flex justify-content-center ">
+      <img class="site-img mx-auto" src="{{url_path}}">
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-12">
+    </div>
+  </div>
   <div class="rows">
     <div class="col-12">
       <h3>Czas przygotowania</h3>
     </div>
-    <div class="col-12" id="MAINTEXT">
+    <div class="col-12">
       {{danie.czas}}
     </div>
     <div class="col-12">
       <h3>Opis</h3>
     </div>
-    <div class="col-12" id="MAINTEXT">
+    <div class="col-12">
       {{danie.opis}}
     </div>
     <div class="col-12">
       <h3>Składniki</h3>
     </div>
-    <div class="col-12" id="MAINTEXT">
-      {{danie.skladniki}}
+    <div class="col-12">
       {% for skladnik in skladniki %}
       {% if skladnik.id|string in danie.ListaSkladnikow %}
-        &#8226; {{skladnik.Nazwa}} <br>
+      &#8226; {{skladnik.Nazwa}} <br>
       {% endif %}
       {% endfor %}
     </div>
     <div class="col-12">
       <h3>Plan działania</h3>
     </div>
-    <div class="col-12" id="MAINTEXT">
+    <div class="col-12">
       {{danie.przepis}}
     </div>
     <div class="col-12 text-center">
-          <a href="/">
-           Powrót do strony głównej
-          </a>
-        </div>
+      <a href="/">
+        Powrót do strony głównej
+      </a>
+    </div>
 
   </div>
-    </div>
+</div>
 
 {% endblock %}
