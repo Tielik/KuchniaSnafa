@@ -7,15 +7,15 @@ wybrane.push(x);
 }
 {%endfor%}
 {%endif%}
-let formField = document.querySelector(".formField");
-document.querySelector(".btnGotowe").style.display="none";
+let formfield = document.querySelector(".formfield");
+document.querySelector(".btn-gotowe").style.display="none";
 function wybierzSkladnik(idProduktu, nazwaProduktu) {
     if(wybrane.includes(idProduktu)) {
         return false;
     }
     else {
         wybrane.push(idProduktu);
-        document.querySelector(".btnGotowe").style.display = "block";
+        document.querySelector(".btn-gotowe").style.display = "block";
 
         let pole = document.createElement("div");
         pole.setAttribute("class", "pole");
@@ -33,10 +33,10 @@ function wybierzSkladnik(idProduktu, nazwaProduktu) {
 
         let btn = document.createElement("button");
         btn.setAttribute("type", "button");
-        btn.setAttribute("class", "btnUsun float-end btn btn-danger");
+        btn.setAttribute("class", "btn-usun float-end btn btn-danger");
         btn.innerHTML = "Usuń";
         btn.onclick = () =>  {
-            formField.removeChild(pole);
+            formfield.removeChild(pole);
             wybrane.splice(wybrane.indexOf(idProduktu), 1);
         }
 
@@ -45,7 +45,7 @@ function wybierzSkladnik(idProduktu, nazwaProduktu) {
         pole.append(ID);
         pole.append(btn);
 
-        formField.append(pole);
+        formfield.append(pole);
     }
 }
 function delete(produktid){

@@ -1,15 +1,15 @@
 @media only screen and (max-width: 1920px) {
-  .btnKat {
+  .btn-kat {
     height: 100px;
   }
 }
 @media only screen and (min-width: 1921px) and (max-width: 3839px) {
-  .btnKat {
+  .btn-kat {
     height: 129px;
   }
 }
 @media only screen and (min-width: 3840px) {
-  .btnKat {
+  .btn-kat {
     height: 197px;
   }
 }
@@ -62,11 +62,11 @@ body {
   background-color: #ffffff;
 }
 
-.btnGotowe {
+.btn-gotowe {
   align-items: end;
 }
 
-.btnIlosc {
+.btn-ilosc {
   width: 100%;
 }
 
@@ -74,22 +74,22 @@ body {
   margin: auto;
 }
 
-.btnKat {
+.btn-kat {
   width: 100%;
 }
 
-.katClicked {
+.kat-clicked {
   border-bottom-right-radius: 0%;
   border-bottom-left-radius: 0%;
 }
 
-.btnProd {
+.btn-prod {
   border-radius: 0%;
   border-top: none;
   width: 100%;
 }
 
-.divKat > :last-child {
+.div-kat > :last-child {
   border-bottom-right-radius: 0.375rem;
   border-bottom-left-radius: 0.375rem;
 }
@@ -129,7 +129,7 @@ body {
   text-align: center;
 }
 
-.siteImg {
+.site-img {
   height: auto;
   max-width: 50%;
   display: block;

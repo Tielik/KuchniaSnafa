@@ -4,14 +4,14 @@
 <h1 class="logo">Kuchnia Snafa</h1><br>
 <div class="row seven-cols">
     <div class="col-md-1">
-        <button type="button" class="btnKat btn btn-primary" id="katZbozowe" onClick="katChange('katZbozowe')"
+        <button type="button" class="btn-kat btn btn-primary" id="kat-zbozowe" onClick="katChange('kat-zbozowe')"
             data-bs-toggle="collapse" data-bs-target="#zbozowe">Produkty zbożowe
         </button>
-        <div class="collapse multi-collapse divKat" id="zbozowe">
+        <div class="collapse multi-collapse div-kat" id="zbozowe">
             {% if Skladnikiz %}
             {% for x in Skladnikiz %}
             {% if x.kategoria == 1 %}
-            <button type="button" class="btnProd btn btn-light" id="zbozowe{{x}}"
+            <button type="button" class="btn-prod btn btn-light" id="zbozowe{{x}}"
                 onClick="wybierzSkladnik('{{x.id}}', '{{x.Nazwa}}')">{{x.Nazwa}}
             </button>
 
@@ -21,14 +21,14 @@
         </div>
     </div>
     <div class="col-md-1">
-        <button type="button" class="btnKat btn btn-primary" id="katWarzywa" onClick="katChange('katWarzywa')"
+        <button type="button" class="btn-kat btn btn-primary" id="kat-warzywa" onClick="katChange('kat-warzywa')"
             data-bs-toggle="collapse" data-bs-target="#warzywa">Warzywa
         </button>
-        <div class="collapse multi-collapse divKat" id="warzywa">
+        <div class="collapse multi-collapse div-kat" id="warzywa">
             {% if Skladnikiz %}
             {% for x in Skladnikiz %}
             {% if x.kategoria == 2 %}
-            <button type="button" class="btnProd btn btn-light"
+            <button type="button" class="btn-prod btn btn-light"
                 onClick="wybierzSkladnik('{{x.id}}', '{{x.Nazwa}}')">{{x.Nazwa}}
             </button>
 
@@ -38,14 +38,14 @@
         </div>
     </div>
     <div class="col-md-1">
-        <button type="button" class="btnKat btn btn-primary" id="katOwoce" onClick="katChange('katOwoce')"
+        <button type="button" class="btn-kat btn btn-primary" id="kat-owoce" onClick="katChange('kat-owoce')"
             data-bs-toggle="collapse" data-bs-target="#owoce">Owoce
         </button>
-        <div class="collapse multi-collapse divKat" id="owoce">
+        <div class="collapse multi-collapse div-kat" id="owoce">
             {% if Skladnikiz %}
             {% for x in Skladnikiz %}
             {% if x.kategoria == 3 %}
-            <button type="button" class="btnProd btn btn-light"
+            <button type="button" class="btn-prod btn btn-light"
                 onClick="wybierzSkladnik('{{x.id}}', '{{x.Nazwa}}')">{{x.Nazwa}}
             </button>
             {% endif %}
@@ -54,15 +54,15 @@
         </div>
     </div>
     <div class="col-md-1">
-        <button type="button" class="btnKat btn btn-primary" id="katMleczne" onClick="katChange('katMleczne')"
+        <button type="button" class="btn-kat btn btn-primary" id="kat-mleczne" onClick="katChange('kat-mleczne')"
             data-bs-toggle="collapse" data-bs-target="#mleczne">Mleko i
             produkty mleczne
         </button>
-        <div class="collapse multi-collapse divKat" id="mleczne">
+        <div class="collapse multi-collapse div-kat" id="mleczne">
             {% if Skladnikiz %}
             {% for x in Skladnikiz %}
             {% if x.kategoria == 4 %}
-            <button type="button" class="btnProd btn btn-light"
+            <button type="button" class="btn-prod btn btn-light"
                 onClick="wybierzSkladnik('{{x.id}}', '{{x.Nazwa}}')">{{x.Nazwa}}
             </button>
 
@@ -72,15 +72,15 @@
         </div>
     </div>
     <div class="col-md-1">
-        <button type="button" class="btnKat btn btn-primary" id="katZwierzece" onClick="katChange('katZwierzece')"
+        <button type="button" class="btn-kat btn btn-primary" id="kat-zwierzece" onClick="katChange('kat-zwierzece')"
             data-bs-toggle="collapse" data-bs-target="#zwierzece">Produkty
             pochodzenia zwierzęcego
         </button>
-        <div class="collapse multi-collapse divKat" id="zwierzece">
+        <div class="collapse multi-collapse div-kat" id="zwierzece">
             {% if Skladnikiz %}
             {% for x in Skladnikiz %}
             {% if x.kategoria == 5 %}
-            <button type="button" class="btnProd btn btn-light"
+            <button type="button" class="btn-prod btn btn-light"
                 onClick="wybierzSkladnik('{{x.id}}', '{{x.Nazwa}}')">{{x.Nazwa}}
             </button>
             {% endif %}
@@ -89,14 +89,14 @@
         </div>
     </div>
     <div class="col-md-1">
-        <button type="button" class="btnKat btn btn-primary" id="katTluszcze" onClick="katChange('katTluszcze')"
+        <button type="button" class="btn-kat btn btn-primary" id="kat-tluszcze" onClick="katChange('kat-tluszcze')"
             data-bs-toggle="collapse" data-bs-target="#tluszcze">Tłuszcze
         </button>
-        <div class="collapse multi-collapse divKat" id="tluszcze">
+        <div class="collapse multi-collapse div-kat" id="tluszcze">
             {% if Skladnikiz %}
             {% for x in Skladnikiz %}
             {% if x.kategoria == 6 %}
-            <button type="button" class="btnProd btn btn-light"
+            <button type="button" class="btn-prod btn btn-light"
                 onClick="wybierzSkladnik('{{x.id}}', '{{x.Nazwa}}')">{{x.Nazwa}}
             </button>
 
@@ -106,14 +106,14 @@
         </div>
     </div>
     <div class="col-md-1">
-        <button type="button" class="btnKat btn btn-primary" id="katPrzyprawy" onClick="katChange('katPrzyprawy')"
+        <button type="button" class="btn-kat btn btn-primary" id="kat-przyprawy" onClick="katChange('kat-przyprawy')"
             data-bs-toggle="collapse" data-bs-target="#przyprawy">Przyprawy
         </button>
-        <div class="collapse multi-collapse divKat" id="przyprawy">
+        <div class="collapse multi-collapse div-kat" id="przyprawy">
             {% if Skladnikiz %}
             {% for x in Skladnikiz %}
             {% if x.kategoria == 7 %}
-            <button type="button" class="btnProd btn btn-light"
+            <button type="button" class="btn-prod btn btn-light"
                 onClick="wybierzSkladnik('{{x.id}}', '{{x.Nazwa}}')">{{x.Nazwa}}
             </button>
 
@@ -125,24 +125,24 @@
     <br>
     <h1 class="twojeSkladniki">Twoje Składniki</h1>
     <form method="POST">
-        <div class="formField row"></div>
-            {% if form!=null %}
-            {# <div class="skladnikiField row border rounded border-dark-subtle"> #}
+        <div class="formfield row"></div>
+        {% if form!=null %}
+        {# <div class="skladnikiField row border rounded border-dark-subtle"> #}
             <div class="skladnikiField row">
-            {% for x in SkladnikiWybrane %}
-            <div class="col-sm-3 py-2">
-                <div class="py-4" id="{{x.id}}">
-                    {{x.Nazwa}}
-                    <input style="display:none;" type="text" name="{{x.id}}" value="{{x.id}}">
-                    <button type="button" class="btnUsun float-end btn btn-danger"
-                        onClick="deleteP('{{x.id}}')">Usuń</button>
+                {% for x in SkladnikiWybrane %}
+                <div class="col-sm-3 py-2">
+                    <div class="py-4" id="{{x.id}}">
+                        {{x.Nazwa}}
+                        <input style="display:none;" type="text" name="{{x.id}}" value="{{x.id}}">
+                        <button type="button" class="btn-usun float-end btn btn-danger"
+                            onClick="deleteP('{{x.id}}')">Usuń</button>
+                    </div>
                 </div>
-            </div>
-            {% endfor %}
+                {% endfor %}
             </div>
             {% endif %}
 
-        <button type="submit" class="btnGotowe btn btn-primary">Gotowe</button>
+            <button type="submit" class="btn-gotowe btn btn-primary">Gotowe</button>
     </form>
 
     {% if dania %}
@@ -178,12 +178,12 @@
     let array = x.split(" ");
     wybrane = array;
     console.log(wybrane);
-    let btnGotowe = document.querySelector(".btnGotowe");
+    let btnGotowe = document.querySelector(".btn-gotowe");
     btnGotowe.style.display = "none";
-    let formField = document.querySelector(".formField");
+    let formfield = document.querySelector(".formfield");
     let skladnikiField = document.querySelector(".skladnikiField.row");
     let twojeSkladniki = document.querySelector(".twojeSkladniki");
-    if (formField.innerHTML.trim().length == 0 && skladnikiField.innerHTML.trim().length == 0)
+    if (formfield.innerHTML.trim().length == 0 && skladnikiField.innerHTML.trim().length == 0)
         twojeSkladniki.style.display = "none";
     else
         twojeSkladniki.style.display = "block";
@@ -207,8 +207,6 @@
             wybrane.push(idProduktu);
             btnGotowe.style.display = "block";
 
-
-
             let nazwa = document.createElement("label");
             nazwa.setAttribute("id", "nazwaProduktu");
             nazwa.setAttribute("for", idProduktu);
@@ -222,13 +220,13 @@
 
             let btnUsun = document.createElement("button");
             btnUsun.setAttribute("type", "button");
-            btnUsun.setAttribute("class", "btnUsun float-end btn btn-danger");
+            btnUsun.setAttribute("class", "btn-usun float-end btn btn-danger");
             btnUsun.innerHTML = "Usuń";
             console.log(wybrane);
             btnUsun.onclick = () => {
-                formField.removeChild(poleMain);
+                formfield.removeChild(poleMain);
                 wybrane.splice(wybrane.indexOf(idProduktu), 1);
-                if (formField.innerHTML.trim().length == 0) {
+                if (formfield.innerHTML.trim().length == 0) {
                     twojeSkladniki.style.display = "none";
                 }
             }
@@ -243,7 +241,7 @@
             poleMain.setAttribute("class", "col-sm-3 py-2");
             poleMain.append(pole);
 
-            formField.append(poleMain);
+            formfield.append(poleMain);
         }
     }
 // Deletes a product from the list of selected products.
@@ -274,15 +272,12 @@
 // Returns:
 // - None
     function katChange(kat) {
-        const katBtn = document.getElementById(kat);
-        // const btnID = (kat.replace('kat', '')).toLowerCase();
-        // const skladnikiDiv = document.getElementById(btnID);
-        isClicked = katBtn.getAttribute("aria-expanded");
+        const btnKat = document.getElementById(kat);
+        isClicked = btnKat.getAttribute("aria-expanded");
         if (isClicked == "true")
-            katBtn.classList.add("katClicked");
+            btnKat.classList.add("kat-clicked");
         else if (isClicked == "false")
-            katBtn.classList.remove("katClicked");
-        console.log(isClicked);
+            btnKat.classList.remove("kat-clicked");
     }
 </script>
 {% endblock %}
