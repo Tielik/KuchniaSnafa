@@ -167,6 +167,9 @@
 <script>
     let wybrane = [];
     let x = "";
+    //if skladnikiwybrane is not null
+    //for each x in skladnikiwybrane
+    //add them to wybrane so they cant be repeated
     {% if SkladnikiWybrane %}
     {%for x in SkladnikiWybrane %}
     x += {{ x.id }}+" ";
@@ -185,6 +188,16 @@
     else
         twojeSkladniki.style.display = "block";
 
+// This function is responsible for selecting a product and adding it to the list of selected products.
+// 
+// Parameters:
+// - idProduktu: The ID of the product to be selected.
+// - nazwaProduktu: The name of the product to be selected.
+//
+// Returns:
+// - false: If the product is already selected.
+// - if not false: the product is successfully added to the list of selected products.
+//and displed for user
     function wybierzSkladnik(idProduktu, nazwaProduktu) {
         if (wybrane.includes(idProduktu)) {
             return false;
@@ -233,6 +246,13 @@
             formField.append(poleMain);
         }
     }
+// Deletes a product from the list of selected products.
+// 
+// Parameters:
+// - produktid: The ID of the product to be deleted.
+// 
+// Returns:
+// - None
     function deleteP(produktid) {
         console.log(produktid);
         const index = wybrane.indexOf((produktid).toString());
@@ -246,6 +266,13 @@
         btnGotowe.style.display = "none";
         btnGotowe.click();
     }
+// Toggles the "katClicked" class on the button element with the given ID.
+// 
+// Parameters:
+// - kat: The ID of the button element to toggle the class on.
+// 
+// Returns:
+// - None
     function katChange(kat) {
         const katBtn = document.getElementById(kat);
         // const btnID = (kat.replace('kat', '')).toLowerCase();

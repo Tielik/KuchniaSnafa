@@ -7,7 +7,13 @@ from flask import g
 
 db = SQLAlchemy()
 DB_NAME = "database.db"
-
+"""
+Initialize and configure the Flask app with necessary settings, blueprints, models, and resources. 
+Register endpoints for views and admin sections. 
+Create database tables if they do not exist. 
+Initialize and configure the LoginManager for user authentication.
+Return the configured Flask app.
+"""
 def create_app():
     app = Flask(__name__)
     app.config['SECRET_KEY'] = "secretkey4323423 23423"
@@ -37,25 +43,24 @@ def create_app():
          'opis': fields.String,
          'skladniki': fields.String,
          'przepis': fields.String,
-         'ListaSkladnikow': fields.String
      }
     resource_fields2 = {
         'id': fields.Integer,
         'Nazwa': fields.String,
         'kategoria': fields.Integer
     }
-    class PrzepisyAPI(Resource):
+    class Dish_api(Resource):
         @marshal_with(resource_fields)
         def get(self):
             return Przepisy.query.all()
 
-    class SkladnikiAPI(Resource):
+    class Ingredients_api(Resource):
         @marshal_with(resource_fields2)
         def get(self):
             return Skladniki.query.all()
 
-    api.add_resource(PrzepisyAPI, '/API/przepisy')
-    api.add_resource(SkladnikiAPI, '/API/skladniki')
+    api.add_resource(Dish_api, '/API/przepisy')
+    api.add_resource(Ingredients_api, '/API/skladniki')
 
     @login_manager.user_loader
     def load_user(id):

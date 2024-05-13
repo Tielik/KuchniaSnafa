@@ -10,7 +10,12 @@ import os
 
 admin = Blueprint('admin', __name__)
 
-
+"""
+Function for handling the admin index page. 
+Retrieves and displays 'Przepisy' and 'Skladniki' data if the user is authenticated. 
+If not authenticated, handles user login and authentication. 
+Returns the rendered admin page template with 'Przepisy' and 'Skladniki' data if authenticated, else, redirects to the login page.
+"""
 @admin.route('/', methods=['POST', 'GET'])
 def index_admin():
     if current_user.is_authenticated:
@@ -27,30 +32,40 @@ def index_admin():
     if request.method == 'POST':
         name = request.form.get('Admin')
         password = request.form.get('password')
-        if db.session.query(db.exists().where(Admin.name == name)).scalar():
-            user = Admin.query.filter_by(name=name).first()
-            if check_password_hash(user.password, password):
-                flash('Udało ci się zalogować!', category='success')
-                login_user(user, remember=True)
-                if db.session.query(Przepisy).count() >= 1:
-                    przepisy = db.session.query(Przepisy)
-                else:
-                    przepisy = None
-                if db.session.query(Skladniki).count() >= 1:
-                    skladniki = db.session.query(Skladniki)
-                else:
-                    skladniki = None
-                return render_template('admin.html', przepisy=przepisy, skladniki=skladniki)
-            else:
-                flash('Nieprawidłowy login lub hasło', category='error')
-                return render_template('login.html')
-        else:
+        if not db.session.query(db.exists().where(Admin.name == name)).scalar():
             flash('Nieprawidłowy login lub hasło', category='error')
             return render_template('login.html')
+        user=Admin.query.filter_by(name=name).first()
+        if not check_password_hash(user.password, password):
+            flash('Nieprawidłowy login lub hasło', category='error')
+            return render_template('login.html')
+
+        flash('Udało ci się zalogować!', category='success')
+        login_user(user, remember=True)
+        if db.session.query(Przepisy).count() >= 1:
+            przepisy = db.session.query(Przepisy)
+        else:
+            przepisy = None
+        if db.session.query(Skladniki).count() >= 1:
+            skladniki = db.session.query(Skladniki)
+        else:
+            skladniki = None
+        return render_template('admin.html', przepisy=przepisy, skladniki=skladniki)
     else:
         return render_template('login.html')
 
 
+    """
+    Change the password for the currently authenticated admin user.
+
+    This function handles the '/clp' route with both POST and GET methods. If the current user is authenticated, it retrieves the admin user with the same name as the current user from the database. If the request method is POST, it retrieves the 'Admin' and 'password' values from the request form, finds the admin user with the given name, updates the user's password with the generated hash, commits the changes to the database, and redirects to the '/admin' route. If the request method is GET, it renders the 'adminChange.html' template with the admin user and the current user's password hash.
+
+    Returns:
+        - If the current user is not authenticated, it redirects to the '/admin' route.
+        - If the request method is POST, it redirects to the '/admin' route.
+        - If the request method is GET, it renders the 'adminChange.html' template.
+
+    """
 @admin.route('/clp', methods=['POST', 'GET'])
 def change_password():
     if current_user.is_authenticated:
@@ -68,7 +83,23 @@ def change_password():
     else:
         return redirect('/admin')
 
+    """
+    This function handles the '/przepisy' route for both GET and POST requests. It is decorated with the @admin.route decorator.
 
+    Parameters:
+    - None
+
+    Returns:
+    - If the current user is not authenticated, it redirects to the '/' route.
+    - If the current user is authenticated:
+        - If there are no Skladniki in the database, it sets skladniki to None and flashes an error message.
+        - If there are Skladniki in the database, it queries all Skladniki and assigns the result to the skladniki variable.
+        - If the request method is POST:
+        - create new row in Przepisy table 
+        -create image in images folder with name the same as id of new row in Przepisy table 
+        - If the request method is GET, it renders the 'przepisy.html' template with the skladniki variable.
+
+    """
 @admin.route('/przepisy', methods=['POST', 'GET'])
 def przepisy():
     if current_user.is_authenticated:
@@ -110,7 +141,21 @@ def przepisy():
         return render_template('przepisy.html', skladniki=skladniki)
     return redirect('/')
 
-
+    """
+    Route for handling the '/skladniki' endpoint. This endpoint is used to add new 'Skladniki' objects to the database.
+    Parameters:
+    - None
+    Returns:
+    - If the current user is not authenticated, it redirects to the '/' route.
+    - If the current user is authenticated:
+        - If the request method is POST:
+            - Retrieves the 'Nazwa' and 'kategoria' values from the request form.
+            - Adds the new object to the database.
+            - Flashes a success message.
+            - Redirects to the '/admin' route.
+        - If the request method is GET:
+            - Renders the 'skladniki.html' template.
+    """
 @admin.route('/skladniki', methods=['POST', 'GET'])
 def skladniki():
     if current_user.is_authenticated:
@@ -125,7 +170,16 @@ def skladniki():
         return render_template('skladniki.html')
     return redirect('/')
 
+    """
+    Logout the current user and redirect to the home page.
 
+    This function is a route handler for the '/logout' endpoint. It checks if the current user is authenticated.
+     If the user is authenticated, it logs out the user by calling the `logout_user()`(that do what method is named in the flask_login) function and redirects to the home page.
+      If the user is not authenticated, it redirects to the home page without logging out.
+
+    Returns:
+       redirect to the home page
+    """
 @admin.route('/logout')
 def logout():
     if current_user.is_authenticated:
@@ -133,7 +187,21 @@ def logout():
         return redirect('/')
     return redirect('/')
 
+    """
+    Delete a recipe with the given id.
 
+    This function is a route handler for the '/delete/przepis/<int:id>' endpoint. It checks if the current user is authenticated.
+    If the user is authenticated, it retrieves the recipe with the given id from the database, deletes the corresponding image file,
+    and deletes the recipe from the database. It then redirects the user to the admin page with a success message.
+    If the user is not authenticated, it redirects the user to the home page.
+
+    Parameters:
+    - id (int): The id of the recipe to be deleted.
+
+    Returns:
+    - redirect to the admin page if the user is authenticated
+    - redirect to the home page if the user is not authenticated
+    """
 @admin.route('/delete/przepis/<int:id>')
 def delete(id):
     if current_user.is_authenticated:
@@ -146,7 +214,16 @@ def delete(id):
         return redirect('/admin')
     return redirect('/')
 
+    """
+    A function that deletes a 'Skladnik' object from the database based on the provided ID.
 
+    Parameters:
+    - id (int): The ID of the 'Skladnik' object to be deleted.
+
+    Returns:
+    - redirect to the admin page if the user is authenticated
+    - redirect to the home page if the user is not authenticated
+    """
 @admin.route('/delete/skladnik/<int:id>')
 def deleteS(id):
     if current_user.is_authenticated:
@@ -157,7 +234,18 @@ def deleteS(id):
         return redirect('/admin')
     return redirect('/')
 
+    """
+    Route for handling the '/edit/skladnik/<int:id>' endpoint. This endpoint is used to edit a 'Skladnik' object in the database.
 
+    Parameters:
+    - id (int): The ID of the 'Skladnik' object to be edited.
+
+    Returns:
+    - If the user is authenticated and the request method is 'POST', the 'Nazwa' and 'kategoria' fields of the 'Skladnik' object are updated with the values from the request form. 
+    The changes are committed to the database and a success message is flashed. The user is then redirected to the '/admin' page.
+    - If the user is authenticated and the request method is 'GET', the 'editSkladnik.html' template is rendered with the 'skladnik' object passed as a parameter.
+    - If the user is not authenticated, the user is redirected to the home page.
+    """
 @admin.route('/edit/skladnik/<int:id>', methods=['POST', 'GET'])
 def edit(id):
     if current_user.is_authenticated:
@@ -171,7 +259,19 @@ def edit(id):
         return render_template('editSkladnik.html', skladnik=skladnik)
     return redirect('/')
 
+    """
+    Route for handling the '/edit/przepis/<int:id>' endpoint. This endpoint is used to edit a 'Przepis' object in the database.
 
+    Parameters:
+    - id (int): The ID of the 'Przepis' object to be edited.
+
+    Returns:
+    - If the user is authenticated and the request method is 'POST',
+     the 'nazwa', 'czas', 'opis', 'skladniki', and 'przepis' fields of the 'Przepis' object are updated with the values from the request form. 
+    The changes are committed to the database and a success message is flashed. The user is then redirected to the '/admin' page.
+    - If the user is authenticated and the request method is 'GET', the 'editPrzepis.html' template is rendered with the 'przepis' and 'skladniki' objects passed as parameters.
+    - If the user is not authenticated, the user is redirected to the home page.
+    """
 @admin.route('/edit/przepis/<int:id>', methods=['POST', 'GET'])
 def editP(id):
     if current_user.is_authenticated:
