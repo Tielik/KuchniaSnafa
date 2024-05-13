@@ -4,24 +4,25 @@ from sqlalchemy.orm import Session
 from werkzeug.security import check_password_hash, generate_password_hash
 from sqlalchemy import select, engine
 from . import db
-from .models import Admin, Przepisy, Skladniki  # Skladniki Przepisy
+from .models import Admin, Przepisy, Skladniki
 import os
+
 
 admin = Blueprint('admin', __name__)
 
 
 @admin.route('/', methods=['POST', 'GET'])
-def Indexadmin():
+def index_admin():
     if current_user.is_authenticated:
         if db.session.query(Przepisy).count() >= 1:
-            przepisyz = db.session.query(Przepisy)
+            przepisy = db.session.query(Przepisy)
         else:
-            przepisyz = None
+            przepisy = None
         if db.session.query(Skladniki).count() >= 1:
             skladniki = db.session.query(Skladniki)
         else:
             skladniki = None
-        return render_template('admin.html', Przepisy=przepisyz, Skladniki=skladniki)
+        return render_template('admin.html', przepisy=przepisy, skladniki=skladniki)
     # print(db.session.query(Przepisy).count())
     if request.method == 'POST':
         name = request.form.get('Admin')
@@ -32,27 +33,26 @@ def Indexadmin():
                 flash('Udało ci się zalogować!', category='success')
                 login_user(user, remember=True)
                 if db.session.query(Przepisy).count() >= 1:
-                    przepisyz = db.session.query(Przepisy)
+                    przepisy = db.session.query(Przepisy)
                 else:
-                    przepisyz = None
+                    przepisy = None
                 if db.session.query(Skladniki).count() >= 1:
                     skladniki = db.session.query(Skladniki)
                 else:
                     skladniki = None
-                return render_template('admin.html', Przepisy=przepisyz, Skladniki=skladniki)
+                return render_template('admin.html', przepisy=przepisy, skladniki=skladniki)
             else:
                 flash('Nieprawidłowy login lub hasło', category='error')
                 return render_template('login.html')
         else:
             flash('Nieprawidłowy login lub hasło', category='error')
             return render_template('login.html')
-
     else:
         return render_template('login.html')
 
 
-@admin.route('/CLP', methods=['POST', 'GET'])
-def changeOfPasword():
+@admin.route('/clp', methods=['POST', 'GET'])
+def change_password():
     if current_user.is_authenticated:
         admin = Admin.query.filter_by(name=current_user.name).first()
         if request.method == 'POST':
@@ -69,7 +69,7 @@ def changeOfPasword():
         return redirect('/admin')
 
 
-@admin.route('/Przepisy', methods=['POST', 'GET'])
+@admin.route('/przepisy', methods=['POST', 'GET'])
 def przepisy():
     if current_user.is_authenticated:
         if db.session.query(Skladniki).count() >= 1:
@@ -106,12 +106,12 @@ def przepisy():
                     return redirect('/admin')
                 else:
                     flash('Nieprawidłowy format grafiki!', category='error')
-                    return redirect('/admin/Przepisy')
+                    return redirect('/admin/przepisy')
         return render_template('przepisy.html', skladniki=skladniki)
     return redirect('/')
 
 
-@admin.route('/Skladniki', methods=['POST', 'GET'])
+@admin.route('/skladniki', methods=['POST', 'GET'])
 def skladniki():
     if current_user.is_authenticated:
         if request.method == 'POST':
@@ -138,6 +138,8 @@ def logout():
 def delete(id):
     if current_user.is_authenticated:
         przepis = Przepisy.query.filter_by(id=id).first()
+        grafika_name = str(id) + '.png'
+        os.remove(os.path.join('website/static/img', grafika_name))
         db.session.delete(przepis)
         db.session.commit()
         flash('Przepis został usunięty!', category='success')
@@ -151,7 +153,7 @@ def deleteS(id):
         skladnik = Skladniki.query.filter_by(id=id).first()
         db.session.delete(skladnik)
         db.session.commit()
-        flash('Skłądnik został usunięty!', category='success')
+        flash('Składnik został usunięty!', category='success')
         return redirect('/admin')
     return redirect('/')
 
