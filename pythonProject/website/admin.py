@@ -117,7 +117,7 @@ def przepisy():
             przepis = request.form.get('przepis')
             ListaSkladnikow = request.form.getlist('lista')
             ListaSkladnikow = " ".join(ListaSkladnikow)
-            przepis = Przepisy(nazwa=nazwa, czas=czas, opis=opis, skladniki=skladniki, przepis=przepis,
+            przepis = Przepisy(nazwa=nazwa, czas=czas, opis=opis, przepis=przepis,
                                ListaSkladnikow=ListaSkladnikow)
             grafika = request.files['grafika']
             grafika_name = grafika.filename
@@ -127,7 +127,11 @@ def przepisy():
                     # Pobranie id ostatniego przepisu jako string <Przepisy id>
                     przepis_last_id = str(db.session.query(Przepisy).order_by(Przepisy.id.desc()).first())
                     # Utworzenie nowego id poprzez inkrementacje wyciagnietego id ze stringa <Przepisy id>
-                    przepis_new_id = int(''.join(x for x in przepis_last_id if x.isdigit())) + 1
+                    print(przepis_last_id)
+                    if(przepis_last_id is not None):
+                        przepis_new_id = int(''.join(x for x in przepis_last_id if x.isdigit())) + 1
+                    else:
+                        przepis_new_id = 1
                     # Zapisanie nazwy grafiki jako id.png
                     grafika_name = str(przepis_new_id) + '.png'
                     grafika.save(os.path.join('website/static/img', grafika_name))
