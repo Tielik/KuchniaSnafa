@@ -6,12 +6,12 @@
     <h1 class="mb-3">Panel administracyjny</h1>
     <a class="btn btn-primary" role="button" href="/admin/logout">Wyloguj</a>
     <a class="btn btn-primary" role="button" href="/admin/clp">Zmień login i hasło</a>
-    <hr class="hr-admin mt-4">
-    <h1 class="mb-3">Przepisy</h1>
+    <h1 class="mb-3 mt-4">Przepisy</h1>
     <p><a class="btn btn-primary" role="button" href="/admin/przepisy"> Dodaj przepis</a></p>
     {% if przepisy %}
     <div class="row">
     {% for przepis in przepisy %}
+            <hr class="hr-admin mt-1">
     <div class="col-6">
     Nazwa: <p>{{przepis.nazwa}}</p>
     Czas: <p>{{przepis.czas}}</p>
@@ -26,18 +26,16 @@
         {% endfor %}
     </p>
 </div>
-    <div class="col-6">
+    <div class="col-6 d-flex align-items-center">
     <!-- Tutaj bedzie grafika dania !-->
-    <img class="site-img mx-auto" src="">
+    <img class="card-img" src="{{url_for('static',filename='img/')}}{{przepis.id}}{{'.png'}}">
     </div>
-    <p><a class="btn btn-primary rounded-end-0 border-end-primary" role="button" href="/admin/delete/przepis/{{przepis.id}}">Usuń</a><a
+    <p style="text-align: center;"><a class="btn btn-primary rounded-end-0 border-end-primary" role="button" href="/admin/delete/przepis/{{przepis.id}}">Usuń</a><a
         class="btn btn-primary rounded-start-0" role="button" href="/admin/edit/przepis/{{przepis.id}}">Edytuj</a></p>
-    
     {% endfor %}
     </div>
     {% endif %}
 
-    <hr class="hr-admin mt-4">
     <h1>Składniki</h1>
     <a class="btn btn-primary mt-1 mb-3" role="button" href="/admin/skladniki">Dodaj składnik</a><br>
     {% if skladniki %}

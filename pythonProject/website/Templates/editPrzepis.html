@@ -15,19 +15,23 @@
                      required="required" maxlength="30" />
               <input type="hidden" class="form-control" id="skladniki" name="skladniki" value="{{przepis.skladniki}}" />
               <label for="przepis">Przepis</label>
-              <textarea class="form-control" id="przepis" name="przepis" value="{{przepis.przepis}}"
-                     required="required" rows="3"></textarea>
+              <textarea class="form-control" id="przepis" name="przepis"
+                     required="required" rows="3">{{przepis.przepis}}</textarea>
               <label for="lista">Składniki</label>
               {% for skladnik in skladniki %}
               <div class="form-check">
                      <label class="form-check-label"></label>
+                     {% if skladnik.id|string in przepis.ListaSkladnikow %}
+                     <input class="form-check-input" type="checkbox" value="{{skladnik.id}}" id="lista" name="lista" checked>
+                     {% else %}
                      <input class="form-check-input" type="checkbox" value="{{skladnik.id}}" id="lista" name="lista">
+                     {% endif %}
                      {{skladnik.Nazwa}}</label>
               </div>
               {% endfor %}
               <label for="formFile" class="form-label">Grafika</label>
               <input class="form-control" type="file" id="grafika" name="grafika"
-                     accept="image/png, image/jpg, image/jpeg, image/webp" required="required">
+                     accept="image/png, image/jpg, image/jpeg, image/webp">
               Obsługiwane formaty: .png, .jpg, .jpeg, .webp
               <br><br>
               <button type="submit" class="btn btn-primary">Potwierdź</button>

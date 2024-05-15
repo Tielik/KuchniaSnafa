@@ -307,5 +307,10 @@ def editP(id):
                 else:
                     flash('Nieprawidłowy format grafiki!', category='error')
                     return redirect(f'/admin/edit/przepis/{id}')
+            else:
+                db.session.add(przepis)
+                db.session.commit()
+                flash('Przepis został edytowany!', category='success')
+                return redirect('/admin')
         return render_template('editPrzepis.html', przepis=przepis, skladniki=skladniki)
     return redirect('/')
