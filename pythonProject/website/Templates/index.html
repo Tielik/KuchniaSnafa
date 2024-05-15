@@ -123,18 +123,17 @@
         </div>
     </div>
     <br>
-    <h1 class="twojeSkladniki">Twoje Składniki</h1>
+    <h1 class="twojeSkladniki mb-2 mt-3">Twoje Składniki</h1>
     <form method="POST">
-        <div class="formfield row"></div>
+        <div class="current-field row"></div>
         {% if form!=null %}
-        {# <div class="skladnikiField row border rounded border-dark-subtle"> #}
-            <div class="skladnikiField row">
+            <div class="previous-field row">
                 {% for x in SkladnikiWybrane %}
                 <div class="col-sm-3 py-2">
                     <div class="py-4" id="{{x.id}}">
                         {{x.Nazwa}}
                         <input style="display:none;" type="text" name="{{x.id}}" value="{{x.id}}">
-                        <button type="button" class="btn-usun float-end btn btn-danger"
+                        <button type="button" class="btn-end float-end btn btn-danger"
                             onClick="deleteP('{{x.id}}')">Usuń</button>
                     </div>
                 </div>
@@ -142,15 +141,14 @@
             </div>
             {% endif %}
 
-            <button type="submit" class="btn-gotowe btn btn-primary">Gotowe</button>
+            <button type="submit" class="btn-gotowe btn btn-primary mb-2">Gotowe</button>
     </form>
 
     {% if dania %}
-    <div class="rounded row row-cols-1 row-cols-md-3">
+    <div class="ms-1 mt-3 row row-cols-1 row-cols-md-4">
         {% for danias in dania %}
-        <div class="col">
-            <br>
-            <div class="card h-100" style="width: 18rem;">
+        <div class="col mb-4">
+            <div class="card h-100 dish-card">
                 {%set var=danias.id|string %}
                 <img src="{{url_for('static', filename='img/'+var+'.png')}}" class="card-img-top" alt="...">
                 <div class="card-body">
@@ -180,10 +178,10 @@
     console.log(wybrane);
     let btnGotowe = document.querySelector(".btn-gotowe");
     btnGotowe.style.display = "none";
-    let formfield = document.querySelector(".formfield");
-    let skladnikiField = document.querySelector(".skladnikiField.row");
+    let currentField = document.querySelector(".current-field");
+    let previousField = document.querySelector(".previous-field.row");
     let twojeSkladniki = document.querySelector(".twojeSkladniki");
-    if (formfield.innerHTML.trim().length == 0 && skladnikiField.innerHTML.trim().length == 0)
+    if (currentField.innerHTML.trim().length == 0 && previousField.innerHTML.trim().length == 0)
         twojeSkladniki.style.display = "none";
     else
         twojeSkladniki.style.display = "block";
@@ -197,7 +195,7 @@
 // Returns:
 // - false: If the product is already selected.
 // - if not false: the product is successfully added to the list of selected products.
-//and displed for user
+//   and displed for user
     function wybierzSkladnik(idProduktu, nazwaProduktu) {
         if (wybrane.includes(idProduktu)) {
             return false;
@@ -220,13 +218,13 @@
 
             let btnUsun = document.createElement("button");
             btnUsun.setAttribute("type", "button");
-            btnUsun.setAttribute("class", "btn-usun float-end btn btn-danger");
+            btnUsun.setAttribute("class", "btn-end float-end btn btn-danger");
             btnUsun.innerHTML = "Usuń";
             console.log(wybrane);
             btnUsun.onclick = () => {
-                formfield.removeChild(poleMain);
+                currentField.removeChild(poleMain);
                 wybrane.splice(wybrane.indexOf(idProduktu), 1);
-                if (formfield.innerHTML.trim().length == 0) {
+                if (currentField.innerHTML.trim().length == 0) {
                     twojeSkladniki.style.display = "none";
                 }
             }
@@ -241,7 +239,7 @@
             poleMain.setAttribute("class", "col-sm-3 py-2");
             poleMain.append(pole);
 
-            formfield.append(poleMain);
+            currentField.append(poleMain);
         }
     }
 // Deletes a product from the list of selected products.
@@ -258,13 +256,15 @@
         const x = wybrane.splice(index, 1);
         let pDoUsuniecia = document.getElementById(produktid);
         pDoUsuniecia.remove();
-        if (skladnikiField.innerHTML.trim().length == 0) {
+        if (previousField.innerHTML.trim().length == 0) {
             twojeSkladniki.style.display = "none";
         }
         btnGotowe.style.display = "none";
         btnGotowe.click();
     }
-// Toggles the "katClicked" class on the button element with the given ID.
+// Toggles the "kat-clicked" class on the button element with the given ID
+// in order to obtain the appearance of smooth single block with buttons
+// with the btn-prod class below.
 // 
 // Parameters:
 // - kat: The ID of the button element to toggle the class on.

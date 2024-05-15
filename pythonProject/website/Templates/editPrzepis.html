@@ -2,21 +2,21 @@
 {% block title %}Edytowanie Przepisów{% endblock %}
 
 {% block content %}
-<div class="container">
+<div class="container w-50">
        <form method="POST" enctype="multipart/form-data">
-              <label for="nazwa">Nazwa Dania</label>
+              <label for="nazwa">Nazwa Dania (maksymalnie 25 znaków)</label>
               <input type="text" class="form-control" id="nazwa" name="nazwa" value="{{przepis.nazwa}}"
-                     required="required" />
+                     required="required" maxlength="25"/>
               <label for="czas">Czas</label>
               <input type="text" class="form-control" id="czas" name="czas" value="{{przepis.czas}}"
                      required="required" />
-              <label for="opis">Opis</label>
+              <label for="opis">Opis (maksymalnie 30 znaków)</label>
               <input type="text" class="form-control" id="opis" name="opis" value="{{przepis.opis}}"
-                     required="required" />
+                     required="required" maxlength="30" />
               <input type="hidden" class="form-control" id="skladniki" name="skladniki" value="{{przepis.skladniki}}" />
               <label for="przepis">Przepis</label>
-              <input type="text" class="form-control" id="przepis" name="przepis" value="{{przepis.przepis}}"
-                     required="required" />
+              <textarea class="form-control" id="przepis" name="przepis" value="{{przepis.przepis}}"
+                     required="required" rows="3"></textarea>
               <label for="lista">Składniki</label>
               {% for skladnik in skladniki %}
               <div class="form-check">

@@ -2,57 +2,69 @@
 {% block title %}Kuchnia Snafa Admin Panel{% endblock %}
 
 {% block content %}
-    <h1>Panel administracyjny</h1>
+<div class="container w-50">
+    <h1 class="mb-3">Panel administracyjny</h1>
     <a class="btn btn-primary" role="button" href="/admin/logout">Wyloguj</a>
     <a class="btn btn-primary" role="button" href="/admin/clp">Zmień login i hasło</a>
-    <h1>Przepisy</h1>
-    <a class="btn btn-primary" role="button" href="/admin/przepisy"> Dodaj przepis</a><br>
+    <hr class="hr-admin mt-4">
+    <h1 class="mb-3">Przepisy</h1>
+    <p><a class="btn btn-primary" role="button" href="/admin/przepisy"> Dodaj przepis</a></p>
     {% if przepisy %}
+    <div class="row">
     {% for przepis in przepisy %}
-        Nazwa: <p>{{przepis.nazwa}}</p>
-        Czas: <p>{{przepis.czas}}</p>
-        Opis: <p>{{przepis.opis}}</p>
-        Przygotowanie: <p>{{przepis.przepis}}</p>
-        Składniki:
-        <p>
+    <div class="col-6">
+    Nazwa: <p>{{przepis.nazwa}}</p>
+    Czas: <p>{{przepis.czas}}</p>
+    Opis: <p>{{przepis.opis}}</p>
+    Przygotowanie: <p>{{przepis.przepis}}</p>
+    Składniki:
+    <p>
         {% for skladnik in skladniki %}
         {% if skladnik.id|string in przepis.ListaSkladnikow %}
-            {{skladnik.Nazwa}}
+        {{skladnik.Nazwa}}
         {% endif %}
         {% endfor %}
-        </p>
-
-        <h2><a class="btn btn-primary" role="button" href="/admin/delete/przepis/{{przepis.id}}">Usuń</a></h2>
-        <h2><a class="btn btn-primary" role="button" href="/admin/edit/przepis/{{przepis.id}}">Edytuj</a></h2>
-
+    </p>
+</div>
+    <div class="col-6">
+    <!-- Tutaj bedzie grafika dania !-->
+    <img class="site-img mx-auto" src="">
+    </div>
+    <p><a class="btn btn-primary rounded-end-0 border-end-primary" role="button" href="/admin/delete/przepis/{{przepis.id}}">Usuń</a><a
+        class="btn btn-primary rounded-start-0" role="button" href="/admin/edit/przepis/{{przepis.id}}">Edytuj</a></p>
+    
     {% endfor %}
+    </div>
     {% endif %}
 
-
+    <hr class="hr-admin mt-4">
     <h1>Składniki</h1>
-    <a class="btn btn-primary" role="button" href="/admin/skladniki">Dodaj składnik</a><br>
+    <a class="btn btn-primary mt-1 mb-3" role="button" href="/admin/skladniki">Dodaj składnik</a><br>
     {% if skladniki %}
     {% for skladnik in skladniki %}
-        <p>Nazwa: {{skladnik.Nazwa}}; Kategoria:
-            {% if skladnik.kategoria == 1 %}
-                Produkty zbożowe
-            {% elif skladnik.kategoria == 2 %}
-                Warzywa
-            {% elif skladnik.kategoria == 3 %}
-                Owoce
-            {% elif skladnik.kategoria == 4 %}
-                Mleko i produkty mleczne
-            {% elif skladnik.kategoria == 5 %}
-                Produkty pochodzenia zwierzęcego
-            {% elif skladnik.kategoria == 6 %}
-                Tłuszcze
-            {% elif skladnik.kategoria == 7 %}
-                Przyprawy
-            {% endif %}
-        </p>
-        <a class="btn btn-primary" role="button" href="/admin/delete/skladnik/{{skladnik.id}}">Usuń</a>
-        <a class="btn btn-primary" role="button" href="/admin/edit/skladnik/{{skladnik.id}}">Edytuj</a>
-        <br>
+    Nazwa: {{skladnik.Nazwa}}; Kategoria:
+    {% if skladnik.kategoria == 1 %}
+    Produkty zbożowe
+    {% elif skladnik.kategoria == 2 %}
+    Warzywa
+    {% elif skladnik.kategoria == 3 %}
+    Owoce
+    {% elif skladnik.kategoria == 4 %}
+    Mleko i produkty mleczne
+    {% elif skladnik.kategoria == 5 %}
+    Produkty pochodzenia zwierzęcego
+    {% elif skladnik.kategoria == 6 %}
+    Tłuszcze
+    {% elif skladnik.kategoria == 7 %}
+    Przyprawy
+    {% endif %}
+
+    <a class="btn btn-primary btn-end float-end rounded-start-0" role="button"
+        href="/admin/delete/skladnik/{{skladnik.id}}">Usuń</a>
+    <a class="btn btn-primary btn-end float-end rounded-end-0 border-end-primary" role="button"
+        href="/admin/edit/skladnik/{{skladnik.id}}">Edytuj</a>
+    <br><br>
     {% endfor %}
     {%endif%}
+</div>
 {% endblock %}

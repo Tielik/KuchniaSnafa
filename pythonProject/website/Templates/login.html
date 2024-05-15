@@ -2,14 +2,14 @@
 
 {% block title %}Kuchnia Snafa logowanie{% endblock %}
 {% block content %}
-<div class="container">
+<div class="container w-25">
     <h1>Logowanie</h1>
     <br>
     <form method="POST">
         <div class="form-group">
-            <label for="Admin">Login</label>
+            <label for="Admin" class="form-label">Login</label>
             <input type="text" class="form-control" id="Admin" name="Admin" placeholder="Wprowadź login" />
-            <label for="password">Hasło</label>
+            <label for="password" class="form-label">Hasło</label>
             <input type="password" class="form-control" id="password" name="password" placeholder="Wprowadź hasło" />
             <br>
             <button type="submit" class="btn btn-primary">Zaloguj</button>
