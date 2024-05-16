@@ -64,7 +64,6 @@ def create_app():
             for dish in dishes:
                 holder_of_ingredients = dish.ListaSkladnikow
                 holder_of_ingredients = holder_of_ingredients.split(' ')
-                print(holder_of_ingredients)
                 dish.ListaSkladnikow = ""
                 for ingredient_number in holder_of_ingredients:
                     if ingredient_number != " ":
@@ -72,7 +71,6 @@ def create_app():
                         name_of_ingredient = Skladniki.query.filter_by(id=ingredient_number).first()
                         name_of_ingredient = str(name_of_ingredient.Nazwa)
                         dish.ListaSkladnikow += name_of_ingredient + " "
-                        print(dish.ListaSkladnikow)
             return dishes
 
         def post(self):
@@ -81,11 +79,22 @@ def create_app():
                 return {'message': 'No input data provided'}, 400
             if user_input.get('nazwa') is None or user_input.get('czas') is None or user_input.get('opis') is None or user_input.get('ListaSkladnikow') is None or user_input.get('przepis') is None:
                 return {'message': 'Missing required field(s)'}, 400
+            if user_input.get("ListasSkladnikow").isdigit():
+                ingredients = int(user_input['ListaSkladnikow'])
             else:
-                new_dish = Przepisy(nazwa=user_input['nazwa'], czas=user_input['czas'], opis=user_input['opis'], ListaSkladnikow=user_input['ListaSkladnikow'], przepis=user_input['przepis'])
-                db.session.add(new_dish)
-                db.session.commit()
-                return {'message': 'New dish created'}, 201
+                ingredients = user_input['ListaSkladnikow'].split(' ')
+            end_ingredients = ""
+            for x in ingredients:
+                 if x != " ":
+                    x = int(x)
+                    if Skladniki.query.filter_by(id=x).first() == None:
+                        new_ingredient = Skladniki.filter_by(id=x).first()
+                        new_ingredient = str(new_ingredient.Nazwa)
+                        end_ingredients+=new_ingredient+" "
+            new_dish = Przepisy(nazwa=user_input['nazwa'], czas=user_input['czas'], opis=user_input['opis'], ListaSkladnikow=end_ingredients, przepis=user_input['przepis'])
+            db.session.add(new_dish)
+            db.session.commit()
+            return {'message': 'New dish created'}, 201
         def delete(self,input):
             dish = Przepisy.query.filter_by(id=input).first()
             if dish is None:
