@@ -83,20 +83,28 @@ def create_app():
                 ingredients = int(user_input['ListaSkladnikow'])
             else:
                 ingredients = user_input['ListaSkladnikow'].split(' ')
+                #dodaj kiedy jednak tam są nazwy skladników
             end_ingredients = ""
             for x in ingredients:
                  if x != " ":
                     x = int(x)
-                    if Skladniki.query.filter_by(id=x).first() == None:
+                    if Skladniki.query.filter_by(id=x).first() != None:
                         new_ingredient = Skladniki.filter_by(id=x).first()
                         new_ingredient = str(new_ingredient.Nazwa)
                         end_ingredients+=new_ingredient+" "
+                    else:
+                        return {'message': 'Ingredient not found'}, 404
             new_dish = Przepisy(nazwa=user_input['nazwa'], czas=user_input['czas'], opis=user_input['opis'], ListaSkladnikow=end_ingredients, przepis=user_input['przepis'])
             db.session.add(new_dish)
             db.session.commit()
             return {'message': 'New dish created'}, 201
         def delete(self,input):
-            dish = Przepisy.query.filter_by(id=input).first()
+            if input.isdigit():
+                input = int(input)
+                dish = Przepisy.query.filter_by(id=input).first()
+            else:
+                name=str(input)
+                dish = Przepisy.query.filter_by(nazwa=name).first()
             if dish is None:
                 return {'message': 'Dish not found'}, 404
             db.session.delete(dish)
@@ -113,7 +121,20 @@ def create_app():
                 return {'message': 'Dish not found'}, 404
             if user_input.get('nazwa') is None or user_input.get('czas') is None or user_input.get('opis') is None or user_input.get('ListaSkladnikow') is None or user_input.get('przepis') is None:
                 return {'message': 'Missing required field(s)'}, 400
+            if user_input.get("ListasSkladnikow").isdigit():
+                dish.nazwa = user_input['nazwa']
+                dish.czas = user_input['czas']
+                dish.opis = user_input['opis']
+                dish.ListaSkladnikow = user_input['ListaSkladnikow']
+                dish.przepis = user_input['przepis']
+                db.session.commit()
+                return {'message': 'Dish updated'}, 200
             else:
+                ingredients = user_input['ListaSkladnikow'].split(' ')
+                for x in ingredients:
+                    #dodaj że po nazwie na id zamienia
+                    if not x.isdigit():
+                        return {'message': 'only takes id of ingredients'}, 404
                 dish.nazwa = user_input['nazwa']
                 dish.czas = user_input['czas']
                 dish.opis = user_input['opis']
@@ -141,6 +162,8 @@ def create_app():
             if user_input.get('Nazwa') is None or user_input.get('kategoria') is None:
                 return {'message': 'Missing required field(s)'}, 400
             else:
+                if user_input.get('Nazwa').isdigit():
+                    return {'message': 'nazwa nie moze mieć cyfr'}, 404
                 new_ingredient = Skladniki(Nazwa=user_input['Nazwa'], kategoria=user_input['kategoria'])
                 db.session.add(new_ingredient)
                 db.session.commit()
@@ -168,6 +191,8 @@ def create_app():
             if user_input.get('Nazwa') is None or user_input.get('kategoria') is None:
                 return {'message': 'Missing required field(s)'}, 400
             else:
+                if user_input.get('Nazwa').isdigit() or user_input.get('kategoria').isdigit()==False:
+                    return {'message': 'nazwa nie moze mieć cyfr a kategoria musi mieć cyfry'}, 404
                 ingredient.Nazwa = user_input['Nazwa']
                 ingredient.kategoria = user_input['kategoria']
                 db.session.commit()
