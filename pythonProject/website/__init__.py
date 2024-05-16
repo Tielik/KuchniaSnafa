@@ -1,4 +1,4 @@
-from flask import Flask
+from flask import Flask, request
 from flask_sqlalchemy import SQLAlchemy
 from flask_login import LoginManager
 from flask_restful import Api, Resource, fields, marshal_with
@@ -41,7 +41,7 @@ def create_app():
          'nazwa': fields.String,
          'czas': fields.String,
          'opis': fields.String,
-         'skladniki': fields.String,
+         'ListaSkladnikow': fields.String,
          'przepis': fields.String,
      }
     resource_fields2 = {
@@ -51,16 +51,121 @@ def create_app():
     }
     class Dish_api(Resource):
         @marshal_with(resource_fields)
-        def get(self):
-            return Przepisy.query.all()
+        def get(self, input=None):
+            if input is None:
+                dishes = Przepisy.query.all()
+            else:
+                if input.isdigit():
+                    dishes = Przepisy.query.filter_by(id=input).first()
+                    dishes = [dishes]
+                else:
+                    dishes = Przepisy.query.filter_by(nazwa=input).first()
+                    dishes = [dishes]
+            for dish in dishes:
+                holder_of_ingredients = dish.ListaSkladnikow
+                holder_of_ingredients = holder_of_ingredients.split(' ')
+                print(holder_of_ingredients)
+                dish.ListaSkladnikow = ""
+                for ingredient_number in holder_of_ingredients:
+                    if ingredient_number != " ":
+                        ingredient_number = int(ingredient_number)
+                        name_of_ingredient = Skladniki.query.filter_by(id=ingredient_number).first()
+                        name_of_ingredient = str(name_of_ingredient.Nazwa)
+                        dish.ListaSkladnikow += name_of_ingredient + " "
+                        print(dish.ListaSkladnikow)
+            return dishes
+
+        def post(self):
+            user_input = request.get_json()
+            if user_input is None:
+                return {'message': 'No input data provided'}, 400
+            if user_input.get('nazwa') is None or user_input.get('czas') is None or user_input.get('opis') is None or user_input.get('ListaSkladnikow') is None or user_input.get('przepis') is None:
+                return {'message': 'Missing required field(s)'}, 400
+            else:
+                new_dish = Przepisy(nazwa=user_input['nazwa'], czas=user_input['czas'], opis=user_input['opis'], ListaSkladnikow=user_input['ListaSkladnikow'], przepis=user_input['przepis'])
+                db.session.add(new_dish)
+                db.session.commit()
+                return {'message': 'New dish created'}, 201
+        def delete(self,input):
+            dish = Przepisy.query.filter_by(id=input).first()
+            if dish is None:
+                return {'message': 'Dish not found'}, 404
+            db.session.delete(dish)
+            db.session.commit()
+            return {'message': 'Dish deleted'}, 200
+        def put(self,input):
+            user_input = request.get_json()
+            if input.isdigit():
+                input = int(input)
+                dish = Przepisy.query.filter_by(id=input).first()
+            else:
+                dish = Przepisy.query.filter_by(nazwa=input).first()
+            if dish is None:
+                return {'message': 'Dish not found'}, 404
+            if user_input.get('nazwa') is None or user_input.get('czas') is None or user_input.get('opis') is None or user_input.get('ListaSkladnikow') is None or user_input.get('przepis') is None:
+                return {'message': 'Missing required field(s)'}, 400
+            else:
+                dish.nazwa = user_input['nazwa']
+                dish.czas = user_input['czas']
+                dish.opis = user_input['opis']
+                dish.ListaSkladnikow = user_input['ListaSkladnikow']
+                dish.przepis = user_input['przepis']
+                db.session.commit()
+                return {'message': 'Dish updated'}, 200
+
 
     class Ingredients_api(Resource):
         @marshal_with(resource_fields2)
-        def get(self):
-            return Skladniki.query.all()
+        def get(self,input=None):
+            if input is None:
+                ingredients = Skladniki.query.all()
+            else:
+                if input.isdigit():
+                    ingredients = Skladniki.query.filter_by(id=input).first()
+                else:
+                    ingredients = Skladniki.query.filter_by(Nazwa=input).first()
+            return ingredients
+        def post(self):
+            user_input = request.get_json()
+            if user_input is None:
+                return {'message': 'No input data provided'}, 400
+            if user_input.get('Nazwa') is None or user_input.get('kategoria') is None:
+                return {'message': 'Missing required field(s)'}, 400
+            else:
+                new_ingredient = Skladniki(Nazwa=user_input['Nazwa'], kategoria=user_input['kategoria'])
+                db.session.add(new_ingredient)
+                db.session.commit()
+                return {'message': 'New ingredient created'}, 201
+        def delete(self,input):
+            if input.isdigit():
+                input = int(input)
+                ingredient = Skladniki.query.filter_by(id=input).first()
+            else:
+                ingredient = Skladniki.query.filter_by(Nazwa=input).first()
+            if ingredient is None:
+                return {'message': 'Ingredient not found'}, 404
+            db.session.delete(ingredient)
+            db.session.commit()
+            return {'message': 'Ingredient deleted'}, 200
+        def put(self,input):
+            user_input = request.get_json()
+            if input.isdigit():
+                input = int(input)
+                ingredient = Skladniki.query.filter_by(id=input).first()
+            else:
+                ingredient = Skladniki.query.filter_by(Nazwa=input).first()
+            if ingredient is None:
+                return {'message': 'Ingredient not found'}, 404
+            if user_input.get('Nazwa') is None or user_input.get('kategoria') is None:
+                return {'message': 'Missing required field(s)'}, 400
+            else:
+                ingredient.Nazwa = user_input['Nazwa']
+                ingredient.kategoria = user_input['kategoria']
+                db.session.commit()
+                return {'message': 'Ingredient updated'}, 200
 
-    api.add_resource(Dish_api, '/API/przepisy')
-    api.add_resource(Ingredients_api, '/API/skladniki')
+    api.add_resource(Dish_api, '/API/przepisy/<input>', '/API/przepisy')
+    api.add_resource(Ingredients_api, '/API/skladniki', '/API/skladniki/<input>')
 
     @login_manager.user_loader
     def load_user(id):
