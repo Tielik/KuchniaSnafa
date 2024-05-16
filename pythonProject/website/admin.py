@@ -20,14 +20,14 @@ Returns the rendered admin page template with 'Przepisy' and 'Skladniki' data if
 def index_admin():
     if current_user.is_authenticated:
         if db.session.query(Przepisy).count() >= 1:
-            przepisy = db.session.query(Przepisy)
+            ingredients = db.session.query(Przepisy)
         else:
-            przepisy = None
+            ingredients = None
         if db.session.query(Skladniki).count() >= 1:
-            skladniki = db.session.query(Skladniki)
+            ingredients = db.session.query(Skladniki)
         else:
-            skladniki = None
-        return render_template('admin.html', przepisy=przepisy, skladniki=skladniki)
+            ingredients = None
+        return render_template('admin.html', przepisy=ingredients, skladniki=ingredients)
     # print(db.session.query(Przepisy).count())
     if request.method == 'POST':
         name = request.form.get('Admin')
@@ -43,14 +43,14 @@ def index_admin():
         flash('Udało ci się zalogować!', category='success')
         login_user(user, remember=True)
         if db.session.query(Przepisy).count() >= 1:
-            przepisy = db.session.query(Przepisy)
+            ingredients = db.session.query(Przepisy)
         else:
-            przepisy = None
+            ingredients = None
         if db.session.query(Skladniki).count() >= 1:
-            skladniki = db.session.query(Skladniki)
+            ingredients = db.session.query(Skladniki)
         else:
-            skladniki = None
-        return render_template('admin.html', przepisy=przepisy, skladniki=skladniki)
+            ingredients = None
+        return render_template('admin.html', przepisy=ingredients, skladniki=ingredients)
     else:
         return render_template('login.html')
 
@@ -92,28 +92,27 @@ def change_password():
     Returns:
     - If the current user is not authenticated, it redirects to the '/' route.
     - If the current user is authenticated:
-        - If there are no Skladniki in the database, it sets skladniki to None and flashes an error message.
-        - If there are Skladniki in the database, it queries all Skladniki and assigns the result to the skladniki variable.
+        - If there are no Skladniki in the database, it sets ingredients to None and flashes an error message.
+        - If there are Skladniki in the database, it queries all Skladniki and assigns the result to the ingredients variable.
         - If the request method is POST:
         - create new row in Przepisy table 
         -create image in images folder with name the same as id of new row in Przepisy table 
-        - If the request method is GET, it renders the 'przepisy.html' template with the skladniki variable.
+        - If the request method is GET, it renders the 'przepisy.html' template with the ingredients variable.
 
     """
 @admin.route('/przepisy', methods=['POST', 'GET'])
-def przepisy():
+def Dishes():
     if current_user.is_authenticated:
         if db.session.query(Skladniki).count() >= 1:
-            skladniki = db.session.query(Skladniki)
+            ingredients = db.session.query(Skladniki)
         else:
-            skladniki = None
+            ingredients = None
             flash("By dodać danie trzeba najpierw wprowadzić składniki!", category="error")
             return redirect('/admin')
         if request.method == 'POST':
             nazwa = request.form.get('nazwa')
             czas = request.form.get('czas')
             opis = request.form.get('opis')
-            skladniki = request.form.get('skladniki')
             przepis = request.form.get('przepis')
             ListaSkladnikow = request.form.getlist('lista')
             ListaSkladnikow = " ".join(ListaSkladnikow)
@@ -128,7 +127,7 @@ def przepisy():
                     przepis_last_id = str(db.session.query(Przepisy).order_by(Przepisy.id.desc()).first())
                     # Utworzenie nowego id poprzez inkrementacje wyciagnietego id ze stringa <Przepisy id>
                     print(przepis_last_id)
-                    if(przepis_last_id is not None):
+                    if(przepis_last_id is None):
                         przepis_new_id = int(''.join(x for x in przepis_last_id if x.isdigit())) + 1
                     else:
                         przepis_new_id = 1
@@ -142,11 +141,11 @@ def przepisy():
                 else:
                     flash('Nieprawidłowy format grafiki!', category='error')
                     return redirect('/admin/przepisy')
-        return render_template('przepisy.html', skladniki=skladniki)
+        return render_template('przepisy.html', skladniki=ingredients)
     return redirect('/')
 
     """
-    Route for handling the '/skladniki' endpoint. This endpoint is used to add new 'Skladniki' objects to the database.
+    Route for handling the '/ingredients' endpoint. This endpoint is used to add new 'Skladniki' objects to the database.
     Parameters:
     - None
     Returns:
@@ -161,13 +160,13 @@ def przepisy():
             - Renders the 'skladniki.html' template.
     """
 @admin.route('/skladniki', methods=['POST', 'GET'])
-def skladniki():
+def Ingredients():
     if current_user.is_authenticated:
         if request.method == 'POST':
             Nazwa = request.form.get('Nazwa')
             kategoria = request.form.get('kategoria')
-            skladniki = Skladniki(Nazwa=Nazwa, kategoria=kategoria)
-            db.session.add(skladniki)
+            ingredients = Skladniki(Nazwa=Nazwa, kategoria=kategoria)
+            db.session.add(ingredients)
             db.session.commit()
             flash('Skladnik został dodany!', category='success')
             return redirect('/admin')
@@ -206,6 +205,7 @@ def logout():
     - redirect to the admin page if the user is authenticated
     - redirect to the home page if the user is not authenticated
     """
+    #POPRAWIĆ
 @admin.route('/delete/przepis/<int:id>')
 def delete(id):
     if current_user.is_authenticated:
@@ -280,15 +280,14 @@ def edit(id):
 def editP(id):
     if current_user.is_authenticated:
         if db.session.query(Skladniki).count() >= 1:
-            skladniki = db.session.query(Skladniki)
+            ingredients = db.session.query(Skladniki)
         else:
-            skladniki = None
+            ingredients = None
         przepis = Przepisy.query.filter_by(id=id).first()
         if request.method == 'POST':
             przepis.nazwa = request.form.get('nazwa')
             przepis.czas = request.form.get('czas')
             przepis.opis = request.form.get('opis')
-            przepis.skladniki = request.form.get('skladniki')
             przepis.przepis = request.form.get('przepis')
             przepis.ListaSkladnikow = request.form.getlist('lista')
             przepis.ListaSkladnikow = " ".join(przepis.ListaSkladnikow)
@@ -312,5 +311,5 @@ def editP(id):
                 db.session.commit()
                 flash('Przepis został edytowany!', category='success')
                 return redirect('/admin')
-        return render_template('editPrzepis.html', przepis=przepis, skladniki=skladniki)
+        return render_template('editPrzepis.html', przepis=przepis, skladniki=ingredients)
     return redirect('/')

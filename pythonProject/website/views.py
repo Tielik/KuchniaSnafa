@@ -17,48 +17,48 @@ user_input: The user input containing the ingredients to select.
 
 Returns:
 Tuple: A tuple containing two elements:
-        - dania_z_bazy_danych (list of Przepisy objects or None): A list of dishes from the database that match the selected ingredients
+        - dish_from_db (list of Przepisy objects or None): A list of dishes from the database that match the selected ingredients
              or None if no matching dishes were found.
-        - skladniki_wybrane (list of Skladniki objects): The selected ingredients.
+        - chosen_ingredient (list of Skladniki objects): The selected ingredients.
 """
 def select_right_dishes(user_input):
-    lista_wybranych_id = []
+    list_of_chosen_id = []
     # transform user_input to list
     if type(user_input) == werkzeug.datastructures.structures.ImmutableMultiDict :  # user_input
-        session_zapisywacz = ""
+        session_saver = ""
         for key in user_input:
             for value in user_input.getlist(key):
-                session_zapisywacz += str(key) + " "
+                session_saver += str(key) + " "
                 keys = int(key)
-                lista_wybranych_id.append(keys)
-        lista_wybranych_id.sort()
-        session['skladniki'] = session_zapisywacz
+                list_of_chosen_id.append(keys)
+        list_of_chosen_id.sort()
+        session['skladniki'] = session_saver
     else:
         user_input = user_input.split()
         for x in user_input:
-            lista_wybranych_id.append(int(x))
-    # select right ingredients based of id in lista_wybranych_id
-    nadzbior_uzytkownika = set(lista_wybranych_id)
-    skladniki_wybrane = db.session.query(Skladniki).filter(Skladniki.id.in_(lista_wybranych_id)).all()
-    dania = db.session.query(Przepisy).all()
-    lista_dan = []
-    for danie in dania:
-        lista = danie.ListaSkladnikow
-        lista.split()
+            list_of_chosen_id.append(int(x))
+    # select right ingredients based of id in list_of_chosen_id
+    super_set_user = set(list_of_chosen_id)
+    chosen_ingredient = db.session.query(Skladniki).filter(Skladniki.id.in_(list_of_chosen_id)).all()
+    dishes = db.session.query(Przepisy).all()
+    list_of_dishes = []
+    for dish in dishes:
+        lists = dish.ListaSkladnikow
+        lists.split()
         lista_int = []
-        for y in lista:
+        for y in lists:
             if y != " ":
                 y = int(y)
                 lista_int.append(y)
         nadzbior_dania = set(lista_int)
-        if len(lista_wybranych_id) >= len(lista_int):
-            if nadzbior_uzytkownika.issuperset(nadzbior_dania):
-                lista_dan.append(danie.id)
-    if len(lista_dan) != 0:
-        dania_z_bazy_danych = db.session.query(Przepisy).filter(Przepisy.id.in_(lista_dan)).all()
+        if len(list_of_chosen_id) >= len(lista_int):
+            if super_set_user.issuperset(nadzbior_dania):
+                list_of_dishes.append(dish.id)
+    if len(list_of_dishes) != 0:
+        dish_from_db = db.session.query(Przepisy).filter(Przepisy.id.in_(list_of_dishes)).all()
     else:
-        dania_z_bazy_danych = None
-    return dania_z_bazy_danych, skladniki_wybrane
+        dish_from_db = None
+    return dish_from_db, chosen_ingredient
 
 '''
 a view that renders the index.html template
@@ -78,19 +78,19 @@ def index():
         admin = Admin(name="Admin", password=generate_password_hash("4321"))
         db.session.add(admin)
         db.session.commit()
-    skladniki = db.session.query(Skladniki)
+    ingredients = db.session.query(Skladniki)
     if request.method == 'POST' and request.form != None:
         form_input=request.form
-        dania_z_Bazy_Danych,skladniki_wybrane = select_right_dishes(form_input)
-        return render_template('index.html', form=form_input, dania=dania_z_Bazy_Danych, Skladnikiz=skladniki,
-                               SkladnikiWybrane=skladniki_wybrane)
+        dania_z_Bazy_Danych,chosen_ingredient = select_right_dishes(form_input)
+        return render_template('index.html', form=form_input, dania=dania_z_Bazy_Danych, Skladnikiz=ingredients,
+                               SkladnikiWybrane=chosen_ingredient)
     if session.get('skladniki') != None:
         form_input = session.get('skladniki')
-        dania_z_Bazy_Danych,skladniki_wybrane = select_right_dishes(form_input)
-        return render_template('index.html', form=form_input, dania=dania_z_Bazy_Danych, Skladnikiz=skladniki,
-                               SkladnikiWybrane=skladniki_wybrane)
+        dania_z_Bazy_Danych,chosen_ingredient = select_right_dishes(form_input)
+        return render_template('index.html', form=form_input, dania=dania_z_Bazy_Danych, Skladnikiz=ingredients,
+                               SkladnikiWybrane=chosen_ingredient)
     else:
-        return render_template('index.html', Skladnikiz=skladniki)
+        return render_template('index.html', Skladnikiz=ingredients)
 
 
     """
@@ -104,9 +104,9 @@ s
     """
 @views.route('/danie/<int:id>', methods=['POST', 'GET'])
 def indexDanie(id):
-    skladniki= db.session.query(Skladniki)
-    danie= db.session.query(Przepisy).filter(Przepisy.id == id).first()
-    return render_template('dishSite.html', skladniki=skladniki, danie=danie,url_path=url_for('static',filename='img/'+str(danie.id)+'.png'))
+    ingredients= db.session.query(Skladniki)
+    dish= db.session.query(Przepisy).filter(Przepisy.id == id).first()
+    return render_template('dishSite.html', skladniki=ingredients, danie=dish,url_path=url_for('static',filename='img/'+str(dish.id)+'.png'))
 
 @views.route('/api')
 def api():
