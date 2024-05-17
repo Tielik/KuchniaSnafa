@@ -108,6 +108,6 @@ def indexDanie(id):
     dish= db.session.query(Przepisy).filter(Przepisy.id == id).first()
     return render_template('dishSite.html', skladniki=ingredients, danie=dish,url_path=url_for('static',filename='img/'+str(dish.id)+'.png'))
 
-@views.route('/api')
+@views.route('/API')
 def api():
     return render_template('api.html')#trzeba zrobić instrukcje

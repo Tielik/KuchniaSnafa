@@ -159,8 +159,8 @@ class Dish_api(Resource):
             dishes = Przepisy.query.all()
         else:
             dishes=dish_input_matcher(input)
-            print(dishes)
-        if dishes == [None] or dishes is None:
+        print(dishes)
+        if dishes == [None] or dishes == []:
             abort(404, message="Danie/a nie znalezione")
         else:
             for dish in dishes:
@@ -273,7 +273,7 @@ class Ingredients_api(Resource):
             ingredients = Skladniki.query.all()
         else:
             ingredients=ingredients_input_matcher(input)
-        if ingredients is None or ingredients ==[None]:
+        if ingredients == []or ingredients ==[None]:
             abort(404, message="Nie ma składnika/ków o podanych parametrach")
         return ingredients
 

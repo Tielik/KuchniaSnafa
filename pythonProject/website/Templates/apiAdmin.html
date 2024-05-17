@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Api instrukcja</title>
+</head>
+<body>
+
+<h1>Api instrukcja</h1>
+Api w input dostosowuje sie od inputu użytkownika
+- jesli input to cyfra to szuka po id
+- jesli input to tekst to szuka po nazwie
+
+Post i Put wymaga przesłania dodatkowo odpowiedniego wypełnionego Json
+
+<a href="/API/przepisy">/API/przepisy - zwraca liste przepisow z bazy danych</a>
+- post: dodawanie nowego przepisu
+-- ListaPrzepisów może być cyfrowo lub po nazwie(Pamiętaj o wielkości liter) id lub nazwy można zobaczyć przy pomocy /API/skladniki
+<a href="/API/przepisy/1">/API/przepisy/input - zwraca przepis o danym id</a>
+- put: zmiana danego składnika w ListaPrzepisow podobnie jak w post
+- delete: usuniecie danego przepisu po nazwie lub id
+
+<a href="/API/skladniki">/API/skladniki - zwraca liste skladnikow z bazy danych</a>
+- post: dodawanie nowego skladnika kategorie są od 1 do 8 !popraw to mati nie pamiętam XD!
+<a href="/API/skladniki/1">/API/skladniki/input - zwraca skladnik o danym id</a>
+- put: zmiana danego skladnika
+- delete: usuniecie danego skladnika
+
+
+</body>
+</html>
