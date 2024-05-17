@@ -6,6 +6,7 @@ from sqlalchemy import select, engine
 from . import db
 from .models import Admin, Przepisy, Skladniki
 import os
+from .api import dishes_with_matching_ingredient_remover
 
 
 admin = Blueprint('admin', __name__)
@@ -20,15 +21,15 @@ Returns the rendered admin page template with 'Przepisy' and 'Skladniki' data if
 def index_admin():
     if current_user.is_authenticated:
         if db.session.query(Przepisy).count() >= 1:
-            ingredients = db.session.query(Przepisy)
+             dishes= db.session.query(Przepisy)
         else:
-            ingredients = None
+             dishes = None
         if db.session.query(Skladniki).count() >= 1:
             ingredients = db.session.query(Skladniki)
         else:
             ingredients = None
-        return render_template('admin.html', przepisy=ingredients, skladniki=ingredients)
-    # print(db.session.query(Przepisy).count())
+        return render_template('admin.html', przepisy=dishes, skladniki=ingredients)
+
     if request.method == 'POST':
         name = request.form.get('Admin')
         password = request.form.get('password')
@@ -43,14 +44,14 @@ def index_admin():
         flash('Udało ci się zalogować!', category='success')
         login_user(user, remember=True)
         if db.session.query(Przepisy).count() >= 1:
-            ingredients = db.session.query(Przepisy)
+            dishes = db.session.query(Przepisy)
         else:
-            ingredients = None
+            dishes = None
         if db.session.query(Skladniki).count() >= 1:
             ingredients = db.session.query(Skladniki)
         else:
             ingredients = None
-        return render_template('admin.html', przepisy=ingredients, skladniki=ingredients)
+        return render_template('admin.html', przepisy=dishes, skladniki=ingredients)
     else:
         return render_template('login.html')
 
@@ -234,6 +235,7 @@ def deleteS(id):
         skladnik = Skladniki.query.filter_by(id=id).first()
         db.session.delete(skladnik)
         db.session.commit()
+        dishes_with_matching_ingredient_remover(id)
         flash('Składnik został usunięty!', category='success')
         return redirect('/admin')
     return redirect('/')
