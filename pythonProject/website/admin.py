@@ -117,6 +117,9 @@ def Dishes():
             przepis = request.form.get('przepis')
             ListaSkladnikow = request.form.getlist('lista')
             ListaSkladnikow = " ".join(ListaSkladnikow)
+            if not ListaSkladnikow:
+                flash('Musi zostać wybrany przynajmniej jeden składnik!', category='error')
+                return redirect('/admin/przepisy')
             przepis = Przepisy(nazwa=nazwa, czas=czas, opis=opis, przepis=przepis,
                                ListaSkladnikow=ListaSkladnikow)
             grafika = request.files['grafika']
@@ -127,11 +130,10 @@ def Dishes():
                     # Pobranie id ostatniego przepisu jako string <Przepisy id>
                     przepis_last_id = str(db.session.query(Przepisy).order_by(Przepisy.id.desc()).first())
                     # Utworzenie nowego id poprzez inkrementacje wyciagnietego id ze stringa <Przepisy id>
-                    print(przepis_last_id)
-                    if(przepis_last_id is None):
-                        przepis_new_id = int(''.join(x for x in przepis_last_id if x.isdigit())) + 1
-                    else:
+                    if(przepis_last_id == "None"):
                         przepis_new_id = 1
+                    else:
+                        przepis_new_id = int(''.join(x for x in przepis_last_id if x.isdigit())) + 1
                     # Zapisanie nazwy grafiki jako id.png
                     grafika_name = str(przepis_new_id) + '.png'
                     grafika.save(os.path.join('website/static/img', grafika_name))
@@ -212,7 +214,8 @@ def delete(id):
     if current_user.is_authenticated:
         przepis = Przepisy.query.filter_by(id=id).first()
         grafika_name = str(id) + '.png'
-        os.remove(os.path.join('website/static/img', grafika_name))
+        if os.path.exists(f'website/static/img/{grafika_name}'):
+            os.remove(os.path.join('website/static/img', grafika_name))
         db.session.delete(przepis)
         db.session.commit()
         flash('Przepis został usunięty!', category='success')
@@ -293,7 +296,9 @@ def editP(id):
             przepis.przepis = request.form.get('przepis')
             przepis.ListaSkladnikow = request.form.getlist('lista')
             przepis.ListaSkladnikow = " ".join(przepis.ListaSkladnikow)
-            db.session.commit()
+            if not przepis.ListaSkladnikow:
+                flash('Musi zostać wybrany przynajmniej jeden składnik!', category='error')
+                return redirect(f'/admin/edit/przepis/{id}')
             przepis.grafika = request.files['grafika']
             grafika_name = przepis.grafika.filename
             if grafika_name != '':
