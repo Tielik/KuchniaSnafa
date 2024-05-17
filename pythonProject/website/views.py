@@ -110,4 +110,7 @@ def indexDanie(id):
 
 @views.route('/API')
 def api():
-    return render_template('api.html')#trzeba zrobić instrukcje
+    if current_user.is_authenticated:
+        return render_template('apiAdmin.html')
+    else:
+        return render_template('api.html')#trzeba zrobić instrukcje
