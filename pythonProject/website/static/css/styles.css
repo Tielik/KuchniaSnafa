@@ -13,6 +13,21 @@
     height: 197px;
   }
 }
+@media (min-width: 1410px) {
+  .div-kat {
+    width: 164.483px;
+  }
+}
+@media (min-width: 1210px) and (max-width: 1409px) {
+  .div-kat {
+    width: 138.783px;
+  }
+}
+@media (max-width: 1209px) {
+  .div-kat {
+    width: 113.083px;
+  }
+}
 @media (min-width: 768px) {
   .seven-cols .col-md-1 {
     width: 100%;
@@ -92,6 +107,11 @@ body {
 .div-kat > :last-child {
   border-bottom-right-radius: 0.375rem;
   border-bottom-left-radius: 0.375rem;
+}
+
+.collapse,
+.collapsing {
+  position: absolute;
 }
 
 .btn-primary {
