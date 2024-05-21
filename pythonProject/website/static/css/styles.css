@@ -178,3 +178,13 @@ to have them the same height as text with float-start class */
   color: #43a047;
   border-top: 0.1rem solid;
 }
+
+.ingredient {
+  margin-top: -0.25rem !important;
+  margin-bottom: -0.25rem !important;
+}
+
+.previous-field {
+  margin-left: 0 !important;
+  margin-right: 0 !important;
+}

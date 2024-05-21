@@ -125,14 +125,14 @@
     <br>
     <h1 class="twojeSkladniki mb-2 mt-3">Twoje Składniki</h1>
     <form method="POST">
-        <div class="current-field row"></div>
+        <div class="current-field row rounded"></div>
         {% if form!=null %}
-            <div class="previous-field row">
+            <div class="previous-field row bg-body-secondary ">
                 {% for x in SkladnikiWybrane %}
-                <div class="col-sm-3 py-2">
-                    <div class="py-4" id="{{x.id}}">
-                        {{x.Nazwa}}
-                        <input style="display:none;" type="text" name="{{x.id}}" value="{{x.id}}">
+                <div class="col-sm-3 py-1">
+                    <div class="py-4 pe-3 ingredient rounded" id="{{x.id}}">
+                        <span class="ps-3">{{x.Nazwa}}</span>
+                        <input type="hidden" name="{{x.id}}" value="{{x.id}}">
                         <button type="button" class="btn-end float-end btn btn-danger"
                             onClick="deleteP('{{x.id}}')">Usuń</button>
                     </div>
