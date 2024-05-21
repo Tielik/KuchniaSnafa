@@ -1,11 +1,11 @@
 {% extends "base.html" %}
-{% block title %}Kuchnia Snafa Admin Panel{% endblock %}
+{% block title %}Panel adm{% endblock %}
 
 {% block content %}
 <div class="container w-50">
     <h1 class="mb-3">Panel administracyjny</h1>
     <a class="btn btn-primary" role="button" href="/admin/logout">Wyloguj</a>
-    <a class="btn btn-primary" role="button" href="/admin/clp">Zmień login i hasło</a>
+    <a class="btn btn-primary" role="button" href="/admin/clp">Zmień login lub hasło</a>
     <h1 class="mb-3 mt-4">Przepisy</h1>
     <p><a class="btn btn-primary" role="button" href="/admin/przepisy"> Dodaj przepis</a></p>
     {% if przepisy %}
@@ -27,7 +27,6 @@
     </p>
 </div>
     <div class="col-6 d-flex align-items-center">
-    <!-- Tutaj bedzie grafika dania !-->
     <img class="card-img" src="{{url_for('static',filename='img/')}}{{przepis.id}}{{'.png'}}">
     </div>
     <p style="text-align: center;"><a class="btn btn-primary rounded-end-0 border-end-primary" role="button" href="/admin/delete/przepis/{{przepis.id}}">Usuń</a><a

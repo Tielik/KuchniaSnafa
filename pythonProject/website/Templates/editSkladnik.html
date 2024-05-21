@@ -1,14 +1,13 @@
 {%extends 'base.html' %}
-{% block title %}Edytowanie Składników{% endblock %}
+{% block title %}Edytuj składnik{% endblock %}
 
 {% block content %}
-<div class="container w-50">
+<div class="container w-25">
     <form method="POST">
         <label for="nazwa">Nazwa Składnika</label>
-        <input type="text" class="form-control" id="nazwa"
-               name="Nazwa" placeholder="{{skladnik.Nazwa}}"/>
+        <input type="text" class="mb-1 form-control" id="nazwa" name="Nazwa" placeholder="{{skladnik.Nazwa}}" />
         <label for="kategoria">Kategoria</label>
-        <select class="form-select form-control" id="kategoria" name="kategoria">
+        <select class="form-select mb-1 form-control" id="kategoria" name="kategoria">
             <option selected>Wybierz kategorię</option>
             <option value="1">Produkty zbożowe</option>
             <option value="2">Warzywa</option>
@@ -18,7 +17,7 @@
             <option value="6">Tłuszcze</option>
             <option value="7">Przyprawy</option>
         </select>
-        <button type="submit" class="btn btn-primary">Potwierdź</button>
+        <p><button type="submit" class="mt-1 btn btn-primary">Potwierdź</button></p>
     </form>
 </div>
 {% endblock %}
