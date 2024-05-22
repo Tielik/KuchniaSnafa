@@ -2,65 +2,87 @@
 {% block title %}Panel adm{% endblock %}
 
 {% block content %}
+
 <div class="container w-50">
-    <h1 class="mb-3">Panel administracyjny</h1>
-    <a class="btn btn-primary" role="button" href="/admin/logout">Wyloguj</a>
-    <a class="btn btn-primary" role="button" href="/admin/clp">Zmień login lub hasło</a>
-    <h1 class="mb-3 mt-4">Przepisy</h1>
-    <p><a class="btn btn-primary" role="button" href="/admin/przepisy"> Dodaj przepis</a></p>
+    <nav class="navbar py-4 rounded sticky-top navbar-expand-lg">
+        <div class="container-fluid">
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavAltMarkup"
+                aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+                <div class="navbar-nav">
+                    <a class="nav-link rounded-start" href="/">Strona główna</a>
+                    <a class="nav-link" href="/admin/przepisy">Dodaj przepis</a>
+                    <a class="nav-link" href="/admin/skladniki">Dodaj składnik</a>
+                    <a class="nav-link" href="/admin/clp">Zmień login lub hasło</a>
+                    <a class="nav-link rounded-end" href="/admin/logout">Wyloguj</a>
+                </div>
+            </div>
+        </div>
+    </nav>
+    <h1 class="mb-3 mt-3" style="text-align: center;">Panel administracyjny</h1>
+    <h2 class="mb-3 mt-4">Przepisy</h2>
     {% if przepisy %}
     <div class="row">
-    {% for przepis in przepisy %}
-            <hr class="hr-admin mt-1">
-    <div class="col-6">
-    Nazwa: <p>{{przepis.nazwa}}</p>
-    Czas: <p>{{przepis.czas}}</p>
-    Opis: <p>{{przepis.opis}}</p>
-    Przygotowanie: <p>{{przepis.przepis}}</p>
-    Składniki:
-    <p>
-        {% for skladnik in skladniki %}
-        {% if skladnik.id|string in przepis.ListaSkladnikow %}
-        {{skladnik.Nazwa}}
-        {% endif %}
+        {% for przepis in przepisy %}
+        <hr class="hr-admin mt-1">
+        <div class="col-6">
+            Nazwa: <p>{{przepis.nazwa}}</p>
+            Czas: <p>{{przepis.czas}}</p>
+            Opis: <p>{{przepis.opis}}</p>
+            Przygotowanie: <p>{{przepis.przepis}}</p>
+            Składniki:
+            <p>
+                {% for skladnik in skladniki %}
+                {% if skladnik.id|string in przepis.ListaSkladnikow %}
+                {{skladnik.Nazwa}}
+                {% endif %}
+                {% endfor %}
+            </p>
+        </div>
+        <div class="col-6 d-flex align-items-center">
+            <img class="card-img" src="{{url_for('static',filename='img/')}}{{przepis.id}}{{'.png'}}">
+        </div>
+        <p style="text-align: center;"><a class="btn btn-primary rounded-end-0 border-end-primary" role="button"
+                href="/admin/delete/przepis/{{przepis.id}}">Usuń</a><a class="btn btn-primary rounded-start-0"
+                role="button" href="/admin/edit/przepis/{{przepis.id}}">Edytuj</a></p>
         {% endfor %}
-    </p>
-</div>
-    <div class="col-6 d-flex align-items-center">
-    <img class="card-img" src="{{url_for('static',filename='img/')}}{{przepis.id}}{{'.png'}}">
-    </div>
-    <p style="text-align: center;"><a class="btn btn-primary rounded-end-0 border-end-primary" role="button" href="/admin/delete/przepis/{{przepis.id}}">Usuń</a><a
-        class="btn btn-primary rounded-start-0" role="button" href="/admin/edit/przepis/{{przepis.id}}">Edytuj</a></p>
-    {% endfor %}
     </div>
     {% endif %}
 
-    <h1>Składniki</h1>
-    <a class="btn btn-primary mt-1 mb-3" role="button" href="/admin/skladniki">Dodaj składnik</a><br>
-    {% if skladniki %}
-    {% for skladnik in skladniki %}
-    Nazwa: {{skladnik.Nazwa}}; Kategoria:
-    {% if skladnik.kategoria == 1 %}
-    Produkty zbożowe
-    {% elif skladnik.kategoria == 2 %}
-    Warzywa
-    {% elif skladnik.kategoria == 3 %}
-    Owoce
-    {% elif skladnik.kategoria == 4 %}
-    Mleko i produkty mleczne
-    {% elif skladnik.kategoria == 5 %}
-    Produkty pochodzenia zwierzęcego
-    {% elif skladnik.kategoria == 6 %}
-    Tłuszcze
-    {% elif skladnik.kategoria == 7 %}
-    Przyprawy
-    {% endif %}
-
-    <a class="btn btn-primary btn-end float-end rounded-start-0" role="button"
-        href="/admin/delete/skladnik/{{skladnik.id}}">Usuń</a>
-    <a class="btn btn-primary btn-end float-end rounded-end-0 border-end-primary" role="button"
-        href="/admin/edit/skladnik/{{skladnik.id}}">Edytuj</a>
-    <br><br>
+    <h2>Składniki</h2>
+    <hr class="hr-admin mt-1">
+        {% if skladniki %}
+        {% for skladnik in skladniki %}
+            <div class="row">
+        <div class="col-3">{{skladnik.Nazwa}}</div>
+        <div class="col-6">
+            {% if skladnik.kategoria == 1 %}
+            Produkty zbożowe
+            {% elif skladnik.kategoria == 2 %}
+            Warzywa
+            {% elif skladnik.kategoria == 3 %}
+            Owoce
+            {% elif skladnik.kategoria == 4 %}
+            Mleko i produkty mleczne
+            {% elif skladnik.kategoria == 5 %}
+            Produkty pochodzenia zwierzęcego
+            {% elif skladnik.kategoria == 6 %}
+            Tłuszcze
+            {% elif skladnik.kategoria == 7 %}
+            Przyprawy
+            {% endif %}
+        </div>
+        <div class="col-3"><p>
+            <a class="btn btn-primary btn-end rounded " role="button"
+                href="/admin/delete/skladnik/{{skladnik.id}}">Usuń</a>
+            <a class="btn btn-primary btn-end rounde" role="button"
+                href="/admin/edit/skladnik/{{skladnik.id}}">Edytuj</a>
+                </p>
+        </div>
+        <hr class="hr-admin">
+    </div>
     {% endfor %}
     {%endif%}
 </div>

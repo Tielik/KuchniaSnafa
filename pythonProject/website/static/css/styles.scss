@@ -197,3 +197,15 @@ to have them the same height as text with float-start class */
     margin-left: 0 !important;
     margin-right: 0 !important;
 }
+
+.navbar {
+    background-color: $primary-color;
+}
+
+.nav-link {
+    color: white !important;
+
+    &:hover {
+        color: #{darken($primary-color, 25%)} !important;
+    }
+}

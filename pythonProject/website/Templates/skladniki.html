@@ -1,14 +1,15 @@
-{% extends 'base.html' %}
+{% extends "base.html" %}
 {% block title %}Dodaj składnik{% endblock %}
 
 {% block content %}
 <div class="container w-25">
     <form method="POST">
         <label for="nazwa">Nazwa składnika</label>
-        <input type="text" class="mb-1 form-control" id="nazwa" name="Nazwa" placeholder="Podaj nazwę składnika" />
+        <input type="text" class="mb-1 form-control" id="nazwa" name="Nazwa" placeholder="Podaj nazwę składnika"
+            required="required" />
         <label for="kategoria">Kategoria</label>
-        <select class="form-select mb-1 form-control" id="kategoria" name="kategoria">
-            <option selected>Wybierz kategorię</option>
+        <select class="form-select mb-1 form-control" id="kategoria" name="kategoria" required>
+            <option disabled selected value>Wybierz kategorię</option>
             <option value="1">Produkty zbożowe</option>
             <option value="2">Warzywa</option>
             <option value="3">Owoce</option>

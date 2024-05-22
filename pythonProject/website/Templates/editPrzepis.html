@@ -6,18 +6,18 @@
        <form method="POST" enctype="multipart/form-data">
               <label for="nazwa">Nazwa Dania (maksymalnie 25 znaków)</label>
               <input type="text" class="mb-1 form-control" id="nazwa" name="nazwa" value="{{przepis.nazwa}}"
-                     required="required" maxlength="25" />
+                     placeholder="Podaj nazwę dania" required="required" maxlength="25" />
               <label for="czas">Czas</label>
               <input type="text" class="mb-1 form-control" id="czas" name="czas" value="{{przepis.czas}}"
-                     required="required" />
+                     placeholder="Podaj czas przygotowania" required="required" />
               <label for="opis">Opis (maksymalnie 30 znaków)</label>
               <input type="text" class="mb-1 form-control" id="opis" name="opis" value="{{przepis.opis}}"
-                     required="required" maxlength="30" />
+                     placeholder="Podaj opis przepisu" required="required" maxlength="30" />
               <input type="hidden" class="mb-1 form-control" id="skladniki" name="skladniki"
                      value="{{przepis.skladniki}}" />
               <label for="przepis">Przepis</label>
               <textarea class="mb-1 form-control" id="przepis" name="przepis" required="required"
-                     rows="3">{{przepis.przepis}}</textarea>
+                     placeholder="Podaj opis wykonania" rows="3">{{przepis.przepis}}</textarea>
               <label for="lista">Składniki</label>
               {% for skladnik in skladniki %}
               <div class="form-check">

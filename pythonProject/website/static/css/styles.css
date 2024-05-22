@@ -188,3 +188,14 @@ to have them the same height as text with float-start class */
   margin-left: 0 !important;
   margin-right: 0 !important;
 }
+
+.navbar {
+  background-color: #43a047;
+}
+
+.nav-link {
+  color: white !important;
+}
+.nav-link:hover {
+  color: #1d461f !important;
+}
