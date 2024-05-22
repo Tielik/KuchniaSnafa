@@ -1,4 +1,4 @@
-from flask import Flask, request
+from flask import Flask, request,jsonify
 from flask_sqlalchemy import SQLAlchemy
 from flask_login import LoginManager
 from flask_restful import Api, Resource, fields, marshal_with, abort
@@ -40,7 +40,7 @@ def verify_password(username, password):
         - True if the input is a valid ingredient, False otherwise.
     """
 def is_ingredient(user_input):
-    if user_input.get('Nazwa').isdigit() or user_input.get('kategoria').isdigit() == False or int(
+    if str(user_input.get('Nazwa')).isdigit() or str(user_input.get('kategoria')).isdigit() == False or int(
             user_input.get("kategoria")) > 9 or int(user_input.get("kategoria")) <= 0:
             return False
     else:
@@ -62,7 +62,7 @@ def  dishes_with_matching_ingredient_remover(input):
         ingredients_holder = dish.ListaSkladnikow
         ingredients_holder.split(' ')
         for x in ingredients_holder:
-            if x != " " or "":
+            if x.isdigit():
                 if int(x) == int(input):
                     db.session.delete(dish)
                     db.session.commit()
@@ -126,6 +126,19 @@ def ingredients_matcher(ingredients):
                 end_ingredients += new_ingredient + " "
     return end_ingredients
 
+
+api_holder=[]
+def require_api_key(f):
+    def decorated_function(*args,**kwargs):
+        print(api_holder)
+        api_key=request.headers.get("x-api-key")
+        if not api_key:
+            api_key=request.args.get('api_key')
+        if api_key not in api_holder:
+            abort(404,message="Mising Api key, ad api like this: ?api_key=de99cb8c-976e-4c4f-9692-839f88338fcc")
+        return f(*args,**kwargs)
+    decorated_function.__name__=f.__name__
+    return decorated_function
 #templates tha api will return if get will be called
 resource_fields = {
     'id': fields.Integer,
@@ -142,6 +155,10 @@ resource_fields2 = {
 }
 
 
+#wymienik na resource fields :< albo ogarnij dokładnie co marshal robi
+# tokeny tak: przycisk na stronie z instrukcją dostajesz token i by zrobić geta potrzebujesz tokena :>
+
+
 class Dish_api(Resource):
 
     """
@@ -154,7 +171,11 @@ class Dish_api(Resource):
         A list of dishes matching the input.
     """
     @marshal_with(resource_fields)
+    @require_api_key
     def get(self, input=None):
+        api_key=request.headers.get("x-api-key")
+        print(api_key)
+        print("asdsad")
         if input is None:
             dishes = Przepisy.query.all()
         else:
@@ -165,10 +186,12 @@ class Dish_api(Resource):
         else:
             for dish in dishes:
                 holder_of_ingredients = dish.ListaSkladnikow.split(' ')
-                holder_of_ingredients = [int(i) for i in holder_of_ingredients]
+                for x in holder_of_ingredients:
+                    if x.isdigit():
+                        x=int(x)          
                 dish.ListaSkladnikow = ""
                 for ingredient_number in holder_of_ingredients:
-                    if ingredient_number != '' or ingredient_number != " ":
+                    if ingredient_number.isdigit():
                         name_of_ingredient = Skladniki.query.filter_by(id=ingredient_number).first()
                         name_of_ingredient = str(name_of_ingredient.Nazwa)
                         dish.ListaSkladnikow += name_of_ingredient + " "
@@ -184,23 +207,23 @@ class Dish_api(Resource):
         """
     @auth.login_required
     def post(self):
-        user_input = request.get_json()
-        if user_input is None:
-            return {"wiadomość": 'Brak danych wejśiowych'}, 400
-        if user_input.get('nazwa') is None or user_input.get('czas') is None or user_input.get(
-                'opis') is None or user_input.get('ListaSkladnikow') is None or user_input.get('przepis') is None:
-            return {"wiadomość": 'Brak wymaganych pól'}, 400
-        if str(user_input.get("ListasSkladnikow")).isdigit():
-            ingredients = int(user_input['ListaSkladnikow'])
-            ingredients = [ingredients]
-        else:
-            ingredients = str(user_input['ListaSkladnikow']).split(' ')
+        user_inputs = request.get_json()
+        for user_input in user_inputs:
+            if user_input is None:
+                return {"wiadomość": 'Brak danych wejśiowych'}, 400
+            if user_input['nazwa'] is None or user_input['czas'] is None or user_input['opis'] is None or user_input['ListaSkladnikow'] is None or user_input['przepis'] is None:
+                return {"wiadomość": 'Brak wymaganych pól'}, 400
+            if str(user_input["ListaSkladnikow"]).isdigit():
+                ingredients = int(user_input['ListaSkladnikow'])
+                ingredients = [ingredients]
+            else:
+                ingredients = str(user_input['ListaSkladnikow']).split(' ')
 
-        end_ingredients = ingredients_matcher(ingredients)
-        new_dish = Przepisy(nazwa=user_input['nazwa'], czas=user_input['czas'], opis=user_input['opis'],
-                            ListaSkladnikow=end_ingredients, przepis=user_input['przepis'])
-        db.session.add(new_dish)
-        db.session.commit()
+            end_ingredients = ingredients_matcher(ingredients)
+            new_dish = Przepisy(nazwa=user_input['nazwa'], czas=user_input['czas'], opis=user_input['opis'],
+                                ListaSkladnikow=end_ingredients, przepis=user_input['przepis'])
+            db.session.add(new_dish)
+            db.session.commit()
         return {"wiadomość": 'Dodano do bazy pomyślnie'}, 201
 
         """
@@ -233,27 +256,31 @@ class Dish_api(Resource):
     @auth.login_required
     def put(self, input):
         user_input = request.get_json()
-        dish=dish_input_matcher(input)
-        if dish == [None] or dish is None:
+        if user_input is list:
+            return {"wiadomość": 'Edytować można tylko jeden element na raz'}, 400
+        dishes=dish_input_matcher(input)
+        print(dishes)
+        if dishes == [None] or dishes is None:
             return {"wiadomość": 'Nie znaleziono dania na podstawie danych wejśiowych'}, 404
         if user_input is None:
             return {"wiadomość": 'Brak danych wejśiowych'}, 400
-        if user_input.get("ListasSkladnikow").isdigit() == False:
-            ingredients = user_input['ListaSkladnikow'].split(' ')
-            end_ingredients =ingredients_matcher(ingredients)
-        else:
-            end_ingredients = user_input['ListaSkladnikow']
-        if user_input['nazwa'] is not None:
-            dish.nazwa = user_input['nazwa']
-        if user_input['czas'] is not None:
-            dish.czas = user_input['czas']
-        if user_input['opis'] is not None:
-            dish.opis = user_input['opis']
-        if user_input['ListaSkladnikow'] is not None:
-            dish.ListaSkladnikow = end_ingredients
-        if user_input['przepis'] is not None:
-            dish.przepis = user_input['przepis']
-        db.session.commit()
+        for dish in dishes:
+            if str(user_input.get("ListasSkladnikow")).isdigit() == False:
+                ingredients = user_input['ListaSkladnikow'].split(' ')
+                end_ingredients =ingredients_matcher(ingredients)
+            else:
+                end_ingredients = user_input['ListaSkladnikow']
+            if user_input['nazwa'] is not None:
+                dish.nazwa = user_input['nazwa']
+            if user_input['czas'] is not None:
+                dish.czas = user_input['czas']
+            if user_input['opis'] is not None:
+                dish.opis = user_input['opis']
+            if user_input['ListaSkladnikow'] is not None:
+                dish.ListaSkladnikow = end_ingredients
+            if user_input['przepis'] is not None:
+                dish.przepis = user_input['przepis']
+            db.session.commit()
         return {"wiadomość": 'Zmieniono danie poprawnie'}, 200
 
 
@@ -268,6 +295,7 @@ class Ingredients_api(Resource):
         A list of ingredients matching the input.
     """
     @marshal_with(resource_fields2)
+    @require_api_key
     def get(self, input=None):
         if input is None:
             ingredients = Skladniki.query.all()
@@ -288,18 +316,20 @@ class Ingredients_api(Resource):
         """
     @auth.login_required
     def post(self):
-        user_input = request.get_json()
-        if user_input is None:
-            return {"wiadomość": 'Brak danych wejściowych'}, 400
-        if user_input.get('Nazwa') is None or user_input.get('kategoria') is None:
-            return {"wiadomość": 'Brak wymaganych pól'}, 400
-        else:
-            if is_ingredient(user_input) == False:
-                return {"wiadomość": 'nazwa nie moze mieć cyfr, a kategoria musi być cyfrą od 0 do 8'}, 404
-            new_ingredient = Skladniki(Nazwa=user_input['Nazwa'], kategoria=user_input['kategoria'])
-            db.session.add(new_ingredient)
-            db.session.commit()
-            return {"wiadomość": 'Stworzono nowy składnik pomyslnie'}, 201
+        user_inputs = request.get_json()
+        user_inputs=[user_inputs]
+        for user_input in user_inputs:
+            if user_input is None:
+                return {"wiadomość": 'Brak danych wejściowych'}, 400
+            if user_input.get('Nazwa') is None or user_input.get('kategoria') is None:
+                return {"wiadomość": 'Brak wymaganych pól'}, 400
+            else:
+                if is_ingredient(user_input) == False:
+                    return {"wiadomość": 'nazwa nie moze mieć cyfr, a kategoria musi być cyfrą od 0 do 8'}, 404
+                new_ingredient = Skladniki(Nazwa=user_input['Nazwa'], kategoria=user_input['kategoria'])
+                db.session.add(new_ingredient)
+                db.session.commit()
+        return {"wiadomość": 'Stworzono nowy składnik pomyslnie'}, 201
 
         """
         A function to delete an ingredient based on the provided input.
@@ -312,11 +342,12 @@ class Ingredients_api(Resource):
         """
     @auth.login_required
     def delete(self, input):
-        ingredient = ingredients_input_matcher(input)
-        if ingredient == [None] or ingredient is None:
+        ingredients = ingredients_input_matcher(input)
+        if ingredients == [None] or ingredients is None:
             return {"wiadomość": 'Nie znaleziono składnika'}, 404
-        db.session.delete(ingredient)
-        db.session.commit()
+        for ingredient in ingredients:
+            db.session.delete(ingredient)
+            db.session.commit()
         dishes_with_matching_ingredient_remover(input)
         return {"wiadomość": 'Poprawnie usunięto składnik'}, 200
 
@@ -332,17 +363,18 @@ class Ingredients_api(Resource):
     @auth.login_required
     def put(self, input):
         user_input = request.get_json()
-        ingredient = ingredients_input_matcher(input)
-        if ingredient == [None] or ingredient is None:
+        ingredients = ingredients_input_matcher(input)
+        if ingredients == [None] or ingredients is None:
             return {"wiadomość": 'Nie znaleziono składnika do modyfikacji'}, 404
         if user_input.get('Nazwa') is None or user_input.get('kategoria') is None:
             return {"wiadomość": 'Brak wymaganych pól'}, 400
         else:
             if is_ingredient(user_input) == False:
                 return {"wiadomość": 'nazwa nie moze mieć cyfr a kategoria musi mieć cyfry'}, 404
-            if user_input['Nazwa'] is not None:
-                ingredient.Nazwa = user_input['Nazwa']
-            if user_input['kategoria'] is not None:
-                ingredient.kategoria = user_input['kategoria']
+            for ingredient in ingredients:
+                if user_input['Nazwa'] is not None:
+                    ingredient.Nazwa = user_input['Nazwa']
+                if user_input['kategoria'] is not None:
+                    ingredient.kategoria = user_input['kategoria']
             db.session.commit()
             return {"wiadomość": 'Pomyślnie zmieniono składnik'}, 200

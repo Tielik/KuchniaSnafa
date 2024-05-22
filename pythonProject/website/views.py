@@ -6,6 +6,8 @@ from werkzeug.security import check_password_hash, generate_password_hash
 from sqlalchemy import select, engine
 from . import db
 from .models import Admin, Przepisy, Skladniki  # Skladniki Przepisy
+import uuid
+from .api import api_holder
 
 views = Blueprint('views', __name__)
 
@@ -81,13 +83,13 @@ def index():
     ingredients = db.session.query(Skladniki)
     if request.method == 'POST' and request.form != None:
         form_input=request.form
-        dania_z_Bazy_Danych,chosen_ingredient = select_right_dishes(form_input)
-        return render_template('index.html', form=form_input, dania=dania_z_Bazy_Danych, Skladnikiz=ingredients,
+        dishes_from_db,chosen_ingredient = select_right_dishes(form_input)
+        return render_template('index.html', form=form_input, dania=dishes_from_db, Skladnikiz=ingredients,
                                SkladnikiWybrane=chosen_ingredient)
     if session.get('skladniki') != None:
         form_input = session.get('skladniki')
-        dania_z_Bazy_Danych,chosen_ingredient = select_right_dishes(form_input)
-        return render_template('index.html', form=form_input, dania=dania_z_Bazy_Danych, Skladnikiz=ingredients,
+        dishes_from_db,chosen_ingredient = select_right_dishes(form_input)
+        return render_template('index.html', form=form_input, dania=dishes_from_db, Skladnikiz=ingredients,
                                SkladnikiWybrane=chosen_ingredient)
     else:
         return render_template('index.html', Skladnikiz=ingredients)
@@ -108,9 +110,14 @@ def indexDanie(id):
     dish= db.session.query(Przepisy).filter(Przepisy.id == id).first()
     return render_template('dishSite.html', skladniki=ingredients, danie=dish,url_path=url_for('static',filename='img/'+str(dish.id)+'.png'))
 
-@views.route('/API')
+@views.route('/api')
 def api():
     if current_user.is_authenticated:
         return render_template('apiAdmin.html')
     else:
-        return render_template('api.html')#trzeba zrobić instrukcje
+        return render_template('api.html')
+
+@views.route('/api/tokenGenerator')
+def tokenGenerator():
+    api_holder.append(str(uuid.uuid4()))
+    return jsonify({'token': api_holder[-1],"WARNING": "THIS WILL NOT BE SHOW AGAIN REMEMBER THIS TOKEN"})
