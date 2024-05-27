@@ -3,7 +3,7 @@
 
 {% block content %}
 
-<div class="container w-50">
+<div class="container w-75">
     <nav class="navbar py-4 rounded sticky-top navbar-expand-lg">
         <div class="container-fluid">
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavAltMarkup"
@@ -44,19 +44,29 @@
         <div class="col-6 d-flex align-items-center">
             <img class="card-img" src="{{url_for('static',filename='img/')}}{{przepis.id}}{{'.png'}}">
         </div>
+        <div class="col-12">
         <p style="text-align: center;"><a class="btn btn-primary rounded-end-0 border-end-primary" role="button"
                 href="/admin/delete/przepis/{{przepis.id}}">Usuń</a><a class="btn btn-primary rounded-start-0"
                 role="button" href="/admin/edit/przepis/{{przepis.id}}">Edytuj</a></p>
+                </div>
         {% endfor %}
     </div>
     {% endif %}
 
     <h2>Składniki</h2>
-    <hr class="hr-admin mt-1">
+
         {% if skladniki %}
+        <p>
+        <div class="row">
+        <div class="col-3 ps-4">Nazwa</div>
+        <div class="col-6">Kategoria</div>
+        <div class="col-3">&nbsp;</p></div>
+                    <hr class="hr-admin mt-1">
+    </div>
+
         {% for skladnik in skladniki %}
             <div class="row">
-        <div class="col-3">{{skladnik.Nazwa}}</div>
+        <div class="col-3 ps-4">{{skladnik.Nazwa}}</div>
         <div class="col-6">
             {% if skladnik.kategoria == 1 %}
             Produkty zbożowe
@@ -75,9 +85,9 @@
             {% endif %}
         </div>
         <div class="col-3"><p>
-            <a class="btn btn-primary btn-end rounded " role="button"
+            <a class="btn btn-primary btn-end rounded" role="button"
                 href="/admin/delete/skladnik/{{skladnik.id}}">Usuń</a>
-            <a class="btn btn-primary btn-end rounde" role="button"
+            <a class="btn btn-primary btn-end rounded" role="button"
                 href="/admin/edit/skladnik/{{skladnik.id}}">Edytuj</a>
                 </p>
         </div>

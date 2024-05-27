@@ -125,11 +125,11 @@
     <br>
     <h1 class="twojeSkladniki mb-2 mt-3">Twoje Składniki</h1>
     <form method="POST">
-        <div class="current-field row rounded"></div>
+        <div class="current-field row"></div>
         {% if form!=null %}
-            <div class="previous-field row bg-body-secondary ">
+            <div class="previous-field row ">
                 {% for x in SkladnikiWybrane %}
-                <div class="col-sm-3 py-1">
+                <div class="col-sm-3 py-1 div-ingredient">
                     <div class="py-4 pe-3 ingredient rounded" id="{{x.id}}">
                         <span class="ps-3">{{x.Nazwa}}</span>
                         <input type="hidden" name="{{x.id}}" value="{{x.id}}">
@@ -145,10 +145,9 @@
     </form>
 
     {% if dania %}
-    <div class="ms-1 mt-3 row row-cols-1 row-cols-md-4">
+    <div class="ms-1 mt-4 row">
         {% for danias in dania %}
-        <div class="col mb-4">
-            <div class="card h-100 dish-card">
+            <div class="col-3 mb-4 me-4 card h-100 dish-card">
                 {%set var=danias.id|string %}
                 <img src="{{url_for('static', filename='img/'+var+'.png')}}" class="card-img" alt="...">
                 <div class="card-body">
@@ -156,7 +155,7 @@
                     <p class="card-text">{{danias.opis}}</p>
                     <a class="btn btn-primary" role="button" href="/danie/{{danias.id}}">Przejdź do przepisu</a>
                 </div>
-            </div>
+
         </div>
         {% endfor %}
     </div>
@@ -210,6 +209,11 @@
             nazwa.setAttribute("for", idProduktu);
             nazwa.innerHTML = nazwaProduktu;
 
+            let span = document.createElement("span");
+            span.setAttribute("class", "ps-3");
+
+            span.append(nazwa);
+
             let ID = document.createElement("input");
             ID.setAttribute("type", "text");
             ID.setAttribute("id", idProduktu);
@@ -220,7 +224,6 @@
             btnUsun.setAttribute("type", "button");
             btnUsun.setAttribute("class", "btn-end float-end btn btn-danger");
             btnUsun.innerHTML = "Usuń";
-            console.log(wybrane);
             btnUsun.onclick = () => {
                 currentField.removeChild(poleMain);
                 wybrane.splice(wybrane.indexOf(idProduktu), 1);
@@ -230,8 +233,8 @@
             }
 
             let pole = document.createElement("div");
-            pole.setAttribute("class", "py-4");
-            pole.append(nazwa);
+            pole.setAttribute("class", "py-4 pe-3 ingredient rounded");
+            pole.append(span);
             pole.append(ID);
             pole.append(btnUsun);
 
@@ -240,6 +243,16 @@
             poleMain.append(pole);
 
             currentField.append(poleMain);
+
+            let wybierzSkladniki = document.createElement("h1");
+            wybierzSkladniki.setAttribute("class", "wybierz-skladniki mb-2 mt-3");
+            wybierzSkladniki.setAttribute("style", "display: none");
+            wybierzSkladniki.innerHTML = "Wybierz składniki";
+            let sevenCols = document.querySelector(".row.seven-cols");
+            sevenCols.append(wybierzSkladniki);
+            console.log(document.querySelector(".row.seven-cols"));
+            console.log(wybierzSkladniki);
+
         }
     }
 // Deletes a product from the list of selected products.

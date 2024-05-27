@@ -193,7 +193,8 @@ to have them the same height as text with float-start class */
     margin-bottom: -0.25rem !important;
 }
 
-.previous-field {
+.previous-field,
+.current-field {
     margin-left: 0 !important;
     margin-right: 0 !important;
 }
@@ -207,5 +208,43 @@ to have them the same height as text with float-start class */
 
     &:hover {
         color: #{darken($primary-color, 25%)} !important;
+    }
+}
+
+.div-ingredient {
+    border-width: 0;
+    border-bottom-width: 0.05rem;
+    border-right-width: 0.05rem;
+    border-color: $primary-color;
+    border-style: solid;
+    border-radius: 2px;
+
+    &:nth-last-child(-n + 3) {
+        border-bottom: 0 !important;
+    }
+
+    &:nth-child(4) {
+        border-right: 0 !important;
+    }
+}
+
+@media only screen and (min-width: 960px) and (max-width: 1199) {
+    .nav-link {
+        margin-left: 0.5rem;
+        margin-right: 0.5rem;
+    }
+}
+
+@media only screen and (min-width: 1200px) and (max-width: 1399px) {
+    .nav-link {
+        margin-left: 1rem;
+        margin-right: 1rem;
+    }
+}
+
+@media only screen and (min-width: 1400px) {
+    .nav-link {
+        margin-left: 2rem;
+        margin-right: 2rem;
     }
 }
