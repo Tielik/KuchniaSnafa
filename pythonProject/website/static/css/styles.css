@@ -155,6 +155,7 @@ to have them the same height as text with float-start class */
 }
 
 .site-img {
+  width: 100vh;
   height: auto;
   max-width: 100%;
   display: block;
@@ -164,6 +165,9 @@ to have them the same height as text with float-start class */
   width: 100%;
   height: 12rem;
   object-fit: cover;
+}
+.card-img.admin {
+  height: 15rem;
 }
 
 .border-end-primary {
@@ -201,21 +205,6 @@ to have them the same height as text with float-start class */
   color: #1d461f !important;
 }
 
-.div-ingredient {
-  border-width: 0;
-  border-bottom-width: 0.05rem;
-  border-right-width: 0.05rem;
-  border-color: #43a047;
-  border-style: solid;
-  border-radius: 2px;
-}
-.div-ingredient:nth-last-child(-n+3) {
-  border-bottom: 0 !important;
-}
-.div-ingredient:nth-child(4) {
-  border-right: 0 !important;
-}
-
 @media only screen and (min-width: 960px) and (max-width: 1199) {
   .nav-link {
     margin-left: 0.5rem;
@@ -233,4 +222,8 @@ to have them the same height as text with float-start class */
     margin-left: 2rem;
     margin-right: 2rem;
   }
+}
+.footer {
+  color: #255827;
+  background-color: white;
 }

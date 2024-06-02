@@ -149,7 +149,7 @@
         {% for danias in dania %}
             <div class="col-3 mb-4 me-4 card h-100 dish-card">
                 {%set var=danias.id|string %}
-                <img src="{{url_for('static', filename='img/'+var+'.png')}}" class="card-img" alt="...">
+                <img src="{{url_for('static', filename='img/'+var+'.png')}}" class="card-img mt-2" alt="...">
                 <div class="card-body">
                     <h5 class="card-title">{{danias.nazwa}}</h5>
                     <p class="card-text">{{danias.opis}}</p>
