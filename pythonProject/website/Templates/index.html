@@ -4,15 +4,15 @@
 <h1 class="logo">Kuchnia Snafa</h1><br>
 <div class="row seven-cols">
     <div class="col-md-1">
-        <button type="button" class="btn-kat btn btn-primary" id="kat-zbozowe" onClick="katChange('kat-zbozowe')"
+        <button type="button" class="btn-category btn btn-primary" id="category-zbozowe" onClick="categoryChange('category-zbozowe')"
             data-bs-toggle="collapse" data-bs-target="#zbozowe">Produkty zbożowe
         </button>
-        <div class="collapse multi-collapse div-kat" id="zbozowe">
+        <div class="collapse multi-collapse div-category" id="zbozowe">
             {% if Skladnikiz %}
             {% for x in Skladnikiz %}
             {% if x.kategoria == 1 %}
-            <button type="button" class="btn-prod btn btn-light" id="zbozowe{{x}}"
-                onClick="wybierzSkladnik('{{x.id}}', '{{x.Nazwa}}')">{{x.Nazwa}}
+            <button type="button" class="btn-ingredient btn btn-light" id="zbozowe{{x}}"
+                onClick="chooseIngredient('{{x.id}}', '{{x.Nazwa}}')">{{x.Nazwa}}
             </button>
 
             {% endif %}
@@ -21,15 +21,15 @@
         </div>
     </div>
     <div class="col-md-1">
-        <button type="button" class="btn-kat btn btn-primary" id="kat-warzywa" onClick="katChange('kat-warzywa')"
+        <button type="button" class="btn-category btn btn-primary" id="category-warzywa" onClick="categoryChange('category-warzywa')"
             data-bs-toggle="collapse" data-bs-target="#warzywa">Warzywa
         </button>
-        <div class="collapse multi-collapse div-kat" id="warzywa">
+        <div class="collapse multi-collapse div-category" id="warzywa">
             {% if Skladnikiz %}
             {% for x in Skladnikiz %}
             {% if x.kategoria == 2 %}
-            <button type="button" class="btn-prod btn btn-light"
-                onClick="wybierzSkladnik('{{x.id}}', '{{x.Nazwa}}')">{{x.Nazwa}}
+            <button type="button" class="btn-ingredient btn btn-light"
+                onClick="chooseIngredient('{{x.id}}', '{{x.Nazwa}}')">{{x.Nazwa}}
             </button>
 
             {% endif %}
@@ -38,15 +38,15 @@
         </div>
     </div>
     <div class="col-md-1">
-        <button type="button" class="btn-kat btn btn-primary" id="kat-owoce" onClick="katChange('kat-owoce')"
+        <button type="button" class="btn-category btn btn-primary" id="category-owoce" onClick="categoryChange('category-owoce')"
             data-bs-toggle="collapse" data-bs-target="#owoce">Owoce
         </button>
-        <div class="collapse multi-collapse div-kat" id="owoce">
+        <div class="collapse multi-collapse div-category" id="owoce">
             {% if Skladnikiz %}
             {% for x in Skladnikiz %}
             {% if x.kategoria == 3 %}
-            <button type="button" class="btn-prod btn btn-light"
-                onClick="wybierzSkladnik('{{x.id}}', '{{x.Nazwa}}')">{{x.Nazwa}}
+            <button type="button" class="btn-ingredient btn btn-light"
+                onClick="chooseIngredient('{{x.id}}', '{{x.Nazwa}}')">{{x.Nazwa}}
             </button>
             {% endif %}
             {% endfor %}
@@ -54,16 +54,16 @@
         </div>
     </div>
     <div class="col-md-1">
-        <button type="button" class="btn-kat btn btn-primary" id="kat-mleczne" onClick="katChange('kat-mleczne')"
+        <button type="button" class="btn-category btn btn-primary" id="category-mleczne" onClick="categoryChange('category-mleczne')"
             data-bs-toggle="collapse" data-bs-target="#mleczne">Mleko i
             produkty mleczne
         </button>
-        <div class="collapse multi-collapse div-kat" id="mleczne">
+        <div class="collapse multi-collapse div-category" id="mleczne">
             {% if Skladnikiz %}
             {% for x in Skladnikiz %}
             {% if x.kategoria == 4 %}
-            <button type="button" class="btn-prod btn btn-light"
-                onClick="wybierzSkladnik('{{x.id}}', '{{x.Nazwa}}')">{{x.Nazwa}}
+            <button type="button" class="btn-ingredient btn btn-light"
+                onClick="chooseIngredient('{{x.id}}', '{{x.Nazwa}}')">{{x.Nazwa}}
             </button>
 
             {% endif %}
@@ -72,16 +72,16 @@
         </div>
     </div>
     <div class="col-md-1">
-        <button type="button" class="btn-kat btn btn-primary" id="kat-zwierzece" onClick="katChange('kat-zwierzece')"
-            data-bs-toggle="collapse" data-bs-target="#zwierzece">Produkty
+        <button type="button" class="btn-category btn btn-primary" id="category-zwierzece"
+            onClick="categoryChange('category-zwierzece')" data-bs-toggle="collapse" data-bs-target="#zwierzece">Produkty
             pochodzenia zwierzęcego
         </button>
-        <div class="collapse multi-collapse div-kat" id="zwierzece">
+        <div class="collapse multi-collapse div-category" id="zwierzece">
             {% if Skladnikiz %}
             {% for x in Skladnikiz %}
             {% if x.kategoria == 5 %}
-            <button type="button" class="btn-prod btn btn-light"
-                onClick="wybierzSkladnik('{{x.id}}', '{{x.Nazwa}}')">{{x.Nazwa}}
+            <button type="button" class="btn-ingredient btn btn-light"
+                onClick="chooseIngredient('{{x.id}}', '{{x.Nazwa}}')">{{x.Nazwa}}
             </button>
             {% endif %}
             {% endfor %}
@@ -89,15 +89,15 @@
         </div>
     </div>
     <div class="col-md-1">
-        <button type="button" class="btn-kat btn btn-primary" id="kat-tluszcze" onClick="katChange('kat-tluszcze')"
+        <button type="button" class="btn-category btn btn-primary" id="category-tluszcze" onClick="categoryChange('category-tluszcze')"
             data-bs-toggle="collapse" data-bs-target="#tluszcze">Tłuszcze
         </button>
-        <div class="collapse multi-collapse div-kat" id="tluszcze">
+        <div class="collapse multi-collapse div-category" id="tluszcze">
             {% if Skladnikiz %}
             {% for x in Skladnikiz %}
             {% if x.kategoria == 6 %}
-            <button type="button" class="btn-prod btn btn-light"
-                onClick="wybierzSkladnik('{{x.id}}', '{{x.Nazwa}}')">{{x.Nazwa}}
+            <button type="button" class="btn-ingredient btn btn-light"
+                onClick="chooseIngredient('{{x.id}}', '{{x.Nazwa}}')">{{x.Nazwa}}
             </button>
 
             {% endif %}
@@ -106,15 +106,15 @@
         </div>
     </div>
     <div class="col-md-1">
-        <button type="button" class="btn-kat btn btn-primary" id="kat-przyprawy" onClick="katChange('kat-przyprawy')"
-            data-bs-toggle="collapse" data-bs-target="#przyprawy">Przyprawy
+        <button type="button" class="btn-category btn btn-primary" id="category-przyprawy"
+            onClick="categoryChange('category-przyprawy')" data-bs-toggle="collapse" data-bs-target="#przyprawy">Przyprawy
         </button>
-        <div class="collapse multi-collapse div-kat" id="przyprawy">
+        <div class="collapse multi-collapse div-category" id="przyprawy">
             {% if Skladnikiz %}
             {% for x in Skladnikiz %}
             {% if x.kategoria == 7 %}
-            <button type="button" class="btn-prod btn btn-light"
-                onClick="wybierzSkladnik('{{x.id}}', '{{x.Nazwa}}')">{{x.Nazwa}}
+            <button type="button" class="btn-ingredient btn btn-light"
+                onClick="chooseIngredient('{{x.id}}', '{{x.Nazwa}}')">{{x.Nazwa}}
             </button>
 
             {% endif %}
@@ -123,38 +123,38 @@
         </div>
     </div>
     <br>
-    <h1 class="twojeSkladniki mb-2 mt-3">Twoje Składniki</h1>
+    <h1 class="yourIngredients mb-2 mt-3">Twoje Składniki</h1>
     <form method="POST">
         <div class="current-field row"></div>
         {% if form!=null %}
-            <div class="previous-field row ">
-                {% for x in SkladnikiWybrane %}
-                <div class="col-sm-3 py-1 div-ingredient">
-                    <div class="py-4 pe-3 ingredient rounded" id="{{x.id}}">
-                        <span class="ps-3">{{x.Nazwa}}</span>
-                        <input type="hidden" name="{{x.id}}" value="{{x.id}}">
-                        <button type="button" class="btn-end float-end btn btn-danger"
-                            onClick="deleteP('{{x.id}}')">Usuń</button>
-                    </div>
+        <div class="previous-field row ">
+            {% for x in SkladnikiWybrane %}
+            <div class="col-sm-3 py-1 div-ingredient">
+                <div class="py-4 pe-3 ingredient rounded" id="{{x.id}}">
+                    <span class="ps-3">{{x.Nazwa}}</span>
+                    <input type="hidden" name="{{x.id}}" value="{{x.id}}">
+                    <button type="button" class="btn-end float-end btn btn-danger"
+                        onClick="deleteIngredient('{{x.id}}')">Usuń</button>
                 </div>
-                {% endfor %}
             </div>
-            {% endif %}
+            {% endfor %}
+        </div>
+        {% endif %}
 
-            <button type="submit" class="btn-gotowe btn btn-primary mb-2">Gotowe</button>
+        <button type="submit" class="btn-ready btn btn-primary mb-2">Gotowe</button>
     </form>
 
     {% if dania %}
     <div class="ms-1 mt-4 row">
         {% for danias in dania %}
-            <div class="col-3 mb-4 me-4 card h-100 dish-card">
-                {%set var=danias.id|string %}
-                <img src="{{url_for('static', filename='img/'+var+'.png')}}" class="card-img mt-2" alt="...">
-                <div class="card-body">
-                    <h5 class="card-title">{{danias.nazwa}}</h5>
-                    <p class="card-text">{{danias.opis}}</p>
-                    <a class="btn btn-primary" role="button" href="/danie/{{danias.id}}">Przejdź do przepisu</a>
-                </div>
+        <div class="col-3 mb-4 me-4 card h-100 dish-card">
+            {%set var=danias.id|string %}
+            <img src="{{url_for('static', filename='img/'+var+'.png')}}" class="card-img mt-2" alt="...">
+            <div class="card-body">
+                <h5 class="card-title">{{danias.nazwa}}</h5>
+                <p class="card-text">{{danias.opis}}</p>
+                <a class="btn btn-primary" role="button" href="/danie/{{danias.id}}">Przejdź do przepisu</a>
+            </div>
 
         </div>
         {% endfor %}
@@ -162,52 +162,52 @@
 </div>
 {%endif%}
 <script>
-    let wybrane = [];
+    let chosen = [];
     let x = "";
     //if skladnikiwybrane is not null
     //for each x in skladnikiwybrane
-    //add them to wybrane so they cant be repeated
+    //add them to chosen so they cant be repeated
     {% if SkladnikiWybrane %}
     {%for x in SkladnikiWybrane %}
     x += {{ x.id }}+" ";
     {% endfor %}
     {% endif %}
     let array = x.split(" ");
-    wybrane = array;
-    console.log(wybrane);
-    let btnGotowe = document.querySelector(".btn-gotowe");
-    btnGotowe.style.display = "none";
+    chosen = array;
+    console.log(chosen);
+    let btnReady = document.querySelector(".btn-ready");
+    btnReady.style.display = "none";
     let currentField = document.querySelector(".current-field");
     let previousField = document.querySelector(".previous-field.row");
-    let twojeSkladniki = document.querySelector(".twojeSkladniki");
+    let yourIngredients = document.querySelector(".yourIngredients");
     if (currentField.innerHTML.trim().length == 0 && previousField.innerHTML.trim().length == 0)
-        twojeSkladniki.style.display = "none";
+        yourIngredients.style.display = "none";
     else
-        twojeSkladniki.style.display = "block";
+        yourIngredients.style.display = "block";
 
-// This function is responsible for selecting a product and adding it to the list of selected products.
-// 
-// Parameters:
-// - idProduktu: The ID of the product to be selected.
-// - nazwaProduktu: The name of the product to be selected.
-//
-// Returns:
-// - false: If the product is already selected.
-// - if not false: the product is successfully added to the list of selected products.
-//   and displed for user
-    function wybierzSkladnik(idProduktu, nazwaProduktu) {
-        if (wybrane.includes(idProduktu)) {
+    // This function is responsible for selecting a product and adding it to the list of selected products.
+    // 
+    // Parameters:
+    // - ingredientId: The ID of the product to be selected.
+    // - ingredientName: The name of the product to be selected.
+    //
+    // Returns:
+    // - false: If the product is already selected.
+    // - if not false: the product is successfully added to the list of selected products.
+    //   and displed for user
+    function chooseIngredient(ingredientId, ingredientName) {
+        if (chosen.includes(ingredientId)) {
             return false;
         }
         else {
-            twojeSkladniki.style.display = "block";
-            wybrane.push(idProduktu);
-            btnGotowe.style.display = "block";
+            yourIngredients.style.display = "block";
+            chosen.push(ingredientId);
+            btnReady.style.display = "block";
 
             let nazwa = document.createElement("label");
-            nazwa.setAttribute("id", "nazwaProduktu");
-            nazwa.setAttribute("for", idProduktu);
-            nazwa.innerHTML = nazwaProduktu;
+            nazwa.setAttribute("id", "ingredientName");
+            nazwa.setAttribute("for", ingredientId);
+            nazwa.innerHTML = ingredientName;
 
             let span = document.createElement("span");
             span.setAttribute("class", "ps-3");
@@ -216,81 +216,81 @@
 
             let ID = document.createElement("input");
             ID.setAttribute("type", "text");
-            ID.setAttribute("id", idProduktu);
-            ID.setAttribute("name", idProduktu);
+            ID.setAttribute("id", ingredientId);
+            ID.setAttribute("name", ingredientId);
             ID.setAttribute("style", "display:none;");
 
-            let btnUsun = document.createElement("button");
-            btnUsun.setAttribute("type", "button");
-            btnUsun.setAttribute("class", "btn-end float-end btn btn-danger");
-            btnUsun.innerHTML = "Usuń";
-            btnUsun.onclick = () => {
-                currentField.removeChild(poleMain);
-                wybrane.splice(wybrane.indexOf(idProduktu), 1);
+            let btnDelete = document.createElement("button");
+            btnDelete.setAttribute("type", "button");
+            btnDelete.setAttribute("class", "btn-end float-end btn btn-danger");
+            btnDelete.innerHTML = "Usuń";
+            btnDelete.onclick = () => {
+                currentField.removeChild(mainField);
+                chosen.splice(chosen.indexOf(ingredientId), 1);
                 if (currentField.innerHTML.trim().length == 0) {
-                    twojeSkladniki.style.display = "none";
+                    yourIngredients.style.display = "none";
                 }
             }
 
-            let pole = document.createElement("div");
-            pole.setAttribute("class", "py-4 pe-3 ingredient rounded");
-            pole.append(span);
-            pole.append(ID);
-            pole.append(btnUsun);
+            let field = document.createElement("div");
+            field.setAttribute("class", "py-4 pe-3 ingredient rounded");
+            field.append(span);
+            field.append(ID);
+            field.append(btnDelete);
 
-            let poleMain = document.createElement("div");
-            poleMain.setAttribute("class", "col-sm-3 py-2");
-            poleMain.append(pole);
+            let mainField = document.createElement("div");
+            mainField.setAttribute("class", "col-sm-3 py-2");
+            mainField.append(field);
 
-            currentField.append(poleMain);
+            currentField.append(mainField);
 
-            let wybierzSkladniki = document.createElement("h1");
-            wybierzSkladniki.setAttribute("class", "wybierz-skladniki mb-2 mt-3");
-            wybierzSkladniki.setAttribute("style", "display: none");
-            wybierzSkladniki.innerHTML = "Wybierz składniki";
+            let chooseIngredient = document.createElement("h1");
+            chooseIngredient.setAttribute("class", "wybierz-skladniki mb-2 mt-3");
+            chooseIngredient.setAttribute("style", "display: none");
+            chooseIngredient.innerHTML = "Wybierz składniki";
             let sevenCols = document.querySelector(".row.seven-cols");
-            sevenCols.append(wybierzSkladniki);
+            sevenCols.append(chooseIngredient);
             console.log(document.querySelector(".row.seven-cols"));
-            console.log(wybierzSkladniki);
+            console.log(chooseIngredient);
 
         }
     }
-// Deletes a product from the list of selected products.
-// 
-// Parameters:
-// - produktid: The ID of the product to be deleted.
-// 
-// Returns:
-// - None
-    function deleteP(produktid) {
-        console.log(produktid);
-        const index = wybrane.indexOf((produktid).toString());
+    // Deletes a product from the list of selected products.
+    // 
+    // Parameters:
+    // - ingredientId: The ID of the product to be deleted.
+    // 
+    // Returns:
+    // - None
+    function deleteIngredient(ingredientId) {
+        console.log(ingredientId);
+        const index = chosen.indexOf((ingredientId).toString());
         console.log(index);
-        const x = wybrane.splice(index, 1);
-        let pDoUsuniecia = document.getElementById(produktid);
-        pDoUsuniecia.remove();
+        const x = chosen.splice(index, 1);
+        let ingredientToDelete = document.getElementById(ingredientId);
+        ingredientToDelete.remove();
         if (previousField.innerHTML.trim().length == 0) {
-            twojeSkladniki.style.display = "none";
+            yourIngredients.style.display = "none";
         }
-        btnGotowe.style.display = "none";
-        btnGotowe.click();
+        btnReady.style.display = "none";
+        btnReady.click();
     }
-// Toggles the "kat-clicked" class on the button element with the given ID
-// in order to obtain the appearance of smooth single block with buttons
-// with the btn-prod class below.
-// 
-// Parameters:
-// - kat: The ID of the button element to toggle the class on.
-// 
-// Returns:
-// - None
-    function katChange(kat) {
-        const btnKat = document.getElementById(kat);
-        isClicked = btnKat.getAttribute("aria-expanded");
+    // Toggles the "category-clicked" class on the button element with the given ID
+    // in order to obtain the appearance of smooth single block with buttons
+    // with the btn-ingredient class below.
+    // 
+    // Parameters:
+    // - category: The ID of the button element to toggle the class on.
+    // 
+    // Returns:
+    // - None
+    function categoryChange(category) {
+        const btnCategory = document.getElementById(category);
+        isClicked = btncategoryegoryegory.getAttribute("aria-expanded");
         if (isClicked == "true")
-            btnKat.classList.add("kat-clicked");
+            btncategoryegoryegory.classList.add("category-clicked");
         else if (isClicked == "false")
-            btnKat.classList.remove("kat-clicked");
+            btncategoryegoryegory.classList.remove("category-clicked");
     }
 </script>
 {% endblock %}
