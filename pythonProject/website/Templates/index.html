@@ -286,11 +286,11 @@
     // - None
     function categoryChange(category) {
         const btnCategory = document.getElementById(category);
-        isClicked = btncategoryegoryegory.getAttribute("aria-expanded");
+        isClicked = btnCategory.getAttribute("aria-expanded");
         if (isClicked == "true")
-            btncategoryegoryegory.classList.add("category-clicked");
+            btnCategory.classList.add("category-clicked");
         else if (isClicked == "false")
-            btncategoryegoryegory.classList.remove("category-clicked");
+            btnCategory.classList.remove("category-clicked");
     }
 </script>
 {% endblock %}
