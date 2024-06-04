@@ -45,7 +45,7 @@ def select_right_dishes(user_input):
     dishes = db.session.query(Przepisy).all()
     list_of_dishes = []
     for dish in dishes:
-        lists = dish.ListaSkladnikow
+        lists = dish.Ingredients
         lists.split()
         lista_int = []
         for y in lists:

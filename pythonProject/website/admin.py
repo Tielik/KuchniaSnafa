@@ -112,16 +112,16 @@ def Dishes():
             return redirect('/admin')
         if request.method == 'POST':
             nazwa = request.form.get('nazwa')
-            czas = request.form.get('czas')
+            Time = request.form.get('Time')
             opis = request.form.get('opis')
             przepis = request.form.get('przepis')
-            ListaSkladnikow = request.form.getlist('lista')
-            ListaSkladnikow = " ".join(ListaSkladnikow)
-            if not ListaSkladnikow:
+            Ingredients = request.form.getlist('lista')
+            Ingredients = " ".join(Ingredients)
+            if not Ingredients:
                 flash('Musi zostać wybrany przynajmniej jeden składnik!', category='error')
                 return redirect('/admin/przepisy')
-            przepis = Przepisy(nazwa=nazwa, czas=czas, opis=opis, przepis=przepis,
-                               ListaSkladnikow=ListaSkladnikow)
+            przepis = Przepisy(nazwa=nazwa, Time=Time, opis=opis, przepis=przepis,
+                               Ingredients=Ingredients)
             grafika = request.files['grafika']
             grafika_name = grafika.filename
             if grafika_name != '':
@@ -276,7 +276,7 @@ def edit(id):
 
     Returns:
     - If the user is authenticated and the request method is 'POST',
-     the 'nazwa', 'czas', 'opis', 'skladniki', and 'przepis' fields of the 'Przepis' object are updated with the values from the request form. 
+     the 'nazwa', 'Time', 'opis', 'skladniki', and 'przepis' fields of the 'Przepis' object are updated with the values from the request form. 
     The changes are committed to the database and a success message is flashed. The user is then redirected to the '/admin' page.
     - If the user is authenticated and the request method is 'GET', the 'editPrzepis.html' template is rendered with the 'przepis' and 'skladniki' objects passed as parameters.
     - If the user is not authenticated, the user is redirected to the home page.
@@ -291,12 +291,12 @@ def editP(id):
         przepis = Przepisy.query.filter_by(id=id).first()
         if request.method == 'POST':
             przepis.nazwa = request.form.get('nazwa')
-            przepis.czas = request.form.get('czas')
+            przepis.Time = request.form.get('Time')
             przepis.opis = request.form.get('opis')
             przepis.przepis = request.form.get('przepis')
-            przepis.ListaSkladnikow = request.form.getlist('lista')
-            przepis.ListaSkladnikow = " ".join(przepis.ListaSkladnikow)
-            if not przepis.ListaSkladnikow:
+            przepis.Ingredients = request.form.getlist('lista')
+            przepis.Ingredients = " ".join(przepis.Ingredients)
+            if not przepis.Ingredients:
                 flash('Musi zostać wybrany przynajmniej jeden składnik!', category='error')
                 return redirect(f'/admin/edit/przepis/{id}')
             przepis.grafika = request.files['grafika']

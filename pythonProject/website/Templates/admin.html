@@ -29,13 +29,13 @@
         <hr class="hr-admin mt-1">
         <div class="col-6">
             Nazwa: <p>{{przepis.nazwa}}</p>
-            Czas: <p>{{przepis.czas}}</p>
+            Czas: <p>{{przepis.Czas}}</p>
             Opis: <p>{{przepis.opis}}</p>
             Przygotowanie: <p>{{przepis.przepis}}</p>
             Składniki:
             <p>
                 {% for skladnik in skladniki %}
-                {% if skladnik.id|string in przepis.ListaSkladnikow %}
+                {% if skladnik.id|string in przepis.Ingredients %}
                 {{skladnik.Nazwa}}
                 {% endif %}
                 {% endfor %}

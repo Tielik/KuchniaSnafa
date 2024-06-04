@@ -22,7 +22,7 @@
       <h3>Czas przygotowania</h3>
     </div>
     <div class="col-12">
-      {{danie.czas}}
+      {{danie.Time}}
     </div>
     <div class="col-12">
       <h3>Opis</h3>
@@ -35,7 +35,7 @@
     </div>
     <div class="col-12">
       {% for skladnik in skladniki %}
-      {% if skladnik.id|string in danie.ListaSkladnikow %}
+      {% if skladnik.id|string in danie.Ingredients %}
       &#8226; {{skladnik.Nazwa}} <br>
       {% endif %}
       {% endfor %}
