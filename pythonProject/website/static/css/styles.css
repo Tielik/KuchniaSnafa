@@ -75,10 +75,45 @@ body {
   border-bottom-left-radius: 0%;
 }
 
+@media (max-width: 991px) {
+  .collapse,
+  .collapsing,
+  .btn-ingredient {
+    width: 696px;
+  }
+  .card-img.admin {
+    height: 8rem;
+  }
+  .navbar {
+    display: none;
+  }
+  .btn-admin {
+    height: 86px;
+  }
+}
+@media (min-width: 992px) {
+  .card-img.admin {
+    height: 15rem;
+  }
+  .mobile-buttons {
+    display: none;
+  }
+}
+@media (max-width: 767px) {
+  .collapse,
+  .collapsing,
+  .btn-ingredient {
+    width: 516px;
+  }
+}
+@media (min-width: 992px) {
+  .btn-ingredient {
+    width: 100%;
+  }
+}
 .btn-ingredient {
   border-radius: 0%;
   border-top: none;
-  width: 100%;
 }
 
 .div-category > :last-child {
@@ -124,6 +159,7 @@ to have them the same height as text with float-start class */
 .btn-end {
   padding-top: 0;
   padding-bottom: 0;
+  width: 69.91px;
 }
 
 .logo {
@@ -140,11 +176,9 @@ to have them the same height as text with float-start class */
 
 .card-img {
   width: 100%;
+  -o-object-fit: cover;
+     object-fit: cover;
   height: 12rem;
-  object-fit: cover;
-}
-.card-img.admin {
-  height: 15rem;
 }
 
 .border-end-primary {
@@ -204,3 +238,23 @@ to have them the same height as text with float-start class */
   color: #255827;
   background-color: white;
 }
+
+.admin-25,
+.admin-50,
+.admin-75 {
+  height: auto;
+  display: block;
+}
+
+.admin-25 {
+  margin: 25% auto;
+}
+
+.admin-50,
+.admin-75 {
+  margin: 5% auto;
+}
+
+.btn-admin {
+  width: 6rem;
+}/*# sourceMappingURL=styles.css.map */
