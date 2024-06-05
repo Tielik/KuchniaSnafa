@@ -26,7 +26,7 @@ Tuple: A tuple containing two elements:
 def select_right_dishes(user_input):
     list_of_chosen_id = []
     # transform user_input to list
-    if type(user_input) == werkzeug.datastructures.structures.ImmutableMultiDict :  # user_input
+    if type(user_input) == werkzeug.datastructures.ImmutableMultiDict :  # user_input
         session_saver = ""
         for key in user_input:
             for value in user_input.getlist(key):
