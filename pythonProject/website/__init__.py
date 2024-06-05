@@ -8,21 +8,24 @@ from flask_httpauth import HTTPBasicAuth
 from werkzeug.security import check_password_hash
 
 db = SQLAlchemy()
-DB_NAME = "database.db" #lokalnie
+current_directory = os.path.dirname(os.path.abspath(__file__))
+if "home" in current_directory:
+    DB_NAME = "database.db"
 """
-Initialize and configure the Flask app with necessary settings, blueprints, models, and resources. 
-Register endpoints for views and admin sections. 
-Create database tables if they do not exist. 
+Initialize and configure the Flask app with necessary settings, blueprints, models, and resources.
+Register endpoints for views and admin sections.
+Create database tables if they do not exist.
 Initialize and configure the LoginManager for user authentication.
 Return the configured Flask app.
 """
 def create_app():
     app = Flask(__name__)
     current_directory = os.path.dirname(os.path.abspath(__file__))
-    if "Home" in current_directory:
+    if "home" in current_directory:
         app.config['SQLALCHEMY_DATABASE_URI'] = 'mysql://6186az:Sqlhaslo123@6186az.mysql.pythonanywhere-services.com/6186az$default'
+    else:
+        app.config['SQLALCHEMY_DATABASE_URI'] = f'sqlite:///{DB_NAME}'
     app.config['SECRET_KEY'] = "secretkey4323423 23423"
-    app.config['SQLALCHEMY_DATABASE_URI'] = f'sqlite:///{DB_NAME}' #lokalnie
     db.init_app(app)
     api=Api(app)
 
