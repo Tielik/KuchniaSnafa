@@ -9,7 +9,7 @@ from werkzeug.security import check_password_hash
 
 db = SQLAlchemy()
 current_directory = os.path.dirname(os.path.abspath(__file__))
-if "home" in current_directory:
+if "home" not in current_directory:
     DB_NAME = "database.db"
 """
 Initialize and configure the Flask app with necessary settings, blueprints, models, and resources.
