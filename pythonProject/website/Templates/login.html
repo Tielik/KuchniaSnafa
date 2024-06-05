@@ -1,9 +1,7 @@
 {% extends "base.html" %}
 {% block title %}Logowanie{% endblock %}
 {% block content %}
-{#<div class="d-flex justify-content-center align-items-center" style="height: 100%;"> #}
-<div class="container w-25">
-{#<div class="col-5">#}
+<div class="container w-25 admin-25">
     <h3>Logowanie</h3>
     <form method="POST">
         <div class="form-group">
@@ -15,6 +13,6 @@
             <button type="submit" class="mt-1 btn btn-primary">Zaloguj</button>
         </div>
     </form>
-    {#</div>#}
+    <a class="btn btn-primary btn-return" role="button" href="/admin">Powrót</a>
 </div>
 {% endblock %}
