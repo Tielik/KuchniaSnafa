@@ -2,7 +2,7 @@ from flask import Flask, request
 from flask_sqlalchemy import SQLAlchemy
 from flask_login import LoginManager
 from flask_restful import Api, Resource, fields, marshal_with
-import sqlite3
+import sqlite3, os
 from flask import g
 from flask_httpauth import HTTPBasicAuth
 from werkzeug.security import check_password_hash
@@ -18,10 +18,9 @@ Return the configured Flask app.
 """
 def create_app():
     app = Flask(__name__)
-    """
-    PythonAnywhere
-    app.config['SQLALCHEMY_DATABASE_URI'] = 'mysql://6186az:Sqlhaslo123@6186az.mysql.pythonanywhere-services.com/6186az$default'
-    """
+    current_directory = os.path.dirname(os.path.abspath(__file__))
+    if "Home" in current_directory:
+        app.config['SQLALCHEMY_DATABASE_URI'] = 'mysql://6186az:Sqlhaslo123@6186az.mysql.pythonanywhere-services.com/6186az$default'
     app.config['SECRET_KEY'] = "secretkey4323423 23423"
     app.config['SQLALCHEMY_DATABASE_URI'] = f'sqlite:///{DB_NAME}' #lokalnie
     db.init_app(app)
