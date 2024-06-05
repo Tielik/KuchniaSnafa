@@ -2,7 +2,7 @@
 {% block title %}Edytuj składnik{% endblock %}
 
 {% block content %}
-<div class="container w-25">
+<div class="container w-25 admin-25">
     <form method="POST">
         <label for="nazwa">Nazwa Składnika</label>
         <input type="text" class="mb-1 form-control" id="nazwa" name="Nazwa" placeholder="Podaj nazwę składnika"
@@ -20,5 +20,6 @@
         </select>
         <p><button type="submit" class="mt-1 btn btn-primary">Potwierdź</button></p>
     </form>
+    <a class="btn btn-primary btn-return" role="button" href="/admin">Powrót</a>
 </div>
 {% endblock %}
