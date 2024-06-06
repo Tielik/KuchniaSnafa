@@ -11,7 +11,7 @@
             {% if Skladnikiz %}
             {% for x in Skladnikiz %}
             {% if x.kategoria == 1 %}
-            <button type="button" class="btn-ingredient btn btn-light" id="zbozowe{{x}}"
+            <button type="button" class="btn-ingredient btn btn-light" id="zbozowe{{x.id}}"
                 onClick="chooseIngredient('{{x.id}}', '{{x.Nazwa}}')">{{x.Nazwa}}
             </button>
 
@@ -28,7 +28,7 @@
             {% if Skladnikiz %}
             {% for x in Skladnikiz %}
             {% if x.kategoria == 2 %}
-            <button type="button" class="btn-ingredient btn btn-light"
+            <button type="button" class="btn-ingredient btn btn-light" id="warzywa{{x.id}}"
                 onClick="chooseIngredient('{{x.id}}', '{{x.Nazwa}}')">{{x.Nazwa}}
             </button>
 
@@ -45,7 +45,7 @@
             {% if Skladnikiz %}
             {% for x in Skladnikiz %}
             {% if x.kategoria == 3 %}
-            <button type="button" class="btn-ingredient btn btn-light"
+            <button type="button" class="btn-ingredient btn btn-light" id = "owoce{{x.id}}"
                 onClick="chooseIngredient('{{x.id}}', '{{x.Nazwa}}')">{{x.Nazwa}}
             </button>
             {% endif %}
@@ -62,7 +62,7 @@
             {% if Skladnikiz %}
             {% for x in Skladnikiz %}
             {% if x.kategoria == 4 %}
-            <button type="button" class="btn-ingredient btn btn-light"
+            <button type="button" class="btn-ingredient btn btn-light" id = "mleczne{{x.id}}"
                 onClick="chooseIngredient('{{x.id}}', '{{x.Nazwa}}')">{{x.Nazwa}}
             </button>
 
@@ -80,7 +80,7 @@
             {% if Skladnikiz %}
             {% for x in Skladnikiz %}
             {% if x.kategoria == 5 %}
-            <button type="button" class="btn-ingredient btn btn-light"
+            <button type="button" class="btn-ingredient btn btn-light" id = "zwierzece{{x.id}}"
                 onClick="chooseIngredient('{{x.id}}', '{{x.Nazwa}}')">{{x.Nazwa}}
             </button>
             {% endif %}
@@ -96,7 +96,7 @@
             {% if Skladnikiz %}
             {% for x in Skladnikiz %}
             {% if x.kategoria == 6 %}
-            <button type="button" class="btn-ingredient btn btn-light"
+            <button type="button" class="btn-ingredient btn btn-light" id = "tluszcze{{x.id}}"
                 onClick="chooseIngredient('{{x.id}}', '{{x.Nazwa}}')">{{x.Nazwa}}
             </button>
 
@@ -113,7 +113,7 @@
             {% if Skladnikiz %}
             {% for x in Skladnikiz %}
             {% if x.kategoria == 7 %}
-            <button type="button" class="btn-ingredient btn btn-light"
+            <button type="button" class="btn-ingredient btn btn-light" id = "przyprawy{{x.id}}"
                 onClick="chooseIngredient('{{x.id}}', '{{x.Nazwa}}')">{{x.Nazwa}}
             </button>
 
@@ -153,7 +153,7 @@
             <div class="card-body">
                 <h5 class="card-title">{{danias.nazwa}}</h5>
                 <p class="card-text">{{danias.opis}}</p>
-                <a class="btn btn-primary" role="button" href="/danie/{{danias.id}}">Przejdź do przepisu</a>
+                <a class="btn btn-primary" role="button" href="/danie/{{danias.id}}" id="dish{{danias.id}}">Przejdź do przepisu</a>
             </div>
 
         </div>
@@ -186,7 +186,7 @@
         yourIngredients.style.display = "block";
 
     // This function is responsible for selecting a product and adding it to the list of selected products.
-    // 
+    //
     // Parameters:
     // - ingredientId: The ID of the product to be selected.
     // - ingredientName: The name of the product to be selected.
@@ -222,6 +222,7 @@
 
             let btnDelete = document.createElement("button");
             btnDelete.setAttribute("type", "button");
+            btnDelete.setAttribute("id", "delete" + ingredientId);
             btnDelete.setAttribute("class", "btn-end float-end btn btn-danger");
             btnDelete.innerHTML = "Usuń";
             btnDelete.onclick = () => {
@@ -256,10 +257,10 @@
         }
     }
     // Deletes a product from the list of selected products.
-    // 
+    //
     // Parameters:
     // - ingredientId: The ID of the product to be deleted.
-    // 
+    //
     // Returns:
     // - None
     function deleteIngredient(ingredientId) {
@@ -278,10 +279,10 @@
     // Toggles the "category-clicked" class on the button element with the given ID
     // in order to obtain the appearance of smooth single block with buttons
     // with the btn-ingredient class below.
-    // 
+    //
     // Parameters:
     // - category: The ID of the button element to toggle the class on.
-    // 
+    //
     // Returns:
     // - None
     function categoryChange(category) {
