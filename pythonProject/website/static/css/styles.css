@@ -247,12 +247,12 @@ to have them the same height as text with float-start class */
 }
 
 .admin-25 {
-  margin: 25% auto;
+  margin: 10% auto;
 }
 
-.admin-50,
+
 .admin-75 {
-  margin: 5% auto;
+  margin: 1% auto;
 }
 
 .btn-admin {

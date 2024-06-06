@@ -18,8 +18,13 @@
             <option value="6">Tłuszcze</option>
             <option value="7">Przyprawy</option>
         </select>
-        <p><button type="submit" class="mt-1 btn btn-primary">Potwierdź</button></p>
+        <div class="row">
+            <div class="col-6">
+                <button type="submit" class="mt-1 btn btn-primary">Potwierdź</button>
+            </div>
     </form>
-    <a class="btn btn-primary btn-return" role="button" href="/admin">Powrót</a>
+    <div class="col-6">
+        <a class="mt-1 btn btn-primary btn-return float-end" role="button" href="/admin">Powrót</a>
+    </div>
 </div>
 {% endblock %}

@@ -35,8 +35,13 @@
               <input class="form-control" type="file" id="grafika" name="grafika"
                      accept="image/png, image/jpg, image/jpeg, image/webp">
               <p style="font-size: 0.9rem;">Obsługiwane formaty: .png, .jpg, .jpeg, .webp</p>
-              <p><button type="submit" class="mt-1 btn btn-primary">Potwierdź</button></p>
+              <div class="row">
+                     <div class="col-6">
+                            <button type="submit" class="mt-1 btn btn-primary">Potwierdź</button>
+                     </div>
        </form>
-       <a class="btn btn-primary btn-return" role="button" href="/admin">Powrót</a>
+       <div class="col-6">
+              <a class="mt-1 btn btn-primary btn-return float-end" role="button" href="/admin">Powrót</a>
+       </div>
 </div>
 {% endblock %}
