@@ -133,7 +133,7 @@
                 <div class="py-4 pe-3 ingredient rounded" id="{{x.id}}">
                     <span class="ps-3">{{x.Nazwa}}</span>
                     <input type="hidden" name="{{x.id}}" value="{{x.id}}">
-                    <button type="button" class="btn-end float-end btn btn-danger"
+                    <button type="button" class="btn-end float-end btn btn-danger" id="delete{{x.id}}"
                         onClick="deleteIngredient('{{x.id}}')">Usuń</button>
                 </div>
             </div>
