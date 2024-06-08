@@ -4,7 +4,7 @@
 {% block content %}
 
 <div class="container w-75 admin-75">
-    <nav class="navbar py-4 rounded sticky-top navbar-expand-lg">
+    <nav class="navbar py-4 rounded sticky-top navbar-expand-lg"> <!-- Display on bigger screens than mobile -->
         <div class="container-fluid">
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavAltMarkup"
                 aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
@@ -21,7 +21,7 @@
             </div>
         </div>
     </nav>
-    <div class="mobile-buttons">
+    <div class="mobile-buttons"> <!-- Display only on mobile screens -->
         <a class="btn btn-admin btn-primary pt-3" role="button" href="/">Strona główna</a>
         <a class="btn btn-admin btn-primary pt-3" role="button" href="/admin/przepisy">Dodaj przepis</a>
         <a class="btn btn-admin btn-primary pt-3" role="button" href="/admin/skladniki">Dodaj składnik</a>
