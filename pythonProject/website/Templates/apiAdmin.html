@@ -1,37 +1,34 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Api instrukcja</title>
-</head>
-<body>
+{% extends "base.html" %}
+{% block title %}API Admin Kuchnia Snafa{% endblock %}
+{% block content %}
+<div class="container" style="width: 35%;">
+    <h1>API Admin</h1>
+    <br>API w input dostosowuje sie od inputu użytkownika
+    <br>- jesli input to cyfra to szuka po ID
+    <br>- jesli input to tekst to szuka po nazwie
+    <br>
+    <br>Metody POST i PUT wymagają przesłania dodatkowo odpowiedniego wypełnionego JSON
+    <br>
+    <br>GET, PUT, DELETE potrzebują inputu
+    <br>
+    <br><a href="/api/przepisy">/api/przepisy - zwraca liste przepisow z bazy danych</a>
+    <br>- POST: dodawanie nowego przepisu
+    <br>- Składniki mogą  być cyfrowo lub po nazwie (Pamiętaj o wielkości liter) ID lub nazwy można zobaczyć przy pomocy
+    /api/skladniki
+    <br>
+    <br><a href="/api/przepisy/1">/api/przepisy/input - zwraca przepis o danym ID</a>
+    <br>- PUT: zmiana danego składnika w ListaPrzepisow podobnie jak w post
+    <br>- DELETE: usuniecie danego przepisu po nazwie lub ID
+    <br>
+    <br><a href="/api/skladniki">/api/skladniki - zwraca liste składnikow z bazy danych</a>
+    <br>- POST: dodawanie nowego składnika (kategorie są od 1 do 7)
+    <br><a href="/api/skladniki/1">/api/skladniki/input - zwraca składnik o danym ID</a>
+    <br>- PUT: zmiana danego składnika
+    <br>- DELETE: usuniecie danego składnika
+    <br>
+    <br>Przykłady:
+    <br><a href="/api/skladniki">/api/przepisy/1</a> z metodą DELETE usunie przepis o ID = 1
+    <br><a href="/api/skladniki">/api/przepisy/1</a> z metodą PUT zmienia przepis o ID = 1.
+    <br>Do tego trzeba dać JSON z wypełnioną chociaż jedną kolumną z bazy danych
 
-<h1>Api instrukcja</h1>
-Api w input dostosowuje sie od inputu użytkownika
-- jesli input to cyfra to szuka po id
-- jesli input to tekst to szuka po nazwie
-
-Post i Put wymaga przesłania dodatkowo odpowiedniego wypełnionego Json
-
-get,put,delete potrzebuje inputu
-
-<a href="/API/przepisy">/API/przepisy - zwraca liste przepisow z bazy danych</a>
-- post: dodawanie nowego przepisu
--- ListaPrzepisów może być cyfrowo lub po nazwie(Pamiętaj o wielkości liter) id lub nazwy można zobaczyć przy pomocy /API/skladniki
-<a href="/API/przepisy/1">/API/przepisy/input - zwraca przepis o danym id</a>
-- put: zmiana danego składnika w ListaPrzepisow podobnie jak w post
-- delete: usuniecie danego przepisu po nazwie lub id
-
-<a href="/API/skladniki">/API/skladniki - zwraca liste skladnikow z bazy danych</a>
-- post: dodawanie nowego skladnika kategorie są od 1 do 8 !popraw to mati nie pamiętam XD!
-<a href="/API/skladniki/1">/API/skladniki/input - zwraca skladnik o danym id</a>
-- put: zmiana danego skladnika
-- delete: usuniecie danego skladnika
-
-
-przykłady:
-http://localhost:5000/API/przepisy/1 z metodą delete usunie przepis o id = 1
-http://localhost:5000/API/przepisy/1 z metodą put zmienia przepis o id = 1 do tego trzeba dać  json z wypełnionym chociaż jednym kolumną z bazy danych
-
-</body>
-</html>
+{% endblock %}

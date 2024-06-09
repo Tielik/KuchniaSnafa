@@ -48,8 +48,8 @@ def create_app():
     from .api import Dish_api, Ingredients_api
 
 
-    api.add_resource(Dish_api, '/API/przepisy', '/API/przepisy/<input>')
-    api.add_resource(Ingredients_api, '/API/skladniki', '/API/skladniki/<input>')
+    api.add_resource(Dish_api, '/api/przepisy', '/api/przepisy/<input>')
+    api.add_resource(Ingredients_api, '/api/skladniki', '/api/skladniki/<input>')
 
     @login_manager.user_loader
     def load_user(id):

@@ -176,8 +176,7 @@ to have them the same height as text with float-start class */
 
 .card-img {
   width: 100%;
-  -o-object-fit: cover;
-     object-fit: cover;
+  object-fit: cover;
   height: 12rem;
 }
 
@@ -247,14 +246,14 @@ to have them the same height as text with float-start class */
 }
 
 .admin-25 {
-  margin: 10% auto;
+  margin: 15% auto;
 }
 
-
+.admin-50,
 .admin-75 {
-  margin: 1% auto;
+  margin: 2% auto;
 }
 
 .btn-admin {
   width: 6rem;
-}/*# sourceMappingURL=styles.css.map */
+}

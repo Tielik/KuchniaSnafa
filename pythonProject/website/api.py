@@ -263,7 +263,7 @@ class Dish_api(Resource):
         if dishes == [None] or dishes is None:
             return {"wiadomość": 'Nie znaleziono dania na podstawie danych wejśiowych'}, 404
         if user_input is None:
-            return {"wiadomość": 'Brak danych wejśiowych'}, 400
+            return {"wiadomość": 'Brak danych wejściowych'}, 400
         for dish in dishes:
             if str(user_input.get("ListasSkladnikow")).isdigit() == False:
                 ingredients = user_input['Ingredients'].split(' ')
