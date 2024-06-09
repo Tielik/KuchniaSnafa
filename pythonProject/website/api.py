@@ -59,7 +59,7 @@ def  dishes_with_matching_ingredient_remover(input):
     dishes = Przepisy.query.all()
     for dish in dishes:
         print(dish)
-        ingredients_holder = dish.ListaSkladnikow
+        ingredients_holder = dish.Ingredients
         ingredients_holder.split(' ')
         for x in ingredients_holder:
             if x.isdigit():
@@ -143,9 +143,9 @@ def require_api_key(f):
 resource_fields = {
     'id': fields.Integer,
     'nazwa': fields.String,
-    'czas': fields.String,
+    'Time': fields.String,
     'opis': fields.String,
-    'ListaSkladnikow': fields.String,
+    'Ingredients': fields.String,
     'przepis': fields.String,
 }
 resource_fields2 = {
@@ -185,16 +185,16 @@ class Dish_api(Resource):
             abort(404, message="Danie/a nie znalezione")
         else:
             for dish in dishes:
-                holder_of_ingredients = dish.ListaSkladnikow.split(' ')
+                holder_of_ingredients = dish.Ingredients.split(' ')
                 for x in holder_of_ingredients:
                     if x.isdigit():
                         x=int(x)          
-                dish.ListaSkladnikow = ""
+                dish.Ingredients = ""
                 for ingredient_number in holder_of_ingredients:
                     if ingredient_number.isdigit():
                         name_of_ingredient = Skladniki.query.filter_by(id=ingredient_number).first()
                         name_of_ingredient = str(name_of_ingredient.Nazwa)
-                        dish.ListaSkladnikow += name_of_ingredient + " "
+                        dish.Ingredients += name_of_ingredient + " "
             return dishes
 
         """
@@ -211,17 +211,17 @@ class Dish_api(Resource):
         for user_input in user_inputs:
             if user_input is None:
                 return {"wiadomość": 'Brak danych wejśiowych'}, 400
-            if user_input['nazwa'] is None or user_input['czas'] is None or user_input['opis'] is None or user_input['ListaSkladnikow'] is None or user_input['przepis'] is None:
+            if user_input['nazwa'] is None or user_input['Time'] is None or user_input['opis'] is None or user_input['Ingredients'] is None or user_input['przepis'] is None:
                 return {"wiadomość": 'Brak wymaganych pól'}, 400
-            if str(user_input["ListaSkladnikow"]).isdigit():
-                ingredients = int(user_input['ListaSkladnikow'])
+            if str(user_input["Ingredients"]).isdigit():
+                ingredients = int(user_input['Ingredients'])
                 ingredients = [ingredients]
             else:
-                ingredients = str(user_input['ListaSkladnikow']).split(' ')
+                ingredients = str(user_input['Ingredients']).split(' ')
 
             end_ingredients = ingredients_matcher(ingredients)
-            new_dish = Przepisy(nazwa=user_input['nazwa'], czas=user_input['czas'], opis=user_input['opis'],
-                                ListaSkladnikow=end_ingredients, przepis=user_input['przepis'])
+            new_dish = Przepisy(nazwa=user_input['nazwa'], Time=user_input['Time'], opis=user_input['opis'],
+                                Ingredients=end_ingredients, przepis=user_input['przepis'])
             db.session.add(new_dish)
             db.session.commit()
         return {"wiadomość": 'Dodano do bazy pomyślnie'}, 201
@@ -263,21 +263,21 @@ class Dish_api(Resource):
         if dishes == [None] or dishes is None:
             return {"wiadomość": 'Nie znaleziono dania na podstawie danych wejśiowych'}, 404
         if user_input is None:
-            return {"wiadomość": 'Brak danych wejśiowych'}, 400
+            return {"wiadomość": 'Brak danych wejściowych'}, 400
         for dish in dishes:
             if str(user_input.get("ListasSkladnikow")).isdigit() == False:
-                ingredients = user_input['ListaSkladnikow'].split(' ')
+                ingredients = user_input['Ingredients'].split(' ')
                 end_ingredients =ingredients_matcher(ingredients)
             else:
-                end_ingredients = user_input['ListaSkladnikow']
+                end_ingredients = user_input['Ingredients']
             if user_input['nazwa'] is not None:
                 dish.nazwa = user_input['nazwa']
-            if user_input['czas'] is not None:
-                dish.czas = user_input['czas']
+            if user_input['Time'] is not None:
+                dish.Time = user_input['Time']
             if user_input['opis'] is not None:
                 dish.opis = user_input['opis']
-            if user_input['ListaSkladnikow'] is not None:
-                dish.ListaSkladnikow = end_ingredients
+            if user_input['Ingredients'] is not None:
+                dish.Ingredients = end_ingredients
             if user_input['przepis'] is not None:
                 dish.przepis = user_input['przepis']
             db.session.commit()

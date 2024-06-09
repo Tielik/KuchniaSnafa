@@ -1,22 +1,25 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Api instrukcja</title>
-</head>
-<body>
+{% extends "base.html" %}
+{% block title %}API Kuchnia Snafa{% endblock %}
+{% block content %}
+<div class="container" style="width: 35%;">
+    <h1>API Kuchnia Snafa</h1>
+    <br>API aplikacji Kuchnia Snafa znajduje się pod adresem http://6186az.pythonanywhere.com/api.
+    <br>
+    <br>Za jego pomocą można uzyskać informacje o składnikach i przepisach.
+    <br>
+    <br>Dane są serializowane w formacie JSON
+    <br>
+    <br>Dostęp do API wymaga wygenerowania unikalnego klucza API pod adresem: <a href="/api/token">/api/token</a>
+    <br>
+    <br>Api w input dostosowuje sie od inputu użytkownika
+    <br>- jesli input to cyfra to szuka po id
+    <br>- jesli input to tekst to szuka po nazwie
+    <br>
+    <br><a href="/api/przepisy">/api/przepisy - zwraca liste przepisow z bazy danych</a>
+    <br><a href="/api/przepisy/1">/api/przepisy/input - zwraca przepis o danym id</a>
+    <br>
+    <br><a href="/api/skladniki">/api/skladniki - zwraca liste skladnikow z bazy danych</a>
+    <br><a href="/api/skladniki/1">/api/skladniki/input - zwraca skladnik o danym id</a>
+</div>
 
-<h1>Api instrukcja</h1>
-Api w input dostosowuje sie od inputu użytkownika
-- jesli input to cyfra to szuka po id
-- jesli input to tekst to szuka po nazwie
-
-<a href="/API/przepisy">/API/przepisy - zwraca liste przepisow z bazy danych</a>
-<a href="/API/przepisy/1">/API/przepisy/input - zwraca przepis o danym id</a>
-
-<a href="/API/skladniki">/API/skladniki - zwraca liste skladnikow z bazy danych</a>
-<a href="/API/skladniki/1">/API/skladniki/input - zwraca skladnik o danym id</a>
-
-
-</body>
-</html>
+{% endblock %}

@@ -26,7 +26,7 @@ Tuple: A tuple containing two elements:
 def select_right_dishes(user_input):
     list_of_chosen_id = []
     # transform user_input to list
-    if type(user_input) == werkzeug.datastructures.structures.ImmutableMultiDict :  # user_input
+    if type(user_input) == werkzeug.datastructures.ImmutableMultiDict :  # user_input
         session_saver = ""
         for key in user_input:
             for value in user_input.getlist(key):
@@ -45,7 +45,7 @@ def select_right_dishes(user_input):
     dishes = db.session.query(Przepisy).all()
     list_of_dishes = []
     for dish in dishes:
-        lists = dish.ListaSkladnikow
+        lists = dish.Ingredients
         lists.split()
         lista_int = []
         for y in lists:
@@ -117,7 +117,7 @@ def api():
     else:
         return render_template('api.html')
 
-@views.route('/api/tokenGenerator')
-def tokenGenerator():
+@views.route('/api/token')
+def token():
     api_holder.append(str(uuid.uuid4()))
     return jsonify({'token': api_holder[-1],"WARNING": "THIS WILL NOT BE SHOW AGAIN REMEMBER THIS TOKEN"})

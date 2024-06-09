@@ -2,24 +2,30 @@ from flask import Flask, request
 from flask_sqlalchemy import SQLAlchemy
 from flask_login import LoginManager
 from flask_restful import Api, Resource, fields, marshal_with
-import sqlite3
+import sqlite3, os
 from flask import g
 from flask_httpauth import HTTPBasicAuth
 from werkzeug.security import check_password_hash
 
 db = SQLAlchemy()
-DB_NAME = "database.db"
+current_directory = os.path.dirname(os.path.abspath(__file__))
+if "home" not in current_directory:
+    DB_NAME = "database.db"
 """
-Initialize and configure the Flask app with necessary settings, blueprints, models, and resources. 
-Register endpoints for views and admin sections. 
-Create database tables if they do not exist. 
+Initialize and configure the Flask app with necessary settings, blueprints, models, and resources.
+Register endpoints for views and admin sections.
+Create database tables if they do not exist.
 Initialize and configure the LoginManager for user authentication.
 Return the configured Flask app.
 """
 def create_app():
     app = Flask(__name__)
+    current_directory = os.path.dirname(os.path.abspath(__file__))
+    if "home" in current_directory:
+        app.config['SQLALCHEMY_DATABASE_URI'] = 'mysql://6186az:Sqlhaslo123@6186az.mysql.pythonanywhere-services.com/6186az$default'
+    else:
+        app.config['SQLALCHEMY_DATABASE_URI'] = f'sqlite:///{DB_NAME}'
     app.config['SECRET_KEY'] = "secretkey4323423 23423"
-    app.config['SQLALCHEMY_DATABASE_URI'] = f'sqlite:///{DB_NAME}'
     db.init_app(app)
     api=Api(app)
 
@@ -42,8 +48,8 @@ def create_app():
     from .api import Dish_api, Ingredients_api
 
 
-    api.add_resource(Dish_api, '/API/przepisy', '/API/przepisy/<input>')
-    api.add_resource(Ingredients_api, '/API/skladniki', '/API/skladniki/<input>')
+    api.add_resource(Dish_api, '/api/przepisy', '/api/przepisy/<input>')
+    api.add_resource(Ingredients_api, '/api/skladniki', '/api/skladniki/<input>')
 
     @login_manager.user_loader
     def load_user(id):

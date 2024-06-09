@@ -16,13 +16,13 @@
     <div class="container">
     {% for category, message in messages %}
     {% if category == 'error' %}
-    <div class="alert alert-danger alert-dismissible fade show w-50 mx-auto mb-0 text-center" role="alert">
+    <div class="alert alert-danger alert-dismissible fade show w-50 admin-50 mx-auto mb-0 text-center" role="alert">
         {{ message }}
         <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
     </div>
     {% endif %}
     {% if category == 'success' %}
-    <div class="alert alert-success alert-dismissible fade show w-50 mx-auto mt-1 mb-0 text-center" role="alert">
+    <div class="alert alert-success alert-dismissible fade show w-75 admin-75 mx-auto mt-1 mb-0 text-center" role="alert">
         {{ message }}
         <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
     </div>
@@ -35,7 +35,13 @@
     <div class="container">
         {% block content %}
         {% endblock %}
+        <footer class="text-lg-start sticky-lg-bottom fixed-bottom" style="position: fixed;">
+            <div class="text-center footer row justify-content-center text-center py-md-1">
+                Strona wykonana przez Adama Małysza i Mateusza Szczerbę
+            </div>
+        </footer>
     </div>
+
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"

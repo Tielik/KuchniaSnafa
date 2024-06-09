@@ -2,7 +2,7 @@
 {% block title %}Dodaj składnik{% endblock %}
 
 {% block content %}
-<div class="container w-25">
+<div class="container w-25 admin-25">
     <form method="POST">
         <label for="nazwa">Nazwa składnika</label>
         <input type="text" class="mb-1 form-control" id="nazwa" name="Nazwa" placeholder="Podaj nazwę składnika"
@@ -18,7 +18,13 @@
             <option value="6">Tłuszcze</option>
             <option value="7">Przyprawy</option>
         </select>
-        <p><button type="submit" class="mt-1 btn btn-primary">Potwierdź</button></p>
+        <div class="row">
+            <div class="col-6">
+                <button type="submit" class="mt-1 btn btn-primary">Potwierdź</button>
+            </div>
     </form>
+    <div class="col-6">
+        <a class="mt-1 btn btn-primary btn-return float-end" role="button" href="/admin">Powrót</a>
+    </div>
 </div>
 {% endblock %}

@@ -4,21 +4,21 @@ from sqlalchemy.sql import func
 
 '''
 tabela przepisy
-zawiera id, nazwa, czas, opis, skladniki, przepis
+zawiera id, nazwa, Time, opis, skladniki, przepis
 id- identyfikator przepisu
 nazwa - nazwa przepisu
-czas - czas trwania przepisu
+Czas - Czas trwania przepisu
 opis - opis przepisu
 przepis - tresc przepisu
-Listaskladnikow - składniki przepisu (zapisywane w formie liczbowej)
+Ingredients - składniki przepisu (zapisywane w formie liczbowej)
 '''
 class Przepisy(db.Model):
     id = db.Column(db.Integer, primary_key=True,autoincrement=True)
     nazwa = db.Column(db.String(100))
-    czas = db.Column(db.String(100))
+    Time = db.Column(db.String(100))
     opis = db.Column(db.String(100))
     przepis = db.Column(db.String(1000))
-    ListaSkladnikow = db.Column(db.String(100))
+    Ingredients = db.Column(db.String(100))
 
 '''
 tabela skladniki

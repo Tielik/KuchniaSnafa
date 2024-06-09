@@ -112,16 +112,16 @@ def Dishes():
             return redirect('/admin')
         if request.method == 'POST':
             nazwa = request.form.get('nazwa')
-            czas = request.form.get('czas')
+            Time = request.form.get('Time')
             opis = request.form.get('opis')
             przepis = request.form.get('przepis')
-            ListaSkladnikow = request.form.getlist('lista')
-            ListaSkladnikow = " ".join(ListaSkladnikow)
-            if not ListaSkladnikow:
+            Ingredients = request.form.getlist('lista')
+            Ingredients = " ".join(Ingredients)
+            if not Ingredients:
                 flash('Musi zostać wybrany przynajmniej jeden składnik!', category='error')
                 return redirect('/admin/przepisy')
-            przepis = Przepisy(nazwa=nazwa, czas=czas, opis=opis, przepis=przepis,
-                               ListaSkladnikow=ListaSkladnikow)
+            przepis = Przepisy(nazwa=nazwa, Time=Time, opis=opis, przepis=przepis,
+                               Ingredients=Ingredients)
             grafika = request.files['grafika']
             grafika_name = grafika.filename
             if grafika_name != '':
@@ -136,7 +136,11 @@ def Dishes():
                         przepis_new_id = int(''.join(x for x in przepis_last_id if x.isdigit())) + 1
                     # Zapisanie nazwy grafiki jako id.png
                     grafika_name = str(przepis_new_id) + '.png'
-                    grafika.save(os.path.join('website/static/img', grafika_name))
+                    current_directory = os.path.dirname(os.path.abspath(__file__))
+                    if "home" in current_directory:
+                        grafika.save(os.path.join('/home/6186az/mysite/website/static/img', grafika_name))
+                    else:
+                        grafika.save(os.path.join('website/static/img', grafika_name))
                     db.session.add(przepis)
                     db.session.commit()
                     flash('Przepis został dodany!', category='success')
@@ -214,8 +218,13 @@ def delete(id):
     if current_user.is_authenticated:
         przepis = Przepisy.query.filter_by(id=id).first()
         grafika_name = str(id) + '.png'
-        if os.path.exists(f'website/static/img/{grafika_name}'):
-            os.remove(os.path.join('website/static/img', grafika_name))
+        current_directory = os.path.dirname(os.path.abspath(__file__))
+        if "home" in current_directory:
+            if os.path.exists(f'/home/6186az/mysite/website/static/img/{grafika_name}'):
+                os.remove(os.path.join('/home/6186az/mysite/website/static/img', grafika_name))
+        else:
+            if os.path.exists(f'website/static/img/{grafika_name}'):
+                os.remove(os.path.join('website/static/img', grafika_name))
         db.session.delete(przepis)
         db.session.commit()
         flash('Przepis został usunięty!', category='success')
@@ -276,7 +285,7 @@ def edit(id):
 
     Returns:
     - If the user is authenticated and the request method is 'POST',
-     the 'nazwa', 'czas', 'opis', 'skladniki', and 'przepis' fields of the 'Przepis' object are updated with the values from the request form. 
+     the 'nazwa', 'Time', 'opis', 'skladniki', and 'przepis' fields of the 'Przepis' object are updated with the values from the request form.
     The changes are committed to the database and a success message is flashed. The user is then redirected to the '/admin' page.
     - If the user is authenticated and the request method is 'GET', the 'editPrzepis.html' template is rendered with the 'przepis' and 'skladniki' objects passed as parameters.
     - If the user is not authenticated, the user is redirected to the home page.
@@ -291,12 +300,12 @@ def editP(id):
         przepis = Przepisy.query.filter_by(id=id).first()
         if request.method == 'POST':
             przepis.nazwa = request.form.get('nazwa')
-            przepis.czas = request.form.get('czas')
+            przepis.Time = request.form.get('Time')
             przepis.opis = request.form.get('opis')
             przepis.przepis = request.form.get('przepis')
-            przepis.ListaSkladnikow = request.form.getlist('lista')
-            przepis.ListaSkladnikow = " ".join(przepis.ListaSkladnikow)
-            if not przepis.ListaSkladnikow:
+            przepis.Ingredients = request.form.getlist('lista')
+            przepis.Ingredients = " ".join(przepis.Ingredients)
+            if not przepis.Ingredients:
                 flash('Musi zostać wybrany przynajmniej jeden składnik!', category='error')
                 return redirect(f'/admin/edit/przepis/{id}')
             przepis.grafika = request.files['grafika']
@@ -305,7 +314,11 @@ def editP(id):
                 grafika_ext = os.path.splitext(grafika_name)[1]
                 if grafika_ext in ['.png', '.jpg', '.jpeg', '.webp']:
                     grafika_name = str(id) + '.png'
-                    przepis.grafika.save(os.path.join('website/static/img', grafika_name))
+                    current_directory = os.path.dirname(os.path.abspath(__file__))
+                    if "home" in current_directory:
+                        przepis.grafika.save(os.path.join('/home/6186az/mysite/website/static/img', grafika_name))
+                    else:
+                        przepis.grafika.save(os.path.join('website/static/img', grafika_name))
                     db.session.add(przepis)
                     db.session.commit()
                     flash('Przepis został edytowany!', category='success')
