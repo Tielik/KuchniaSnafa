@@ -111,7 +111,7 @@ def Dishes():
             flash("By dodać danie trzeba najpierw wprowadzić składniki!", category="error")
             return redirect('/admin')
         if request.method == 'POST':
-            name = request.form.get('nazwa')
+            name = request.form.get('name')
             time = request.form.get('czas')
             description = request.form.get('opis')
             recipe = request.form.get('przepis')
@@ -280,7 +280,7 @@ def edit(id):
 
     Returns:
     - If the user is authenticated and the request method is 'POST',
-     the 'nazwa', 'czas', 'opis', 'skladniki', and 'przepis' fields of the 'Przepis' object are updated with the values from the request form. 
+     the 'name', 'czas', 'opis', 'skladniki', and 'przepis' fields of the 'Przepis' object are updated with the values from the request form. 
     The changes are committed to the database and a success message is flashed. The user is then redirected to the '/admin' page.
     - If the user is authenticated and the request method is 'GET', the 'editPrzepis.html' template is rendered with the 'przepis' and 'skladniki' objects passed as parameters.
     - If the user is not authenticated, the user is redirected to the home page.
@@ -294,7 +294,7 @@ def editP(id):
             ingredients = None
         przepis = Dish.query.filter_by(id=id).first()
         if request.method == 'POST':
-            przepis.nazwa = request.form.get('nazwa')
+            przepis.name = request.form.get('name')
             przepis.czas = request.form.get('czas')
             przepis.opis = request.form.get('opis')
             przepis.przepis = request.form.get('przepis')

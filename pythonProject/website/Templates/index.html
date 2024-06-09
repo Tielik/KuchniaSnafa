@@ -152,7 +152,7 @@
                 <div class="card-body">
                     <h5 class="card-title">{{danias.name}}</h5>
                     <p class="card-text">{{danias.description}}</p>
-                    <a class="btn btn-primary" role="button" href="/danie/{{danias.id}}" id="dish{{danias.id}}>Przejdź do przepisu</a>
+                    <a class="btn btn-primary" role="button" href="/danie/{{danias.id}}" id="dish{{danias.id}}">Przejdź do przepisu</a>
                 </div>
             </div>
         </div>
@@ -179,10 +179,7 @@
     let currentField = document.querySelector(".current-field");
     let previousField = document.querySelector(".previous-field.row");
     let yourIngredients = document.querySelector(".yourIngredients");
-    if (currentField.innerHTML.trim().length == 0 && previousField.innerHTML.trim().length == 0)
-        yourIngredients.style.display = "none";
-    else
-        yourIngredients.style.display = "block";
+    yourIngredients.style.display = "block";
 
     // This function is responsible for selecting a product and adding it to the list of selected products.
     //
@@ -203,10 +200,10 @@
             chosen.push(ingredientId);
             btnReady.style.display = "block";
 
-            let nazwa = document.createElement("label");
-            nazwa.setAttribute("id", "ingredientName");
-            nazwa.setAttribute("for", ingredientId);
-            nazwa.innerHTML = ingredientName;
+            let name = document.createElement("label");
+            name.setAttribute("id", "ingredientName");
+            name.setAttribute("for", ingredientId);
+            name.innerHTML = ingredientName;
 
             let span = document.createElement("span");
             span.setAttribute("class", "ps-3");
