@@ -26,7 +26,7 @@ Tuple: A tuple containing two elements:
 def select_right_dishes(user_input):
     list_of_chosen_id = []
     # transform user_input to list
-    if type(user_input) == werkzeug.datastructures.ImmutableMultiDict :  # user_input
+    if type(user_input) == werkzeug.datastructures.ImmutableMultiDict:  # user_input
         session_saver = ""
         for key in user_input:
             for value in user_input.getlist(key):
@@ -38,29 +38,30 @@ def select_right_dishes(user_input):
     else:
         user_input = user_input.split()
         for x in user_input:
-            list_of_chosen_id.append(int(x))
-    # select right ingredients based of id in list_of_chosen_id
-    super_set_user = set(list_of_chosen_id)
-    chosen_ingredient = db.session.query(Skladniki).filter(Skladniki.id.in_(list_of_chosen_id)).all()
-    dishes = db.session.query(Przepisy).all()
-    list_of_dishes = []
+            if x.isdigit():
+                x = int(x)
+                list_of_chosen_id.append(x)
+    list_of_Ingredients = []
+    for x in list_of_chosen_id:
+        list_of_Ingredients.append(Ingredient.query.filter_by(id=x).first())
+    dishes = db.session.query(Dish).all()
+    list_of_dishes=[]
     for dish in dishes:
-        lists = dish.Ingredients
-        lists.split()
-        lista_int = []
-        for y in lists:
-            if y != " ":
-                y = int(y)
-                lista_int.append(y)
-        nadzbior_dania = set(lista_int)
-        if len(list_of_chosen_id) >= len(lista_int):
-            if super_set_user.issuperset(nadzbior_dania):
+        good_number=len(dish.ingredients)
+        number_of_matched_ingredients = 0
+        for ingredient in list_of_Ingredients:
+            if ingredient in dish.ingredients:
+                number_of_matched_ingredients += 1
+            if number_of_matched_ingredients == good_number:
                 list_of_dishes.append(dish.id)
     if len(list_of_dishes) != 0:
-        dish_from_db = db.session.query(Przepisy).filter(Przepisy.id.in_(list_of_dishes)).all()
+        dish_from_db = db.session.query(Dish).filter(Dish.id.in_(list_of_dishes)).all()
     else:
         dish_from_db = None
-    return dish_from_db, chosen_ingredient
+        print(dish_from_db)
+        print("edasdasd")
+        print(list_of_Ingredients)
+    return dish_from_db, list_of_Ingredients
 
 '''
 a view that renders the index.html template
@@ -80,7 +81,7 @@ def index():
         admin = Admin(name="Admin", password=generate_password_hash("4321"))
         db.session.add(admin)
         db.session.commit()
-    ingredients = db.session.query(Skladniki)
+    ingredients = db.session.query(Ingredient).all()
     if request.method == 'POST' and request.form != None:
         form_input=request.form
         dishes_from_db,chosen_ingredient = select_right_dishes(form_input)
@@ -106,8 +107,8 @@ s
     """
 @views.route('/danie/<int:id>', methods=['POST', 'GET'])
 def indexDanie(id):
-    ingredients= db.session.query(Skladniki)
-    dish= db.session.query(Przepisy).filter(Przepisy.id == id).first()
+    ingredients= db.session.query(Ingredient).all()
+    dish= db.session.query(Dish).filter(Dish.id == id).first()
     return render_template('dishSite.html', skladniki=ingredients, danie=dish,url_path=url_for('static',filename='img/'+str(dish.id)+'.png'))
 
 @views.route('/api')
@@ -117,7 +118,7 @@ def api():
     else:
         return render_template('api.html')
 
-@views.route('/api/token')
-def token():
+@views.route('/api/tokenGenerator')
+def tokenGenerator():
     api_holder.append(str(uuid.uuid4()))
     return jsonify({'token': api_holder[-1],"WARNING": "THIS WILL NOT BE SHOW AGAIN REMEMBER THIS TOKEN"})

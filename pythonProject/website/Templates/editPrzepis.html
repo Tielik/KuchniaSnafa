@@ -2,44 +2,40 @@
 {% block title %}Edytuj przepis{% endblock %}
 
 {% block content %}
-<div class="container w-50 admin-50">
+<div class="container w-50">
        <form method="POST" enctype="multipart/form-data">
               <label for="nazwa">Nazwa Dania (maksymalnie 25 znaków)</label>
-              <input type="text" class="mb-1 form-control" id="nazwa" name="nazwa" value="{{przepis.nazwa}}"
+              <input type="text" class="mb-1 form-control" id="nazwa" name="nazwa" value="{{przepis.name}}"
                      placeholder="Podaj nazwę dania" required="required" maxlength="25" />
-              <label for="Time">Czas</label>
-              <input type="text" class="mb-1 form-control" id="Time" name="Time" value="{{przepis.Time}}"
+              <label for="czas">Czas</label>
+              <input type="text" class="mb-1 form-control" id="czas" name="czas" value="{{przepis.time}}"
                      placeholder="Podaj czas przygotowania" required="required" />
               <label for="opis">Opis (maksymalnie 30 znaków)</label>
-              <input type="text" class="mb-1 form-control" id="opis" name="opis" value="{{przepis.opis}}"
+              <input type="text" class="mb-1 form-control" id="opis" name="opis" value="{{przepis.description}}"
                      placeholder="Podaj opis przepisu" required="required" maxlength="30" />
+              <input type="hidden" class="mb-1 form-control" id="skladniki" name="skladniki"
+                     value="{{przepis.ingredient}}" />
               <label for="przepis">Przepis</label>
               <textarea class="mb-1 form-control" id="przepis" name="przepis" required="required"
-                     placeholder="Podaj opis wykonania" rows="3">{{przepis.przepis}}</textarea>
+                     placeholder="Podaj opis wykonania" rows="3">{{przepis.recipe}}</textarea>
               <label for="lista">Składniki</label>
               {% for skladnik in skladniki %}
               <div class="form-check">
                      <label class="form-check-label"></label>
-                     {% if skladnik.id|string in przepis.Ingredients %}
+                     {% if skladnik.id|string in przepis.ListaSkladnikow %}
                      <input class="form-check-input" type="checkbox" value="{{skladnik.id}}" id="lista" name="lista"
                             checked>
                      {% else %}
                      <input class="form-check-input" type="checkbox" value="{{skladnik.id}}" id="lista" name="lista">
                      {% endif %}
-                     {{skladnik.Nazwa}}</label>
+                     {{skladnik.name}}</label>
               </div>
               {% endfor %}
               <label for="formFile" class="mt-1 form-label">Grafika</label>
               <input class="form-control" type="file" id="grafika" name="grafika"
                      accept="image/png, image/jpg, image/jpeg, image/webp">
               <p style="font-size: 0.9rem;">Obsługiwane formaty: .png, .jpg, .jpeg, .webp</p>
-              <div class="row">
-                     <div class="col-6">
-                            <button type="submit" class="mt-1 btn btn-primary">Potwierdź</button>
-                     </div>
+              <p><button type="submit" class="mt-1 btn btn-primary">Potwierdź</button></p>
        </form>
-       <div class="col-6">
-              <a class="mt-1 btn btn-primary btn-return float-end" role="button" href="/admin">Powrót</a>
-       </div>
 </div>
 {% endblock %}
