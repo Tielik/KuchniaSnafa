@@ -5,7 +5,7 @@ from sqlalchemy.orm import Session
 from werkzeug.security import check_password_hash, generate_password_hash
 from sqlalchemy import select, engine
 from . import db
-from .models import Admin, Przepisy, Skladniki  # Skladniki Przepisy
+from .models import Admin, Dish,Ingredient   # Skladniki Przepisy
 import uuid
 from .api import api_holder
 

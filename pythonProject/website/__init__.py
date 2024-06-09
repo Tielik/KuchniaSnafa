@@ -35,8 +35,7 @@ def create_app():
     app.register_blueprint(views, url_prefix='/')
     app.register_blueprint(admin, url_prefix='/admin')
 
-    from .models import Admin, Przepisy, Skladniki
-
+    from .models import Admin, Dish, Ingredient
     with app.app_context():
         db.create_all()
 
