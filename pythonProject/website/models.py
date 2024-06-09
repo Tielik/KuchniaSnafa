@@ -2,23 +2,33 @@ from . import db
 from flask_login import UserMixin
 from sqlalchemy.sql import func
 
+
+
+dish_ingredients = db.Table('dish_ingredients',
+    db.Column('dish_id', db.Integer, db.ForeignKey('dish.id'), primary_key=True),
+    db.Column('ingredient_id', db.Integer, db.ForeignKey('ingredient.id'), primary_key=True)
+)
+
+
 '''
 tabela przepisy
-zawiera id, nazwa, Time, opis, skladniki, przepis
+zawiera id, nazwa, czas, opis, skladniki, przepis
 id- identyfikator przepisu
 nazwa - nazwa przepisu
-Czas - Czas trwania przepisu
+czas - czas trwania przepisu
 opis - opis przepisu
 przepis - tresc przepisu
-Ingredients - składniki przepisu (zapisywane w formie liczbowej)
+Listaskladnikow - składniki przepisu (zapisywane w formie liczbowej)
 '''
-class Przepisy(db.Model):
+#UPEWNIJ SIĘ BY NIE MOŻNA BYŁO POWTARZAĆ SKŁADNIKÓW DO DANIA!!!!!!!
+class Dish(db.Model):
     id = db.Column(db.Integer, primary_key=True,autoincrement=True)
-    nazwa = db.Column(db.String(100))
-    Time = db.Column(db.String(100))
-    opis = db.Column(db.String(100))
-    przepis = db.Column(db.String(1000))
-    Ingredients = db.Column(db.String(100))
+    name = db.Column(db.String(100))
+    time = db.Column(db.String(100))
+    description = db.Column(db.String(100))
+    recipe = db.Column(db.String(1000))
+    ingredients = db.relationship('Ingredient', secondary=dish_ingredients, backref='Dish')
+
 
 '''
 tabela skladniki
@@ -27,10 +37,10 @@ id- identyfikator skladnika
 nazwa - nazwa skladnika
 kategoria - kategoria skladnika
 '''
-class Skladniki(db.Model):
+class Ingredient(db.Model):
     id = db.Column(db.Integer, primary_key=True,autoincrement=True)
-    Nazwa = db.Column(db.String(100))
-    kategoria = db.Column(db.Integer)
+    name = db.Column(db.String(100))
+    category = db.Column(db.Integer)
 
 
 '''
