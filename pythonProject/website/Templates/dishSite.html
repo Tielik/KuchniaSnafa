@@ -1,15 +1,15 @@
 {% extends "base.html" %}
 
-{% block title %}{{danie.nazwa}}{% endblock %}
+{% block title %}{{danie.name}}{% endblock %}
 {% block content %}
-<div class="container">
+<div class="container w-75 admin-75">
   <div class="row">
     <div class="col-12 d-flex justify-content-center">
-      <h1>{{danie.nazwa}}</h1>
+      <h1>{{danie.name}}</h1>
     </div>
   </div>
   <div class="row">
-    <div class="col-12 d-flex justify-content-center">
+    <div class="col-12 d-flex justify-content-center py-3">
       <img class="site-img mx-auto" src="{{url_path}}">
     </div>
   </div>
@@ -44,10 +44,8 @@
     <div class="col-12">
       {{danie.recipe}}
     </div>
-    <div class="col-12 text-center">
-      <a href="/">
-        Powrót do strony głównej
-      </a>
+    <div class="col-12 text-center pt-2">
+      <a class="btn btn-primary" role="button" href="/">Powrót do strony głównej</a>
     </div>
 
   </div>

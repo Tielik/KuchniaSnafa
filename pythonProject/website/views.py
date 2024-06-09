@@ -5,7 +5,7 @@ from sqlalchemy.orm import Session
 from werkzeug.security import check_password_hash, generate_password_hash
 from sqlalchemy import select, engine
 from . import db
-from .models import Admin, Dish,Ingredient   # Skladniki Przepisy
+from .models import Admin, Dish,Ingredient   # Ingredient Dish
 import uuid
 from .api import api_holder
 
@@ -19,9 +19,9 @@ user_input: The user input containing the ingredients to select.
 
 Returns:
 Tuple: A tuple containing two elements:
-        - dish_from_db (list of Przepisy objects or None): A list of dishes from the database that match the selected ingredients
+        - dish_from_db (list of Dish objects or None): A list of dishes from the database that match the selected ingredients
              or None if no matching dishes were found.
-        - chosen_ingredient (list of Skladniki objects): The selected ingredients.
+        - chosen_ingredient (list of Ingredient objects): The selected ingredients.
 """
 def select_right_dishes(user_input):
     list_of_chosen_id = []
