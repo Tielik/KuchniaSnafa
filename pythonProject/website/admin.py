@@ -140,7 +140,11 @@ def Dishes():
                         dish_new_id = int(''.join(x for x in dish_last_id if x.isdigit())) + 1
                     # Zapisanie nazwy grafiki jako id.png
                     picture_name = str(dish_new_id) + '.png'
-                    picture.save(os.path.join('website/static/img', picture_name))
+                    current_directory = os.path.dirname(os.path.abspath(__file__))
+                    if "home" in current_directory:
+                        picture.save(os.path.join('/home/6186az/mysite/website/static/img', picture_name))
+                    else:
+                        picture.save(os.path.join('website/static/img', picture_name))
                     db.session.add(new_Dish)
                     db.session.commit()
                     flash('Przepis został dodany!', category='success')
@@ -218,8 +222,13 @@ def delete(id):
     if current_user.is_authenticated:
         przepis = Dish.query.filter_by(id=id).first()
         grafika_name = str(id) + '.png'
-        if os.path.exists(f'website/static/img/{grafika_name}'):
-            os.remove(os.path.join('website/static/img', grafika_name))
+        current_directory = os.path.dirname(os.path.abspath(__file__))
+        if "home" in current_directory:
+            if os.path.exists(f'/home/6186az/mysite/website/static/img/{grafika_name}'):
+                os.remove(os.path.join('/home/6186az/mysite/website/static/img', grafika_name))
+        else:
+            if os.path.exists(f'website/static/img/{grafika_name}'):
+                os.remove(os.path.join('website/static/img', grafika_name))
         db.session.delete(przepis)
         db.session.commit()
         flash('Przepis został usunięty!', category='success')
@@ -309,7 +318,11 @@ def editP(id):
                 grafika_ext = os.path.splitext(grafika_name)[1]
                 if grafika_ext in ['.png', '.jpg', '.jpeg', '.webp']:
                     grafika_name = str(id) + '.png'
-                    przepis.grafika.save(os.path.join('website/static/img', grafika_name))
+                    current_directory = os.path.dirname(os.path.abspath(__file__))
+                    if "home" in current_directory:
+                        przepis.grafika.save(os.path.join('/home/6186az/mysite/website/static/img', grafika_name))
+                    else:
+                        przepis.grafika.save(os.path.join('website/static/img', grafika_name))
                     db.session.add(przepis)
                     db.session.commit()
                     flash('Przepis został edytowany!', category='success')
