@@ -172,7 +172,7 @@
     //for each x in chosen_ingredient
     //add them to chosen so they cant be repeated
     {% if chosen_ingredient %}
-    {%for x in chosen_ingredient %}
+    {% for x in chosen_ingredient %}
     x += {{ x.id }}+" ";
     {% endfor %}
     {% endif %}
@@ -183,6 +183,8 @@
     let currentField = document.querySelector(".current-field");
     let previousField = document.querySelector(".previous-field.row");
     let yourIngredients = document.querySelector(".yourIngredients");
+    
+    // Displays "Twoje składniki" if there are any ingredients chosen
     if (currentField.innerHTML.trim().length == 0 && previousField.innerHTML.trim().length == 0)
         yourIngredients.style.display = "none";
     else
@@ -203,9 +205,7 @@
             return false;
         }
         else {
-            yourIngredients.style.display = "block";
             chosen.push(ingredientId);
-            btnReady.style.display = "block";
 
             let name = document.createElement("label");
             name.setAttribute("id", "ingredientName");
@@ -213,7 +213,6 @@
             name.innerHTML = ingredientName;
 
             let span = document.createElement("span");
-            span.setAttribute("class", "ps-3");
 
             span.append(name);
 
@@ -221,38 +220,20 @@
             ID.setAttribute("type", "text");
             ID.setAttribute("id", ingredientId);
             ID.setAttribute("name", ingredientId);
-            ID.setAttribute("style", "display:none;");
-
-            let btnDelete = document.createElement("button");
-            btnDelete.setAttribute("type", "button");
-            btnDelete.setAttribute("class", "btn-end float-end btn btn-danger");
-            btnDelete.innerHTML = "Usuń";
-            btnDelete.onclick = () => {
-                currentField.removeChild(mainField);
-                chosen.splice(chosen.indexOf(ingredientId), 1);
-                if (currentField.innerHTML.trim().length == 0) {
-                    yourIngredients.style.display = "none";
-                }
-            }
+            ID.style.display = "none";
 
             let field = document.createElement("div");
-            field.setAttribute("class", "py-4 pe-3 ingredient rounded");
             field.append(span);
             field.append(ID);
-            field.append(btnDelete);
+            field.style.display = "none";
 
             let mainField = document.createElement("div");
-            mainField.setAttribute("class", "col-sm-3 py-2");
             mainField.append(field);
+            mainField.style.display = "none";
 
             currentField.append(mainField);
 
-            let chooseIngredient = document.createElement("h1");
-            chooseIngredient.setAttribute("class", "mb-2 mt-3");
-            chooseIngredient.setAttribute("style", "display: none");
-            chooseIngredient.innerHTML = "Wybierz składniki";
-            let sevenCols = document.querySelector(".row.seven-cols");
-            sevenCols.append(chooseIngredient);
+            btnReady.click();
         }
     }
     // Deletes a product from the list of selected products.
