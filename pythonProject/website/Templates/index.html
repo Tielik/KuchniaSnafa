@@ -178,13 +178,15 @@
     {% endif %}
     let array = x.split(" ");
     chosen = array;
-    console.log(chosen);
     let btnReady = document.querySelector(".btn-ready");
     btnReady.style.display = "none";
     let currentField = document.querySelector(".current-field");
     let previousField = document.querySelector(".previous-field.row");
     let yourIngredients = document.querySelector(".yourIngredients");
-    yourIngredients.style.display = "block";
+    if (currentField.innerHTML.trim().length == 0 && previousField.innerHTML.trim().length == 0)
+        yourIngredients.style.display = "none";
+    else
+        yourIngredients.style.display = "block";
 
     // This function is responsible for selecting a product and adding it to the list of selected products.
     //
@@ -225,7 +227,6 @@
             btnDelete.setAttribute("type", "button");
             btnDelete.setAttribute("class", "btn-end float-end btn btn-danger");
             btnDelete.innerHTML = "Usuń";
-            console.log(chosen);
             btnDelete.onclick = () => {
                 currentField.removeChild(mainField);
                 chosen.splice(chosen.indexOf(ingredientId), 1);
@@ -252,9 +253,6 @@
             chooseIngredient.innerHTML = "Wybierz składniki";
             let sevenCols = document.querySelector(".row.seven-cols");
             sevenCols.append(chooseIngredient);
-            console.log(document.querySelector(".row.seven-cols"));
-            console.log(chooseIngredient);
-
         }
     }
     // Deletes a product from the list of selected products.
@@ -265,9 +263,7 @@
     // Returns:
     // - None
     function deleteIngredient(ingredientId) {
-        console.log(ingredientId);
         const index = chosen.indexOf((ingredientId).toString());
-        console.log(index);
         const x = chosen.splice(index, 1);
         let ingredientToDelete = document.getElementById(ingredientId);
         ingredientToDelete.remove();
