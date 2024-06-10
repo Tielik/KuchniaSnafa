@@ -84,15 +84,15 @@ def index():
     if request.method == 'POST' and request.form != None:
         form_input=request.form
         dishes_from_db,chosen_ingredient = select_right_dishes(form_input)
-        return render_template('index.html', form=form_input, dania=dishes_from_db, Skladnikiz=ingredients,
-                               SkladnikiWybrane=chosen_ingredient)
+        return render_template('index.html', form=form_input, dishes_from_db=dishes_from_db, ingredients=ingredients,
+                               chosen_ingredient=chosen_ingredient)
     if session.get('skladniki') != None:
         form_input = session.get('skladniki')
         dishes_from_db,chosen_ingredient = select_right_dishes(form_input)
-        return render_template('index.html', form=form_input, dania=dishes_from_db, Skladnikiz=ingredients,
-                               SkladnikiWybrane=chosen_ingredient)
+        return render_template('index.html', form=form_input, dishes_from_db=dishes_from_db, ingredients=ingredients,
+                               chosen_ingredient=chosen_ingredient)
     else:
-        return render_template('index.html', Skladnikiz=ingredients)
+        return render_template('index.html', ingredients=ingredients)
 
 
     """

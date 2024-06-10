@@ -9,8 +9,8 @@
             zbożowe
         </button>
         <div class="collapse multi-collapse div-category" id="zbozowe">
-            {% if Skladnikiz %}
-            {% for x in Skladnikiz %}
+            {% if ingredients %}
+            {% for x in ingredients %}
             {% if x.category == 1 %}
             <button type="button" class="btn-ingredient btn btn-light" id="zbozowe{{x}}"
                 onClick="chooseIngredient('{{x.id}}', '{{x.name}}')">{{x.name}}
@@ -26,8 +26,8 @@
             onClick="categoryChange('category-warzywa')" data-bs-toggle="collapse" data-bs-target="#warzywa">Warzywa
         </button>
         <div class="collapse multi-collapse div-category" id="warzywa">
-            {% if Skladnikiz %}
-            {% for x in Skladnikiz %}
+            {% if ingredients %}
+            {% for x in ingredients %}
             {% if x.category == 2 %}
             <button type="button" class="btn-ingredient btn btn-light"
                 onClick="chooseIngredient('{{x.id}}', '{{x.name}}')">{{x.name}}
@@ -43,8 +43,8 @@
             onClick="categoryChange('category-owoce')" data-bs-toggle="collapse" data-bs-target="#owoce">Owoce
         </button>
         <div class="collapse multi-collapse div-category" id="owoce">
-            {% if Skladnikiz %}
-            {% for x in Skladnikiz %}
+            {% if ingredients %}
+            {% for x in ingredients %}
             {% if x.category == 3 %}
             <button type="button" class="btn-ingredient btn btn-light"
                 onClick="chooseIngredient('{{x.id}}', '{{x.name}}')">{{x.name}}
@@ -60,8 +60,8 @@
             produkty mleczne
         </button>
         <div class="collapse multi-collapse div-category" id="mleczne">
-            {% if Skladnikiz %}
-            {% for x in Skladnikiz %}
+            {% if ingredients %}
+            {% for x in ingredients %}
             {% if x.category == 4 %}
             <button type="button" class="btn-ingredient btn btn-light"
                 onClick="chooseIngredient('{{x.id}}', '{{x.name}}')">{{x.name}}
@@ -79,8 +79,8 @@
             pochodzenia zwierzęcego
         </button>
         <div class="collapse multi-collapse div-category" id="zwierzece">
-            {% if Skladnikiz %}
-            {% for x in Skladnikiz %}
+            {% if ingredients %}
+            {% for x in ingredients %}
             {% if x.category == 5 %}
             <button type="button" class="btn-ingredient btn btn-light"
                 onClick="chooseIngredient('{{x.id}}', '{{x.name}}')">{{x.name}}
@@ -95,8 +95,8 @@
             onClick="categoryChange('category-tluszcze')" data-bs-toggle="collapse" data-bs-target="#tluszcze">Tłuszcze
         </button>
         <div class="collapse multi-collapse div-category" id="tluszcze">
-            {% if Skladnikiz %}
-            {% for x in Skladnikiz %}
+            {% if ingredients %}
+            {% for x in ingredients %}
             {% if x.category == 6 %}
             <button type="button" class="btn-ingredient btn btn-light"
                 onClick="chooseIngredient('{{x.id}}', '{{x.name}}')">{{x.name}}
@@ -113,8 +113,8 @@
             data-bs-target="#przyprawy">Przyprawy
         </button>
         <div class="collapse multi-collapse div-category" id="przyprawy">
-            {% if Skladnikiz %}
-            {% for x in Skladnikiz %}
+            {% if ingredients %}
+            {% for x in ingredients %}
             {% if x.category == 7 %}
             <button type="button" class="btn-ingredient btn btn-light"
                 onClick="chooseIngredient('{{x.id}}', '{{x.name}}')">{{x.name}}
@@ -131,7 +131,7 @@
         <div class="current-field row"></div>
         {% if form!=null %}
         <div class="previous-field row ">
-            {% for x in SkladnikiWybrane %}
+            {% for x in chosen_ingredient %}
             <div class="col-sm-3 py-1 div-ingredient">
                 <div class="py-4 pe-3 ingredient rounded" id="{{x.id}}">
                     <input type="hidden" name="{{x.id}}" value="{{x.id}}">
@@ -147,16 +147,16 @@
         <button type="submit" class="btn-ready btn btn-primary mb-2">Gotowe</button>
     </form>
 
-    {% if dania %}
+    {% if dishes_from_db %}
     <div class="ms-1 mt-4 row">
-        {% for danias in dania %}
+        {% for dish in dishes_from_db %}
         <div class="col-3 mb-4 me-4 card h-100 dish-card">
-            {%set var=danias.id|string %}
+            {%set var=dish.id|string %}
             <img src="{{url_for('static', filename='img/'+var+'.png')}}" class="card-img mt-2" alt="...">
             <div class="card-body">
-                <h5 class="card-title">{{danias.name}}</h5>
-                <p class="card-text">{{danias.description}}</p>
-                <a class="btn btn-primary" role="button" href="/danie/{{danias.id}}" id="dish{{danias.id}}">Przejdź do
+                <h5 class="card-title">{{dish.name}}</h5>
+                <p class="card-text">{{dish.description}}</p>
+                <a class="btn btn-primary" role="button" href="/danie/{{dish.id}}" id="dish{{dish.id}}">Przejdź do
                     przepisu</a>
             </div>
         </div>
@@ -168,11 +168,11 @@
 <script>
     let chosen = [];
     let x = "";
-    //if skladnikiwybrane is not null
-    //for each x in skladnikiwybrane
+    //if chosen_ingredient is not null
+    //for each x in chosen_ingredient
     //add them to chosen so they cant be repeated
-    {% if SkladnikiWybrane %}
-    {%for x in SkladnikiWybrane %}
+    {% if chosen_ingredient %}
+    {%for x in chosen_ingredient %}
     x += {{ x.id }}+" ";
     {% endfor %}
     {% endif %}
@@ -248,7 +248,7 @@
             currentField.append(mainField);
 
             let chooseIngredient = document.createElement("h1");
-            chooseIngredient.setAttribute("class", "wybierz-skladniki mb-2 mt-3");
+            chooseIngredient.setAttribute("class", "mb-2 mt-3");
             chooseIngredient.setAttribute("style", "display: none");
             chooseIngredient.innerHTML = "Wybierz składniki";
             let sevenCols = document.querySelector(".row.seven-cols");
