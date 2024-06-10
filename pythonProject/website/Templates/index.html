@@ -1,11 +1,12 @@
-{% extends "base.html" %} 
+{% extends "base.html" %}
 {% block title %}Kuchnia Snafa{% endblock %}
 {% block content %}
 <h1 class="logo">Kuchnia Snafa</h1><br>
 <div class="row seven-cols">
     <div class="col-md-1">
-        <button type="button" class="btn-category btn btn-primary" id="category-zbozowe" onClick="categoryChange('category-zbozowe')"
-            data-bs-toggle="collapse" data-bs-target="#zbozowe">Produkty zbożowe
+        <button type="button" class="btn-category btn btn-primary" id="category-zbozowe"
+            onClick="categoryChange('category-zbozowe')" data-bs-toggle="collapse" data-bs-target="#zbozowe">Produkty
+            zbożowe
         </button>
         <div class="collapse multi-collapse div-category" id="zbozowe">
             {% if Skladnikiz %}
@@ -21,8 +22,8 @@
         </div>
     </div>
     <div class="col-md-1">
-        <button type="button" class="btn-category btn btn-primary" id="category-warzywa" onClick="categoryChange('category-warzywa')"
-            data-bs-toggle="collapse" data-bs-target="#warzywa">Warzywa
+        <button type="button" class="btn-category btn btn-primary" id="category-warzywa"
+            onClick="categoryChange('category-warzywa')" data-bs-toggle="collapse" data-bs-target="#warzywa">Warzywa
         </button>
         <div class="collapse multi-collapse div-category" id="warzywa">
             {% if Skladnikiz %}
@@ -38,8 +39,8 @@
         </div>
     </div>
     <div class="col-md-1">
-        <button type="button" class="btn-category btn btn-primary" id="category-owoce" onClick="categoryChange('category-owoce')"
-            data-bs-toggle="collapse" data-bs-target="#owoce">Owoce
+        <button type="button" class="btn-category btn btn-primary" id="category-owoce"
+            onClick="categoryChange('category-owoce')" data-bs-toggle="collapse" data-bs-target="#owoce">Owoce
         </button>
         <div class="collapse multi-collapse div-category" id="owoce">
             {% if Skladnikiz %}
@@ -54,8 +55,8 @@
         </div>
     </div>
     <div class="col-md-1">
-        <button type="button" class="btn-category btn btn-primary" id="category-mleczne" onClick="categoryChange('category-mleczne')"
-            data-bs-toggle="collapse" data-bs-target="#mleczne">Mleko i
+        <button type="button" class="btn-category btn btn-primary" id="category-mleczne"
+            onClick="categoryChange('category-mleczne')" data-bs-toggle="collapse" data-bs-target="#mleczne">Mleko i
             produkty mleczne
         </button>
         <div class="collapse multi-collapse div-category" id="mleczne">
@@ -72,8 +73,9 @@
         </div>
     </div>
     <div class="col-md-1">
-        <button type="button" class="btn-category btn btn-primary" id="category-zwierzece" onClick="categoryChange('category-zwierzece')"
-            data-bs-toggle="collapse" data-bs-target="#zwierzece">Produkty
+        <button type="button" class="btn-category btn btn-primary" id="category-zwierzece"
+            onClick="categoryChange('category-zwierzece')" data-bs-toggle="collapse"
+            data-bs-target="#zwierzece">Produkty
             pochodzenia zwierzęcego
         </button>
         <div class="collapse multi-collapse div-category" id="zwierzece">
@@ -89,8 +91,8 @@
         </div>
     </div>
     <div class="col-md-1">
-        <button type="button" class="btn-category btn btn-primary" id="category-tluszcze" onClick="categoryChange('category-tluszcze')"
-            data-bs-toggle="collapse" data-bs-target="#tluszcze">Tłuszcze
+        <button type="button" class="btn-category btn btn-primary" id="category-tluszcze"
+            onClick="categoryChange('category-tluszcze')" data-bs-toggle="collapse" data-bs-target="#tluszcze">Tłuszcze
         </button>
         <div class="collapse multi-collapse div-category" id="tluszcze">
             {% if Skladnikiz %}
@@ -106,8 +108,9 @@
         </div>
     </div>
     <div class="col-md-1">
-        <button type="button" class="btn-category btn btn-primary" id="category-przyprawy" onClick="categoryChange('category-przyprawy')"
-            data-bs-toggle="collapse" data-bs-target="#przyprawy">Przyprawy
+        <button type="button" class="btn-category btn btn-primary" id="category-przyprawy"
+            onClick="categoryChange('category-przyprawy')" data-bs-toggle="collapse"
+            data-bs-target="#przyprawy">Przyprawy
         </button>
         <div class="collapse multi-collapse div-category" id="przyprawy">
             {% if Skladnikiz %}
@@ -131,6 +134,7 @@
             {% for x in SkladnikiWybrane %}
             <div class="col-sm-3 py-1 div-ingredient">
                 <div class="py-4 pe-3 ingredient rounded" id="{{x.id}}">
+                    <input type="hidden" name="{{x.id}}" value="{{x.id}}">
                     <span class="ps-3">{{x.name}}</span>
                     <button type="button" class="btn-end float-end btn btn-danger" id="delete{{x.id}}"
                         onClick="deleteIngredient('{{x.id}}')">Usuń</button>
@@ -147,17 +151,18 @@
     <div class="ms-1 mt-4 row">
         {% for danias in dania %}
         <div class="col-3 mb-4 me-4 card h-100 dish-card">
-                {%set var=danias.id|string %}
-                <img src="{{url_for('static', filename='img/'+var+'.png')}}" class="card-img mt-2" alt="...">
-                <div class="card-body">
-                    <h5 class="card-title">{{danias.name}}</h5>
-                    <p class="card-text">{{danias.description}}</p>
-                    <a class="btn btn-primary" role="button" href="/danie/{{danias.id}}" id="dish{{danias.id}}">Przejdź do przepisu</a>
-                </div>
+            {%set var=danias.id|string %}
+            <img src="{{url_for('static', filename='img/'+var+'.png')}}" class="card-img mt-2" alt="...">
+            <div class="card-body">
+                <h5 class="card-title">{{danias.name}}</h5>
+                <p class="card-text">{{danias.description}}</p>
+                <a class="btn btn-primary" role="button" href="/danie/{{danias.id}}" id="dish{{danias.id}}">Przejdź do
+                    przepisu</a>
             </div>
         </div>
-        {% endfor %}
     </div>
+    {% endfor %}
+</div>
 </div>
 {%endif%}
 <script>
