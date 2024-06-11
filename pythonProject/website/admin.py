@@ -304,9 +304,9 @@ def editP(id):
         przepis = Dish.query.filter_by(id=id).first()
         if request.method == 'POST':
             przepis.name = request.form.get('name')
-            przepis.czas = request.form.get('czas')
-            przepis.opis = request.form.get('opis')
-            przepis.przepis = request.form.get('przepis')
+            przepis.time = request.form.get('time')
+            przepis.description = request.form.get('description')
+            przepis.recipe = request.form.get('recipe')
             przepis.ListaSkladnikow = request.form.getlist('lista')
             przepis.ListaSkladnikow = " ".join(przepis.ListaSkladnikow)
             if not przepis.ListaSkladnikow:

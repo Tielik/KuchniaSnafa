@@ -8,13 +8,13 @@
               <input type="text" class="mb-1 form-control" id="name" name="name" value="{{przepis.name}}"
                      placeholder="Podaj nazwę dania" required="required" maxlength="25" />
               <label for="czas">Czas</label>
-              <input type="text" class="mb-1 form-control" id="czas" name="czas" value="{{przepis.time}}"
+              <input type="text" class="mb-1 form-control" id="time" name="time" value="{{przepis.time}}"
                      placeholder="Podaj czas przygotowania" required="required" />
               <label for="opis">Opis (maksymalnie 30 znaków)</label>
-              <input type="text" class="mb-1 form-control" id="opis" name="opis" value="{{przepis.description}}"
+              <input type="text" class="mb-1 form-control" id="description" name="description" value="{{przepis.description}}"
                      placeholder="Podaj opis przepisu" required="required" maxlength="30" />
               <label for="przepis">Przepis</label>
-              <textarea class="mb-1 form-control" id="przepis" name="przepis" required="required"
+              <textarea class="mb-1 form-control" id="recipe" name="recipe" required="required"
                      placeholder="Podaj opis wykonania" rows="3">{{przepis.recipe}}</textarea>
               <label for="lista">Składniki</label>
               {% for skladnik in skladniki %}
