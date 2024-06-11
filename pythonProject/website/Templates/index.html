@@ -15,7 +15,6 @@
             <button type="button" class="btn-ingredient btn btn-light" id="zbozowe{{x}}"
                 onClick="chooseIngredient('{{x.id}}', '{{x.name}}')">{{x.name}}
             </button>
-
             {% endif %}
             {% endfor %}
             {% endif %}
@@ -128,9 +127,9 @@
     <br>
     <h1 class="yourIngredients mb-2 mt-3">Twoje Składniki</h1>
     <form method="POST">
-        <div class="current-field row"></div>
+        <div class="current-field"></div>
         {% if form!=null %}
-        <div class="previous-field row ">
+        <div class="ingredient-field mt-3 row bg-body-tertiary border rounded">
             {% for x in chosen_ingredient %}
             <div class="col-sm-3 py-1 div-ingredient">
                 <div class="py-4 pe-3 ingredient rounded" id="{{x.id}}">
@@ -181,14 +180,17 @@
     let btnReady = document.querySelector(".btn-ready");
     btnReady.style.display = "none";
     let currentField = document.querySelector(".current-field");
-    let previousField = document.querySelector(".previous-field.row");
+    let ingredientField = document.querySelector(".ingredient-field.row");
     let yourIngredients = document.querySelector(".yourIngredients");
-    
+
     // Displays "Twoje składniki" if there are any ingredients chosen
-    if (currentField.innerHTML.trim().length == 0 && previousField.innerHTML.trim().length == 0)
+    if (currentField.innerHTML.trim().length == 0 && ingredientField.innerHTML.trim().length == 0) {
         yourIngredients.style.display = "none";
-    else
+        ingredientField.style.display = "none";
+    }
+    else {
         yourIngredients.style.display = "block";
+    }
 
     // This function is responsible for selecting a product and adding it to the list of selected products.
     //
@@ -248,7 +250,7 @@
         const x = chosen.splice(index, 1);
         let ingredientToDelete = document.getElementById(ingredientId);
         ingredientToDelete.remove();
-        if (previousField.innerHTML.trim().length == 0) {
+        if (ingredientField.innerHTML.trim().length == 0) {
             yourIngredients.style.display = "none";
         }
         btnReady.style.display = "none";

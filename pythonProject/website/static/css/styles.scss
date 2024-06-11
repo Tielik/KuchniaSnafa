@@ -78,14 +78,6 @@ body {
     padding-bottom: 5vh;
 }
 
-.btn-ready {
-    align-items: end;
-}
-
-.field {
-    margin: auto;
-}
-
 .btn-category {
     width: 100%;
 }
@@ -222,12 +214,6 @@ to have them the same height as text with float-start class */
     margin-bottom: -0.25rem !important;
 }
 
-.previous-field,
-.current-field {
-    margin-left: 0 !important;
-    margin-right: 0 !important;
-}
-
 .navbar {
     background-color: $primary-color;
 }
@@ -284,4 +270,10 @@ to have them the same height as text with float-start class */
 
 .btn-admin {
     width: 6rem;
+}
+
+.ingredient-field {
+    border-color: $primary-color !important;
+    margin-left: 0 !important;
+    margin-right: 0 !important;
 }
