@@ -31,11 +31,9 @@ def select_right_dishes(user_input):
         for key in user_input:
             for value in user_input.getlist(key):
                 session_saver += str(key) + " "
-                print(key)
                 keys = int(key)
                 list_of_chosen_id.append(keys)
         list_of_chosen_id.sort()
-        print(session_saver)
         session['skladniki'] = session_saver
     else:
         user_input = user_input.split()

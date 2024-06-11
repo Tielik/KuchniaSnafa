@@ -229,7 +229,7 @@ class Dish_api(Resource):
             return {"wiadomość": 'Nie znaleziono dania na podstawie danych wejśiowych'}, 404
         db.session.delete(dish)
         db.session.commit()
-        return {"wiadomość": 'Danie usunięto poprawnie'}, 200
+        return {"wiadomość": 'Danie usunięto poprawnie'}, 204
 
         """
         A function to update a dish based on the input provided.
