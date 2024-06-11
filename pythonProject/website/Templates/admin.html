@@ -42,7 +42,7 @@
             Przygotowanie: <p>{{przepis.recipe}}</p>
             Składniki:
             <p>
-                {% for skladnik in skladniki %}
+                {% for skladnik in przepis.ingredients %}
                 {{skladnik.name}}
                 {% endfor %}
             </p>

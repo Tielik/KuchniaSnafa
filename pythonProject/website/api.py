@@ -130,7 +130,7 @@ def require_api_key(f):
         if not api_key:
             api_key=request.args.get('api_key')
         if api_key not in api_holder:
-            abort(404,message="Mising Api key, add api like this: <Link to webiste>?api_key=de99cb8c-976e-4c4f-9692-839f88338fcc")
+            abort(400,message="Mising Api key, add api like this: <Link to webiste>?api_key=de99cb8c-976e-4c4f-9692-839f88338fcc")
         return f(*args,**kwargs)
     decorated_function.__name__=f.__name__
     return decorated_function
@@ -172,8 +172,6 @@ class Dish_api(Resource):
     @require_api_key
     def get(self, input=None):
         api_key=request.headers.get("x-api-key")
-        print(api_key)
-        print("asdsad")
         if input is None:
             dishes = Dish.query.all()
         else:
@@ -248,7 +246,6 @@ class Dish_api(Resource):
         if user_input is list:
             return {"wiadomość": 'Edytować można tylko jeden element na raz'}, 400
         dishes=dish_input_matcher(input)
-        print(dishes)
         if dishes == [None] or dishes is None:
             return {"wiadomość": 'Nie znaleziono dania na podstawie danych wejśiowych'}, 404
         if user_input is None:

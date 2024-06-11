@@ -301,29 +301,33 @@ def editP(id):
             ingredients = db.session.query(Ingredient)
         else:
             ingredients = None
-        przepis = Dish.query.filter_by(id=id).first()
+        dish = Dish.query.filter_by(id=id).first()
         if request.method == 'POST':
-            przepis.name = request.form.get('name')
-            przepis.time = request.form.get('time')
-            przepis.description = request.form.get('description')
-            przepis.recipe = request.form.get('recipe')
-            przepis.ListaSkladnikow = request.form.getlist('lista')
-            przepis.ListaSkladnikow = " ".join(przepis.ListaSkladnikow)
-            if not przepis.ListaSkladnikow:
+            dish.name = request.form.get('name')
+            dish.time = request.form.get('time')
+            dish.description = request.form.get('description')
+            dish.recipe = request.form.get('recipe')
+            dish_ingredients = request.form.getlist('lista')
+            print(dish_ingredients)
+            if not dish_ingredients:
                 flash('Musi zostać wybrany przynajmniej jeden składnik!', category='error')
                 return redirect(f'/admin/edit/przepis/{id}')
-            przepis.grafika = request.files['grafika']
-            grafika_name = przepis.grafika.filename
+            dish.ingredients.clear()
+            for ingredient in dish_ingredients:
+                ingredient = Ingredient.query.filter_by(id=ingredient).first()
+                dish.ingredients.append(ingredient)
+            dish.grafika = request.files['grafika']
+            grafika_name = dish.grafika.filename
             if grafika_name != '':
                 grafika_ext = os.path.splitext(grafika_name)[1]
                 if grafika_ext in ['.png', '.jpg', '.jpeg', '.webp']:
                     grafika_name = str(id) + '.png'
                     current_directory = os.path.dirname(os.path.abspath(__file__))
                     if "home" in current_directory:
-                        przepis.grafika.save(os.path.join('/home/6186az/mysite/website/static/img', grafika_name))
+                        dish.grafika.save(os.path.join('/home/6186az/mysite/website/static/img', grafika_name))
                     else:
-                        przepis.grafika.save(os.path.join('website/static/img', grafika_name))
-                    db.session.add(przepis)
+                        dish.grafika.save(os.path.join('website/static/img', grafika_name))
+                    db.session.add(dish)
                     db.session.commit()
                     flash('Przepis został edytowany!', category='success')
                     return redirect('/admin')
@@ -331,9 +335,9 @@ def editP(id):
                     flash('Nieprawidłowy format grafiki!', category='error')
                     return redirect(f'/admin/edit/przepis/{id}')
             else:
-                db.session.add(przepis)
+                db.session.add(dish)
                 db.session.commit()
                 flash('Przepis został edytowany!', category='success')
                 return redirect('/admin')
-        return render_template('editPrzepis.html', przepis=przepis, skladniki=ingredients)
+        return render_template('editPrzepis.html', przepis=dish, skladniki=ingredients)
     return redirect('/')
