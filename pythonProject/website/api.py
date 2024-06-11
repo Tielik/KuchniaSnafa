@@ -8,6 +8,7 @@ from flask_httpauth import HTTPBasicAuth
 from werkzeug.security import check_password_hash
 from . import db
 from .models import Admin, Dish, Ingredient
+from .admin import check_if_dish_name_exists, check_if_ingredient_name_exists
 
 auth = HTTPBasicAuth()
 
@@ -176,7 +177,6 @@ class Dish_api(Resource):
             dishes = Dish.query.all()
         else:
             dishes=dish_input_matcher(input)
-
         if dishes == [None] or dishes == []:
             abort(404, message="Danie/a nie znalezione")
         else:
@@ -198,6 +198,8 @@ class Dish_api(Resource):
                 return {"wiadomość": 'Brak danych wejśiowych'}, 400
             if user_input['name'] is None or user_input['time'] is None or user_input['description'] is None or user_input['ingredients'] is None or user_input['recipe'] is None:
                 return {"wiadomość": 'Brak wymaganych pól'}, 400
+            if check_if_dish_name_exists(user_input['name']):
+                return {"wiadomość": 'Danie o podanej nazwie istnieje'}, 400
             if str(user_input["ingredients"]).isdigit():
                 ingredients = int(user_input['ingredients'])
                 ingredients = [ingredients]
@@ -251,6 +253,8 @@ class Dish_api(Resource):
         if user_input is None:
             return {"wiadomość": 'Brak danych wejśiowych'}, 400
         for dish in dishes:
+            if check_if_dish_name_exists(user_input['name']):
+                return {"wiadomość": 'Danie o podanej nazwie istnieje'}, 400
             if user_input['ingredients'] is not None:
                 dish.ingredients.clear()
                 if str(user_input.get("ingredients")).isdigit() == False:
@@ -311,6 +315,8 @@ class Ingredients_api(Resource):
         for user_input in user_inputs:
             if user_input is None:
                 return {"wiadomość": 'Brak danych wejściowych'}, 400
+            if check_if_ingredient_name_exists(user_input['name']):
+                return {"wiadomość": 'Składnik o podanej nazwie istnieje'}, 400
             if user_input.get('name') is None or user_input.get('category') is None:
                 return {"wiadomość": 'Brak wymaganych pól'}, 400
             else:
@@ -355,6 +361,8 @@ class Ingredients_api(Resource):
         user_input = request.get_json()
         if user_input is list:
             return {"wiadomość": 'modyfikować można tylko po 1 pliku'}, 400
+        if check_if_ingredient_name_exists(user_input['name']):
+            return {"wiadomość": 'Składnik o podanej nazwie istnieje'}, 400
         ingredients = ingredients_input_matcher(input)
         if ingredients == [None] or ingredients is None:
             return {"wiadomość": 'Nie znaleziono składnika do modyfikacji'}, 404

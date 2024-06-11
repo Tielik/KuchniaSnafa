@@ -11,6 +11,11 @@ from .api import dishes_with_matching_ingredient_remover
 
 admin = Blueprint('admin', __name__)
 
+def check_if_dish_name_exists(name):
+    return db.session.query(db.exists().where(Dish.name == name)).scalar()
+def check_if_ingredient_name_exists(name):
+    return db.session.query(db.exists().where(Ingredient.name == name)).scalar()
+
 """
 Function for handling the admin index page. 
 Retrieves and displays 'Dish' and 'Ingredient' data if the user is authenticated. 
@@ -120,6 +125,9 @@ def Dishes():
             if not ingredients:
                 flash('Musi zostać wybrany przynajmniej jeden składnik!', category='error')
                 return redirect('/admin/przepisy')
+            if check_if_dish_name_exists(name):
+                flash('Przepis o podanej nazwie juz istnieje!', category='error')
+                return redirect('/admin/przepisy')
 
             new_Dish = Dish(name=name, time=time, description=description, recipe=recipe)
 
@@ -176,6 +184,9 @@ def Ingredients():
         if request.method == 'POST':
             name = request.form.get('name')
             category = request.form.get('category')
+            if check_if_ingredient_name_exists(name):
+                flash('Skladnik o podanej nazwie juz istnieje!', category='error')
+                return redirect('/admin/skladniki')
             ingredients = Ingredient(name=name, category=category)
             db.session.add(ingredients)
             db.session.commit()
@@ -275,6 +286,9 @@ def edit(id):
         if request.method == 'POST':
             skladnik.name = request.form.get('name')
             skladnik.category = request.form.get('category')
+            if check_if_ingredient_name_exists(skladnik.name):
+                flash('Taki składnik już istnieje!', category='error')
+                return render_template('editSkladnik.html', skladnik=skladnik)
             db.session.commit()
             flash('Skladnik został edytowany!', category='success')
             return redirect('/admin')
@@ -311,6 +325,9 @@ def editP(id):
             print(dish_ingredients)
             if not dish_ingredients:
                 flash('Musi zostać wybrany przynajmniej jeden składnik!', category='error')
+                return redirect(f'/admin/edit/przepis/{id}')
+            if check_if_dish_name_exists(dish.name):
+                flash('Taki przepis już istnieje!', category='error')
                 return redirect(f'/admin/edit/przepis/{id}')
             dish.ingredients.clear()
             for ingredient in dish_ingredients:
