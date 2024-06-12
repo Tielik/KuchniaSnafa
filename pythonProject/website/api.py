@@ -8,9 +8,14 @@ from flask_httpauth import HTTPBasicAuth
 from werkzeug.security import check_password_hash
 from . import db
 from .models import Admin, Dish, Ingredient
-from .admin import check_if_dish_name_exists, check_if_ingredient_name_exists
 
 auth = HTTPBasicAuth()
+
+
+def check_if_dish_name_exists(name):
+    return db.session.query(db.exists().where(Dish.name == name)).scalar()
+def check_if_ingredient_name_exists(name):
+    return db.session.query(db.exists().where(Ingredient.name == name)).scalar()
 
 """
 A function to verify the password for a given username.

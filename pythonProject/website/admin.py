@@ -6,15 +6,11 @@ from sqlalchemy import select, engine
 from . import db
 from .models import Admin,Dish,Ingredient
 import os
-from .api import dishes_with_matching_ingredient_remover
+from .api import dishes_with_matching_ingredient_remover,check_if_dish_name_exists, check_if_ingredient_name_exists
 
 
 admin = Blueprint('admin', __name__)
 
-def check_if_dish_name_exists(name):
-    return db.session.query(db.exists().where(Dish.name == name)).scalar()
-def check_if_ingredient_name_exists(name):
-    return db.session.query(db.exists().where(Ingredient.name == name)).scalar()
 
 """
 Function for handling the admin index page. 
