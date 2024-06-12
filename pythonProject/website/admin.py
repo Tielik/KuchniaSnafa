@@ -256,9 +256,9 @@ def delete(id):
 def deleteS(id):
     if current_user.is_authenticated:
         skladnik = Ingredient.query.filter_by(id=id).first()
+        dishes_with_matching_ingredient_remover(id)
         db.session.delete(skladnik)
         db.session.commit()
-        dishes_with_matching_ingredient_remover(id)
         flash('Składnik został usunięty!', category='success')
         return redirect('/admin')
     return redirect('/')
