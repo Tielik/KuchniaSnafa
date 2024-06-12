@@ -64,9 +64,10 @@ def is_ingredient(user_input):
 def  dishes_with_matching_ingredient_remover(input):
     dishes = Dish.query.all()
     for dish in dishes:
-        if(input in dish.ingredients):
-            db.session.delete(dish)
-            db.session.commit()
+        for ingredient in dish.ingredients:
+            if(input in dish.id):
+                db.session.delete(dish)
+                db.session.commit()
 
     """
     A function to match dish input and retrieve dishes based on the input provided.
