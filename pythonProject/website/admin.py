@@ -282,9 +282,6 @@ def edit(id):
         if request.method == 'POST':
             skladnik.name = request.form.get('name')
             skladnik.category = request.form.get('category')
-            if check_if_ingredient_name_exists(skladnik.name):
-                flash('Taki składnik już istnieje!', category='error')
-                return render_template('editSkladnik.html', skladnik=skladnik)
             db.session.commit()
             flash('Skladnik został edytowany!', category='success')
             return redirect('/admin')
@@ -321,9 +318,6 @@ def editP(id):
             print(dish_ingredients)
             if not dish_ingredients:
                 flash('Musi zostać wybrany przynajmniej jeden składnik!', category='error')
-                return redirect(f'/admin/edit/przepis/{id}')
-            if check_if_dish_name_exists(dish.name):
-                flash('Taki przepis już istnieje!', category='error')
                 return redirect(f'/admin/edit/przepis/{id}')
             dish.ingredients.clear()
             for ingredient in dish_ingredients:
