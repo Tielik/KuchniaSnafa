@@ -143,11 +143,8 @@ def require_api_key(f):
 #templates tha api will return if get will be called
 resource_fields2 = {
     'id': fields.Integer,
-    'nazwa': fields.String,
-    'czas': fields.String,
-    'opis': fields.String,
-    'ListaSkladnikow': fields.String,
-    'przepis': fields.String,
+    'name': fields.String,
+    'category': fields.String,
 }
 resource_fields = {
     'id': fields.Integer,
