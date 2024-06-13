@@ -115,7 +115,7 @@ def api():
     else:
         return render_template('api.html')
 
-@views.route('/api/tokenGenerator')
+@views.route('/api/token')
 def tokenGenerator():
     api_holder.append(str(uuid.uuid4()))
     return jsonify({'token': api_holder[-1],"WARNING": "THIS WILL NOT BE SHOW AGAIN REMEMBER THIS TOKEN"})

@@ -7,7 +7,7 @@ from flask import g
 from flask_httpauth import HTTPBasicAuth
 from werkzeug.security import check_password_hash
 from . import db
-from .models import Admin, Dish, Ingredient
+from .models import Admin, Dish, Ingredient,database_delete, database_commit
 
 auth = HTTPBasicAuth()
 
@@ -214,8 +214,7 @@ class Dish_api(Resource):
                     new_dish.ingredients.append(Ingredient.query.filter_by(id=ingredient).first())
                 else:
                     new_dish.ingredients.append(Ingredient.query.filter_by(Nazwa=ingredient).first())
-            db.session.add(new_dish)
-            db.session.commit()
+            database_commit(new_dish)
         return {"wiadomość": 'Dodano do bazy pomyślnie'}, 201
 
         """
@@ -232,8 +231,7 @@ class Dish_api(Resource):
         dish=dish_input_matcher(input)
         if dish == [None]:
             return {"wiadomość": 'Nie znaleziono dania na podstawie danych wejśiowych'}, 404
-        db.session.delete(dish)
-        db.session.commit()
+        database_delete(dish)
         return {"wiadomość": 'Danie usunięto poprawnie'}, 204
 
         """
@@ -277,7 +275,7 @@ class Dish_api(Resource):
                 dish.opis = user_input['description']
             if user_input['recipe'] is not None:
                 dish.przepis = user_input['recipe']
-            db.session.commit()
+            database_commit(dish)
         return {"wiadomość": 'Zmieniono danie poprawnie'}, 200
 
 
@@ -326,8 +324,7 @@ class Ingredients_api(Resource):
                 if is_ingredient(user_input) == False:
                     return {"wiadomość": 'nazwa nie moze mieć cyfr, a kategoria musi być cyfrą od 0 do 8'}, 404
                 new_ingredient = Ingredient(name=user_input['name'], category=user_input['category'])
-                db.session.add(new_ingredient)
-                db.session.commit()
+                database_commit(new_ingredient)
         return {"wiadomość": 'Stworzono nowy składnik pomyslnie'}, 201
 
         """
@@ -344,10 +341,9 @@ class Ingredients_api(Resource):
         ingredients = ingredients_input_matcher(input)
         if ingredients == [None] or ingredients is None:
             return {"wiadomość": 'Nie znaleziono składnika'}, 404
-        for ingredient in ingredients:
-            db.session.delete(ingredient)
-            db.session.commit()
         dishes_with_matching_ingredient_remover(input)
+        for ingredient in ingredients:
+            database_delete(ingredient)
         return {"wiadomość": 'Poprawnie usunięto składnik'}, 200
 
         """
@@ -379,5 +375,5 @@ class Ingredients_api(Resource):
                     ingredient.Nazwa = user_input['name']
                 if user_input['category'] is not None:
                     ingredient.kategoria = user_input['category']
-            db.session.commit()
+            database_commit(ingredients)
             return {"wiadomość": 'Pomyślnie zmieniono składnik'}, 200

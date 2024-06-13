@@ -4,6 +4,7 @@ from sqlalchemy.orm import Session
 from werkzeug.security import check_password_hash, generate_password_hash
 from sqlalchemy import select, engine
 from . import db
+from .models import database_delete, database_commit
 from .models import Admin,Dish,Ingredient
 import os
 from .api import dishes_with_matching_ingredient_remover,check_if_dish_name_exists, check_if_ingredient_name_exists
@@ -149,8 +150,7 @@ def Dishes():
                         picture.save(os.path.join('/home/6186az/mysite/website/static/img', picture_name))
                     else:
                         picture.save(os.path.join('website/static/img', picture_name))
-                    db.session.add(new_Dish)
-                    db.session.commit()
+                    database_commit(new_Dish)
                     flash('Przepis został dodany!', category='success')
                     return redirect('/admin')
                 else:
@@ -184,8 +184,7 @@ def Ingredients():
                 flash('Skladnik o podanej nazwie juz istnieje!', category='error')
                 return redirect('/admin/skladniki')
             ingredients = Ingredient(name=name, category=category)
-            db.session.add(ingredients)
-            db.session.commit()
+            database_commit(ingredients)
             flash('Skladnik został dodany!', category='success')
             return redirect('/admin')
         return render_template('skladniki.html')
@@ -236,8 +235,7 @@ def delete(id):
         else:
             if os.path.exists(f'website/static/img/{grafika_name}'):
                 os.remove(os.path.join('website/static/img', grafika_name))
-        db.session.delete(przepis)
-        db.session.commit()
+        database_delete(przepis)
         flash('Przepis został usunięty!', category='success')
         return redirect('/admin')
     return redirect('/')
@@ -257,8 +255,7 @@ def deleteS(id):
     if current_user.is_authenticated:
         skladnik = Ingredient.query.filter_by(id=id).first()
         dishes_with_matching_ingredient_remover(id)
-        db.session.delete(skladnik)
-        db.session.commit()
+        database_delete(skladnik)
         flash('Składnik został usunięty!', category='success')
         return redirect('/admin')
     return redirect('/')
@@ -282,7 +279,7 @@ def edit(id):
         if request.method == 'POST':
             skladnik.name = request.form.get('name')
             skladnik.category = request.form.get('category')
-            db.session.commit()
+            database_commit(skladnik)
             flash('Skladnik został edytowany!', category='success')
             return redirect('/admin')
         return render_template('editSkladnik.html', skladnik=skladnik)
@@ -315,7 +312,6 @@ def editP(id):
             dish.description = request.form.get('description')
             dish.recipe = request.form.get('recipe')
             dish_ingredients = request.form.getlist('lista')
-            print(dish_ingredients)
             if not dish_ingredients:
                 flash('Musi zostać wybrany przynajmniej jeden składnik!', category='error')
                 return redirect(f'/admin/edit/przepis/{id}')
@@ -334,16 +330,14 @@ def editP(id):
                         dish.grafika.save(os.path.join('/home/6186az/mysite/website/static/img', grafika_name))
                     else:
                         dish.grafika.save(os.path.join('website/static/img', grafika_name))
-                    db.session.add(dish)
-                    db.session.commit()
+                    database_commit(dish)
                     flash('Przepis został edytowany!', category='success')
                     return redirect('/admin')
                 else:
                     flash('Nieprawidłowy format grafiki!', category='error')
                     return redirect(f'/admin/edit/przepis/{id}')
             else:
-                db.session.add(dish)
-                db.session.commit()
+                database_commit(dish)
                 flash('Przepis został edytowany!', category='success')
                 return redirect('/admin')
         return render_template('editPrzepis.html', przepis=dish, skladniki=ingredients)

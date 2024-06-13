@@ -17,20 +17,22 @@
     <br>
     <br>Metody POST i PUT wymagają przesłania dodatkowo odpowiedniego wypełnionego JSON
     <br>
-    <br>GET, PUT, DELETE potrzebują inputu
+    <br>PUT, DELETE potrzebują inputu
+    <br>
+    <br> Post przyjume liste wieloelementową w formacie JSON
     <br>
     <br><a href="/api/przepisy">/api/przepisy - zwraca liste przepisow z bazy danych</a>
     <br>- POST: dodawanie nowego przepisu
     <br>- Składniki mogą  być cyfrowo lub po nazwie (Pamiętaj o wielkości liter) ID lub nazwy można zobaczyć przy pomocy
     /api/skladniki
     <br>
-    <br><a href="/api/przepisy/1">/api/przepisy/input - zwraca przepis o danym ID</a>
+    <br><a href="/api/przepisy/1">/api/przepisy/input - zwraca przepis o danym ID/nazwie</a>
     <br>- PUT: zmiana danego składnika w ListaPrzepisow podobnie jak w post
     <br>- DELETE: usuniecie danego przepisu po nazwie lub ID
     <br>
     <br><a href="/api/skladniki">/api/skladniki - zwraca liste składnikow z bazy danych</a>
     <br>- POST: dodawanie nowego składnika (kategorie są od 1 do 7)
-    <br><a href="/api/skladniki/1">/api/skladniki/input - zwraca składnik o danym ID</a>
+    <br><a href="/api/skladniki/1">/api/skladniki/input - zwraca składnik o danym ID/nazwie</a>
     <br>- PUT: zmiana danego składnika
     <br>- DELETE: usuniecie danego składnika
     <br>

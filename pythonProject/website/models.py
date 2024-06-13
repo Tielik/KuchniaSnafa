@@ -1,7 +1,14 @@
 from . import db
 from flask_login import UserMixin
 
-
+#function that delete row from database
+def database_delete(row):
+    db.session.delete(row)
+    db.session.commit()
+#function that add or update database
+def database_commit(row):
+    db.session.add(row)
+    db.session.commit()
 
 dish_ingredients = db.Table('dish_ingredients',
     db.Column('dish_id', db.Integer, db.ForeignKey('dish.id'), primary_key=True),
