@@ -105,30 +105,6 @@ def ingredients_input_matcher(user_input):
         ingredients = [ingredients]
     return ingredients
 
-    """
-    A function to match ingredients and generate a new list based on the input ingredients.
-
-    Parameters:
-        - ingredients: A list of ingredients to match.
-
-    Returns:
-        A string containing the matched ingredient IDs.
-    """
-def ingredients_matcher(ingredients):
-    end_ingredients = ""
-    for x in ingredients:
-        if x != " ":
-            x = str(x)
-            if Ingredient.query.filter_by(name=x).first() != None:
-                new_ingredient = Ingredient.query.filter_by(name=x).first()
-                new_ingredient = str(new_ingredient.id)
-                end_ingredients += new_ingredient + " "
-            if x.isdigit() and Ingredient.query.filter_by(id=x).first() != None:
-                new_ingredient = x
-                end_ingredients += new_ingredient + " "
-    return end_ingredients
-
-
 api_holder=[]
 def require_api_key(f):
     def decorated_function(*args,**kwargs):

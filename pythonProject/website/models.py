@@ -17,14 +17,13 @@ dish_ingredients = db.Table('dish_ingredients',
 
 
 '''
-tabela przepisy
-zawiera id, nazwa, czas, opis, skladniki, przepis
+tabela Dish
 id- identyfikator przepisu
-nazwa - nazwa przepisu
-czas - czas trwania przepisu
-opis - opis przepisu
-przepis - tresc przepisu
-Listaskladnikow - składniki przepisu (zapisywane w formie liczbowej)
+name - nazwa przepisu
+time - czas trwania przepisu
+description - opis przepisu
+recipe - tresc przepisu
+ingredients - składniki
 '''
 #UPEWNIJ SIĘ BY NIE MOŻNA BYŁO POWTARZAĆ SKŁADNIKÓW DO DANIA!!!!!!!
 class Dish(db.Model):
@@ -38,10 +37,9 @@ class Dish(db.Model):
 
 '''
 tabela skladniki
-zawiera id, nazwa, kategoria
 id- identyfikator skladnika
-nazwa - nazwa skladnika
-kategoria - kategoria skladnika
+name - nazwa skladnika
+category - kategoria skladnika
 '''
 class Ingredient(db.Model):
     id = db.Column(db.Integer, primary_key=True,autoincrement=True)
@@ -51,10 +49,9 @@ class Ingredient(db.Model):
 
 '''
 tabela admin
-zawiera id, hasło, imie
 id- identyfikator admina
-hasło - hasło admina
-imie - imie admina
+password - hasło admina
+name - imie admina
 '''
 class Admin(UserMixin, db.Model):
     id = db.Column(db.Integer, primary_key=True,autoincrement=True)
