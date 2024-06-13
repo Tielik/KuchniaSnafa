@@ -12,7 +12,7 @@
             {% if ingredients %}
             {% for x in ingredients %}
             {% if x.category == 1 %}
-            <button type="button" class="btn-ingredient btn btn-light" id="zbozowe{{x}}"
+            <button type="button" class="btn-ingredient btn btn-light" id="zbozowe{{x.id}}"
                 onClick="chooseIngredient('{{x.id}}', '{{x.name}}')">{{x.name}}
             </button>
             {% endif %}
@@ -28,7 +28,7 @@
             {% if ingredients %}
             {% for x in ingredients %}
             {% if x.category == 2 %}
-            <button type="button" class="btn-ingredient btn btn-light"
+            <button type="button" class="btn-ingredient btn btn-light" id="warzywa{{x.id}}"
                 onClick="chooseIngredient('{{x.id}}', '{{x.name}}')">{{x.name}}
             </button>
 
@@ -45,7 +45,7 @@
             {% if ingredients %}
             {% for x in ingredients %}
             {% if x.category == 3 %}
-            <button type="button" class="btn-ingredient btn btn-light"
+            <button type="button" class="btn-ingredient btn btn-light" id = "owoce{{x.id}}"
                 onClick="chooseIngredient('{{x.id}}', '{{x.name}}')">{{x.name}}
             </button>
             {% endif %}
@@ -62,7 +62,7 @@
             {% if ingredients %}
             {% for x in ingredients %}
             {% if x.category == 4 %}
-            <button type="button" class="btn-ingredient btn btn-light"
+            <button type="button" class="btn-ingredient btn btn-light" id = "mleczne{{x.id}}"
                 onClick="chooseIngredient('{{x.id}}', '{{x.name}}')">{{x.name}}
             </button>
 
@@ -81,7 +81,7 @@
             {% if ingredients %}
             {% for x in ingredients %}
             {% if x.category == 5 %}
-            <button type="button" class="btn-ingredient btn btn-light"
+            <button type="button" class="btn-ingredient btn btn-light" id = "zwierzece{{x.id}}"
                 onClick="chooseIngredient('{{x.id}}', '{{x.name}}')">{{x.name}}
             </button>
             {% endif %}
@@ -97,7 +97,7 @@
             {% if ingredients %}
             {% for x in ingredients %}
             {% if x.category == 6 %}
-            <button type="button" class="btn-ingredient btn btn-light"
+            <button type="button" class="btn-ingredient btn btn-light" id = "tluszcze{{x.id}}"
                 onClick="chooseIngredient('{{x.id}}', '{{x.name}}')">{{x.name}}
             </button>
 
@@ -115,7 +115,7 @@
             {% if ingredients %}
             {% for x in ingredients %}
             {% if x.category == 7 %}
-            <button type="button" class="btn-ingredient btn btn-light"
+            <button type="button" class="btn-ingredient btn btn-light" id = "przyprawy{{x.id}}"
                 onClick="chooseIngredient('{{x.id}}', '{{x.name}}')">{{x.name}}
             </button>
 

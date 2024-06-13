@@ -1,8 +1,16 @@
 {% extends "base.html" %}
-{% block title %}api Admina Kuchnia Snafa{% endblock %}
+{% block title %}API Admin Kuchnia Snafa{% endblock %}
 {% block content %}
 <div class="container" style="width: 35%;">
     <h1>API Admin</h1>
+    <br>API aplikacji Kuchnia Snafa znajduje się pod adresem http://6186az.pythonanywhere.com/api.
+    <br>
+    <br>Za jego pomocą można uzyskać informacje o składnikach i przepisach.
+    <br>
+    <br>Dane są serializowane w formacie JSON
+    <br>
+    <br>Dostęp do API wymaga wygenerowania unikalnego klucza API pod adresem: <a href="/api/token">/api/token</a>
+    <br>
     <br>API w input dostosowuje sie od inputu użytkownika
     <br>- jesli input to cyfra to szuka po ID
     <br>- jesli input to tekst to szuka po nazwie
